@@ -1,3 +1,4 @@
+var bodyParser = require('body-parser')
 var express = require('express')
 var expressWinston = require('express-winston')
 var path = require('path')
@@ -22,6 +23,11 @@ var config = {
 }
 
 var app = express()
+
+// middleware
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+// TODO: accept multipart/form-data
 
 // logger
 app.use(expressWinston.logger(config.logger));

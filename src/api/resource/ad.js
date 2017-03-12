@@ -1,24 +1,56 @@
 var express = require('express')
 var router = express.Router()
 
+var db = require('nano')('http://localhost:5984/ad')
+
 router.get('/', function (req, res, next) {
-	res.end()
+	db.list(req.query, function(err, body) {
+		if (err) next(err)
+		else {
+			res.json(body)
+		}
+	})
 })
 
 router.get('/:id', function (req, res, next) {
-	res.end()
+	db.get(req.params.id, function(err, body, headers) {
+		if (err) next(err)
+		else {
+			res.json(body)
+		}
+	})
 })
 
 router.post('/', function (req, res, next) {
-	res.end()
+	var doc = req.body
+	db.insert(doc, function(err, body) {
+		if (err) next(err)
+		else {
+			res.json(body)
+		}
+	})
 })
 
-router.put('/', function (req, res, next) {
-	res.end()
+router.put('/:id/:rev', function (req, res, next) {
+	var doc = req.body
+	doc._id = req.params.id
+	doc._rev = req.params.rev
+	db.insert(req.body, function(err, body) {
+		if (err) next(err)
+		else {
+			res.json(body)
+		}
+	})
 })
 
-router.delete('/', function (req, res, next) {
-	res.end()
+router.delete('/:id/:rev', function (req, res, next) {
+	var id = req.params.id, rev = req.params.rev
+	db.destroy(id, rev, function(err, body) {
+		if (err) next(err)
+		else {
+			res.json(body)
+		}
+	})
 })
 
 module.exports = router

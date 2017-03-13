@@ -5,7 +5,12 @@ dependencies:
   override:
     - npm install
 test:
+  pre:
+    - ./script/docker/couchdb/build.sh 
+    - ./script/docker/couchdb/run.sh
+    - ./script/fixture/00-init.js
   override:
     - npm test
   post:
+    - docker rm -f couchdb
     - ./run-coverage.sh && ./node_modules/.bin/codecov

@@ -11,14 +11,18 @@
   "author": "@romajs",
   "dependencies": {
     "body-parser": "^1.17.1",
-    "codecov": "^1.0.1",
     "express": "^4.15.2",
     "express-winston": "^2.3.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
     "nano": "^6.2.0",
-    "nodemon": "^1.11.0",
     "path": "^0.12.7",
     "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "codecov": "^1.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
   }
 }

@@ -1,27 +1,11 @@
 var bodyParser = require('body-parser')
+var config = require('./config.js')
 var express = require('express')
 var expressWinston = require('express-winston')
 var path = require('path')
 var winston = require('winston')
 
-var config = {
-  logger : {
-    transports: [
-      new winston.transports.Console({
-        colorize: true,
-        timestamp: true,
-      })
-    ],
-    level : 'info',
-    exitOnError: false,
-    expressFormat: true,
-    colorize: true,
-  },
-	server : {
-		port : 8000,
-	}
-}
-
+// app
 var app = express()
 
 // middleware
@@ -47,11 +31,6 @@ app.use(function (err, req, res, next) {
     type: 'internal',
   })
   next(err)
-})
-
-// server
-server = app.listen(config.server.port, function () {
-  new (winston.Logger)(config.logger).info('App listening on:', server.address())
 })
 
 module.exports = app

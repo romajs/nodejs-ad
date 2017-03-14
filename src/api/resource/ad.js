@@ -4,7 +4,7 @@ var router = express.Router()
 var db = require('nano')('http://localhost:5984/ad')
 
 router.get('/', function (req, res, next) {
-	db.list(req.query, function(err, body) {
+	db.list(req.query(), function(err, body) {
 		if (err) next(err)
 		else {
 			res.json(body)

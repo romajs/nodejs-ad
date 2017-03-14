@@ -1,7 +1,8 @@
+var config = require('../../config.js')
 var express = require('express')
 var router = express.Router()
 
-var db = require('nano')('http://localhost:5984/ad')
+var db = require('nano')(config.couchdb.url()).use('ad')
 
 router.get('/', function (req, res, next) {
 	db.list(req.query(), function(err, body) {

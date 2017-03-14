@@ -18,7 +18,7 @@ app.use(expressWinston.logger(config.logger));
 
 // resources
 app.use('/ad', require('./api/resource/ad.js'))
-app.use('/user', require('./api/resource/user.js'))
+// app.use('/user', require('./api/resource/user.js'))
 
 // static
 app.use(express.static(path.join(__dirname, 'web')))
@@ -27,8 +27,8 @@ app.use(express.static(path.join(__dirname, 'web')))
 app.use(function (err, req, res, next) {
   res.status(500).send({
     status: 500,
-    message: 'internal error',
-    type: 'internal',
+    message: 'Internal error',
+    type: 'internal_error',
   })
   next(err)
 })

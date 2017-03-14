@@ -13,8 +13,17 @@ var config = {
     expressFormat: true,
     colorize: true,
   },
-	server : {
-		port : 8000,
+  couchdb : {
+    protocol : 'http',
+    host : process.env.couchdb_host || 'localhost',
+    port : process.env.couchdb_port || 5984,
+    url : function() {
+      return [this.protocol, '://', this.host, ':', this.port].join('')
+    }
+  },
+	http : {
+    host : process.env.http_host || '127.0.0.1',
+		port : process.env.http_port || 8000,
 	}
 }
 

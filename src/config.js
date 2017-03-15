@@ -1,6 +1,11 @@
 var winston = require('winston')
 
 var config = {
+  auth : {
+    header_name : 'x-access-token',
+    secret : 'JHVwM3JfJDNjcjM3Cg==',
+    expiresIn : 86400, // expires in 24 hours
+  },
   logger : {
     transports: [
       new winston.transports.Console({
@@ -15,15 +20,15 @@ var config = {
   },
   couchdb : {
     protocol : 'http',
-    host : process.env.couchdb_host || 'localhost',
-    port : process.env.couchdb_port || 5984,
+    host : process.env.COUCHDB_HOST || 'localhost',
+    port : process.env.COUCHDB_PORT || 5984,
     url : function() {
       return [this.protocol, '://', this.host, ':', this.port].join('')
     }
   },
 	http : {
-    host : process.env.http_host || '127.0.0.1',
-		port : process.env.http_port || 8000,
+    host : process.env.HTTP_HOST || '127.0.0.1',
+		port : process.env.HTTP_PORT || 8000,
 	}
 }
 

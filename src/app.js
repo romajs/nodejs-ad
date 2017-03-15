@@ -1,4 +1,5 @@
 var bodyParser = require('body-parser')
+var compression = require('compression')
 var config = require('./config.js')
 var express = require('express')
 var expressWinston = require('express-winston')
@@ -9,6 +10,7 @@ var winston = require('winston')
 var app = express()
 
 // middleware
+app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data

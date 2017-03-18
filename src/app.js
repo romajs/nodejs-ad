@@ -1,3 +1,4 @@
+var blocked = require('blocked')
 var bodyParser = require('body-parser')
 var compression = require('compression')
 var config = require('./config.js')
@@ -5,6 +6,14 @@ var express = require('express')
 var expressWinston = require('express-winston')
 var path = require('path')
 var winston = require('winston')
+
+// logger
+var logger = new (winston.Logger)(config.logger)
+
+// blocked
+blocked(function(ms) {
+  logger.warn('blocked for %sms', ms | 0)
+})
 
 // app
 var app = express()
@@ -14,8 +23,6 @@ app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data
-
-// logger
 app.use(expressWinston.logger(config.logger));
 
 // resources
@@ -36,3 +43,5 @@ app.use(function (err, req, res, next) {
 })
 
 module.exports = app
+module.exports.config = config
+module.exports.logger = logger

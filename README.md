@@ -42,6 +42,10 @@ Continuos Integration:
 Code coverage:
 - [x] codecov
 
+Logging:
+- [x] winston
+- [x] express-winston
+- [x] blocked
 
 Automatic server restart:
 - [x] nodemon
@@ -69,7 +73,7 @@ Automatic browser refresh
 
 `./script/docker/couchdb/run.sh`
 
-### Folder structure
+### Preject structure
 
 ```
 .

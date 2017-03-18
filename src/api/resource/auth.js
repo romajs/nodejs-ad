@@ -6,33 +6,27 @@ var userService = require('../service/user.js')
 
 router.post('/', function(req, res, next) {
 
-	// FIXME: find in user view by username
+	userService.get_by_username(req.body.username, function(err, user) {
 
-	userService.get(req.body.id, function(err, body) {
+		if(err) return next(err)
 
-		if (err) {
-
-			if(err.statusCode === 404) {
-				return res.status(404).json({
-					success: false,
-					message: 'Authentication failed. User not found',
-				})
-			}
-
-			return next(err)
-
+		if(!user) {
+			return res.status(404).json({
+				success: false,
+				message: 'Authentication failed. User not found',
+			})
 		}
 
-		if (body.password != req.body.password) {
+		if(user.password != req.body.password) {
 
-			return res.json({
+			return res.status(401).json({
 				success: false,
 				message: 'Authentication failed. Wrong password',
 			})
 
 		} else {
 
-			var token = jwt.sign(body, config.auth.secret, {
+			var token = jwt.sign(user, config.auth.secret, {
 				expiresIn: config.auth.expiresIn,
 			})
 

@@ -26,7 +26,7 @@ app.use(bodyParser.json())
 app.use('/auth', require('./api/resource/auth.js'))
 
 // auth
-// app.use(auth) // FIXME: test
+// app.use(auth) // FIXME: test auto user load
 
 // authenticated resources
 app.use('/ad', require('./api/resource/ad.js'))

@@ -7,21 +7,23 @@ module.exports = function(req, res, next) {
 
 	if (token) {
 
-		jwt.verify(token, config.auth.secret, function(err, decoded) {			
+		jwt.verify(token, config.auth.secret, function(err, decoded) {	
+				
 			if (err) {
-				res.json({
+				return res.status(403).json({
 					success: false,
 					message: 'Failed to authenticate token',
 				})		
 			} else {
 				req.decoded = decoded;	
-				next();
+				next()
 			}
-		});
+
+		})
 
 	} else {
 
-		res.status(403).send({ 
+		return res.status(403).send({ 
 			success: false, 
 			message: 'No token provided',
 		})

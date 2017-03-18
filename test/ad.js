@@ -1,3 +1,6 @@
+process.env.HTTP_PORT = 8001
+process.env.COUCHDB_PORT = 5985
+
 var app = require('../src/app.js')
 var assert = require('assert')
 var config = require('../src/config.js')

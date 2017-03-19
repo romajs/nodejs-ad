@@ -4,12 +4,13 @@ var util = require('./util.js')
 
 describe('/ad', function() {
 
-	beforeEach(util.setUp)
-	afterEach(util.tearDown)
+	var u = util()
+	beforeEach(u.setUp)
+	afterEach(u.tearDown)
 
 	it('get', function(done) {
-		request(util.app).get('/ad')
-			.set(util.config.auth.header_name, util.token)
+		request(u.app).get('/ad')
+			.set(u.config.auth.header_name, u.token)
 			.expect(function(res) {
 				assert(res.body.offset === 0)
 				assert(res.body.total_rows === 0)
@@ -19,9 +20,9 @@ describe('/ad', function() {
 	})
 
 	it('get', function(done) {
-		request(util.app)
+		request(u.app)
 			.get('/ad/12456')
-			.set(util.config.auth.header_name, util.token)
+			.set(u.config.auth.header_name, u.token)
 			.expect({
 		    status: 500,
 		    message: 'Internal error',
@@ -31,9 +32,9 @@ describe('/ad', function() {
 	})
  
 	it('post', function(done) {
-		request(util.app)
+		request(u.app)
 			.post('/ad')
-			.set(util.config.auth.header_name, util.token)
+			.set(u.config.auth.header_name, u.token)
 			.expect(function(res) {
 				assert(res.body.ok === true)
 				assert(res.body.id !== null)
@@ -44,9 +45,9 @@ describe('/ad', function() {
  
 	it('put', function(done) {
 		// FIXME: should fail 500
-		request(util.app)
+		request(u.app)
 			.put('/ad/123456/abcdef')
-			.set(util.config.auth.header_name, util.token)
+			.set(u.config.auth.header_name, u.token)
 			.expect(function(res) {
 				assert(res.body.ok === true)
 				assert(res.body.id !== null)
@@ -56,9 +57,9 @@ describe('/ad', function() {
 	})
  
 	it('delete', function(done) {
-		request(util.app)
+		request(u.app)
 			.delete('/ad/123456/abcdef')
-			.set(util.config.auth.header_name, util.token)
+			.set(u.config.auth.header_name, u.token)
 			.expect({
 		    status: 500,
 		    message: 'Internal error',

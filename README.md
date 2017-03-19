@@ -36,10 +36,14 @@ Integrated tests:
 - [x] supertest (request)
 - [ ] test fixture (faker)
 
+Debug:
+- [x] node-debug (+nodemon --debug)
+
 Continuos Integration:
 - [x] circle.ci
 
 Code coverage:
+- [x] istanbul
 - [x] codecov
 
 Logging:
@@ -52,7 +56,6 @@ Automatic server restart:
 
 Misc:
 - [x] badges/shields
-- [ ] debug
 - [ ] eslint
 - [ ] profiling (new relic or https://github.com/baryshev/look)
 

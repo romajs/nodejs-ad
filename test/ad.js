@@ -1,47 +1,15 @@
-process.env.HTTP_PORT = 8001
-process.env.COUCHDB_PORT = 5985
-
-var app = require('../src/app.js')
 var assert = require('assert')
-var config = require('../src/config.js')
-var mockCouch = require('mock-couch')
 var request = require('supertest')
+var util = require('./util.js')
 
 describe('/ad', function() {
 
-	var server = null, couchdb = null, token = null
-
-	function authToken(username, password, done) {
-		request(app).post('/auth').send({
-			username : username,
-			password : password,
-		}).expect(function(res) {
-			token = res.body.token
-		}).expect(200, done)
-	}
-
-	beforeEach(function(done) {
-		couchdb = mockCouch.createServer()
-		couchdb.listen(config.couchdb.port, function() {
-			require('../script/fixture/00-init.js')(function() {
-				require('../script/fixture/01-user.js')(function() {
-					server = app.listen(config.http.port, config.http.host, function() {
-						authToken('admin', 'MTIzbXVkYXIK', done)
-					})
-				})
-			})
-		})
-	})
- 
-	afterEach(function(done) {
-		couchdb.close(function() {
-			server.close(done)
-		})
-	})
+	beforeEach(util.setUp)
+	afterEach(util.tearDown)
 
 	it('get', function(done) {
-		request(app).get('/ad')
-			.set(app.config.auth.header_name, token)
+		request(util.app).get('/ad')
+			.set(util.config.auth.header_name, util.token)
 			.expect(function(res) {
 				assert(res.body.offset === 0)
 				assert(res.body.total_rows === 0)
@@ -51,8 +19,9 @@ describe('/ad', function() {
 	})
 
 	it('get', function(done) {
-		request(app).get('/ad/12456')
-			.set(app.config.auth.header_name, token)
+		request(util.app)
+			.get('/ad/12456')
+			.set(util.config.auth.header_name, util.token)
 			.expect({
 		    status: 500,
 		    message: 'Internal error',
@@ -62,8 +31,9 @@ describe('/ad', function() {
 	})
  
 	it('post', function(done) {
-		request(app).post('/ad')
-			.set(app.config.auth.header_name, token)
+		request(util.app)
+			.post('/ad')
+			.set(util.config.auth.header_name, util.token)
 			.expect(function(res) {
 				assert(res.body.ok === true)
 				assert(res.body.id !== null)
@@ -74,8 +44,9 @@ describe('/ad', function() {
  
 	it('put', function(done) {
 		// FIXME: should fail 500
-		request(app).put('/ad/123456/abcdef')
-			.set(app.config.auth.header_name, token)
+		request(util.app)
+			.put('/ad/123456/abcdef')
+			.set(util.config.auth.header_name, util.token)
 			.expect(function(res) {
 				assert(res.body.ok === true)
 				assert(res.body.id !== null)
@@ -85,8 +56,9 @@ describe('/ad', function() {
 	})
  
 	it('delete', function(done) {
-		request(app).delete('/ad/123456/abcdef')
-			.set(app.config.auth.header_name, token)
+		request(util.app)
+			.delete('/ad/123456/abcdef')
+			.set(util.config.auth.header_name, util.token)
 			.expect({
 		    status: 500,
 		    message: 'Internal error',

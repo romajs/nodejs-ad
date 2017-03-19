@@ -15,7 +15,7 @@ module.exports = function(req, res, next) {
 					message: 'Failed to authenticate token',
 				})		
 			} else {
-				req.decoded = decoded;	
+				req.decoded = decoded	
 				next()
 			}
 
@@ -25,7 +25,7 @@ module.exports = function(req, res, next) {
 
 		return res.status(403).send({ 
 			success: false, 
-			message: 'No token provided',
+			message: 'No token provided'
 		})
 		
 	}

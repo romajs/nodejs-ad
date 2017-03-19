@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/:id', function (req, res, next) {
-	db.get(req.params.id, function(err, body, headers) {
+	db.get(req.params.id, function(err, body) {
 		if (err) next(err)
 		else {
 			res.json(body)

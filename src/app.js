@@ -13,14 +13,14 @@ var logger = new (winston.Logger)(config.logger)
 
 // blocked
 blocked(function(ms) {
-  logger.warn('blocked for %sms', ms | 0)
+	logger.warn('blocked for %sms', ms | 0)
 })
 
 // app
 var app = express()
 
 // logger
-app.use(expressWinston.logger(config.logger));
+app.use(expressWinston.logger(config.logger))
 
 // static
 app.use(express.static(path.join(__dirname, 'web')))
@@ -30,7 +30,7 @@ app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data
-app.use(expressWinston.logger(config.logger));
+app.use(expressWinston.logger(config.logger))
 
 // non-authenticated resources
 app.use('/auth', require('./api/resource/auth.js'))
@@ -44,12 +44,12 @@ app.use('/ad', require('./api/resource/ad.js'))
 
 // error logger
 app.use(function (err, req, res, next) {
-  res.status(500).send({
-    status: 500,
-    message: 'Internal error',
-    type: 'internal_error',
-  })
-  next(err)
+	res.status(500).send({
+		status: 500,
+		message: 'Internal error',
+		type: 'internal_error',
+	})
+	next(err)
 })
 
 module.exports = app

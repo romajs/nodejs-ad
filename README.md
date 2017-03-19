@@ -55,12 +55,16 @@ Logging:
 - [x] express-winston
 - [x] blocked
 
+Lint:
+- [x] ESLint
+- [x] Code climate
+- [ ] Standart
+
 Automatic server restart:
 - [x] nodemon
 
 Misc:
 - [x] badges/shields
-- [ ] eslint
 - [ ] profiling (new relic or https://github.com/baryshev/look)
 
 Automatic browser refresh

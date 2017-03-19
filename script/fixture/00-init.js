@@ -1,9 +1,25 @@
-#!/usr/bin/env node
+module.exports = function(callback) {
 
-var express = require('express')
-var router = express.Router()
+	var config = require('../../src/config.js')
+	var nano = require('nano')(config.couchdb.url())
 
-var nano = require('nano')('http://localhost:5984')
+	nano.db.create('ad', function(err, body) {
 
-nano.db.create('ad')
-nano.db.create('user')
+	})
+
+	nano.db.create('user', function(err, body) {
+
+		nano.db.use('user').insert({
+	 		views: {
+				'by_username': {
+					map: function(doc) {
+						emit(doc.username, doc)
+					}
+				} 
+			}
+		}, '_design/user', function(err, body) {
+			callback && callback()
+		})
+
+	})
+}

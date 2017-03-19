@@ -19,6 +19,7 @@ Express:
 - [x] body-parser (x-www-form-urlencoded and json)
 - [x] compression/gzip
 - [ ] cluster
+- [ ] express-validator
 - [ ] multipart form/data
 - [ ] NODE_ENV
 
@@ -26,7 +27,7 @@ Couchdb:
 - [ ] auth/admin
 - [ ] backup and restore (https://github.com/danielebailo/couchdb-dump)
 - [ ] fixture
-- [ ] migration
+- [ ] migration (knex)
 - [x] nano
 - [x] views
 

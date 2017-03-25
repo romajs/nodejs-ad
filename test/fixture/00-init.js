@@ -1,6 +1,5 @@
-module.exports = function(callback) {
+module.exports = function(config, callback) {
 
-	var config = require('../../src/config.js')
 	var nano = require('nano')(config.couchdb.url())
 
 	nano.db.create('ad', function(err, body) {

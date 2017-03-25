@@ -16,8 +16,8 @@ function util() {
 	this.setUp = function(done) {
 		self.couchdb = mockCouch.createServer()
 		self.couchdb.listen(config.couchdb.port, function() {
-			require('../script/fixture/00-init.js')(function() {
-				require('../script/fixture/01-user.js')(function() {
+			require('./fixture/00-init.js')(config, function() {
+				require('./fixture/01-user.js')(config, function() {
 					self.server = app.listen(config.http.port, config.http.host, function() {
 						self.authToken('admin', 'MTIzbXVkYXIK', done)
 					})

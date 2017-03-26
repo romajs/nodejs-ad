@@ -1,6 +1,7 @@
 angular.module('ad-new' , [
 	'ui.router',
-	// 'ngQuill'
+	'ngQuill'
+	// 'angular-quill',
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -30,5 +31,5 @@ angular.module('ad-new' , [
 	$scope.confirm = function() {
 		$state.go('ads')
 	}
-	
+
 })

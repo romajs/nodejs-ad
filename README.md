@@ -71,8 +71,24 @@ Misc:
 
 ### Fron-end
 
+- [x] bootstrap
+- [x] angularjs
+- [ ] browserify
+
+Dependency control
+- [x] bower
+
 Automatic browser refresh
 - [ ] livereload
+
+Routing
+- [x] ui-router
+
+Internationalization
+- [ ] translate
+
+Modules
+- [ ] infinite scroll
 
 ### Commands
 

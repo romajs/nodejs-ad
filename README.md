@@ -8,7 +8,9 @@
 [![code climate](https://codeclimate.com/github/romajs/nodejs-ad.png)](https://codeclimate.com/github/romajs/nodejs-ad)
 [![issue count](https://codeclimate.com/github/romajs/nodejs-ad/badges/issue_count.svg)](https://codeclimate.com/github/romajs/nodejs-ad)
 
-### Featuring
+## Featuring
+
+### Back-end
 
 - [x] couchdb
 - [x] docker
@@ -66,6 +68,8 @@ Automatic server restart:
 Misc:
 - [x] badges/shields
 - [ ] profiling (new relic or https://github.com/baryshev/look)
+
+### Fron-end
 
 Automatic browser refresh
 - [ ] livereload

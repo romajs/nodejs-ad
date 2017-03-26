@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-ad",
+  "homepage": "https://github.com/romajs/nodejs-ad",
+  "authors": [
+    "romajs <joseromualdoneto@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "angularjs#^1.6.3"
+  }
+}

@@ -73,7 +73,16 @@ Misc:
 
 - [x] bootstrap
 - [x] angularjs
+- [ ] user authentication
 - [ ] browserify
+- [ ] search
+- [ ] browserify
+- [ ] infinite scroll
+
+Forms:
+- [ ] Form validation
+- [ ] Rich text (quill and ngQuill)
+- [ ] Drag and drop file upload
 
 Dependency control
 - [x] bower
@@ -88,7 +97,17 @@ Internationalization
 - [ ] translate
 
 Modules
-- [ ] infinite scroll
+- [ ] Auth
+- [ ] Create ad
+- [ ] View ad
+- [ ] Edit ad
+- [ ] List ads
+- [ ] View user
+- [ ] User ads
+- [ ] Edit user
+- [ ] Search ads
+- [ ] History ad
+- [ ] User history
 
 ### Commands
 

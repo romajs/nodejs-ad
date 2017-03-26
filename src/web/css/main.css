@@ -1,3 +1,7 @@
+label.required:after {
+   content: '*';
+   padding: 2px;
+}
 
 .ad {
 	-webkit-box-shadow: none;

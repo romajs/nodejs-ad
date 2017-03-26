@@ -1,6 +1,6 @@
 angular.module('ad-new' , [
 	'ui.router',
-	'ngQuill'
+	// 'ngQuill'
 	// 'angular-quill',
 ])
 
@@ -25,11 +25,12 @@ angular.module('ad-new' , [
 	}
 
 	$scope.cancel = function() {
-		$state.go('ads')
+		// $state.go('ads')
 	}
 
 	$scope.confirm = function() {
-		$state.go('ads')
+		console.info($scope.ad)
+		// $state.go('ads')
 	}
 
 })

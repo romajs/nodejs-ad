@@ -1,14 +1,15 @@
-<form class="" role="form">
+<form class="" role="form" name="adForm">
   <div class="form-group">
-    <label for="title">Título</label>
-    <input type="text" class="form-control" id="title" placeholder="Título" ng-model="ad.title">
+    <label for="title" class="required">Título</label>
+    <input type="text" class="form-control" id="title" placeholder="Título" ng-model="ad.title" ng-required="true"
+    	ng-required-message="asdasdsd">
     <p class="help-block">(Máximo de 250 caracteres. 250 caracteres restando)</p>
   </div>
   <div class="form-group">
-    <label for="details">Detalhes</label>
-  	<ng-quill-editor ng-model="message"></ng-quill-editor>
-    <!-- <textarea class="form-control" id="details" placeholder="Detalhes" rows="7" ng-model="ad.details"></textarea> -->
+    <label for="details" class="required">Detalhes</label>
+  	<!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
     <!-- <div ng-model="article" quill></div> -->
+    <textarea class="form-control" id="details" placeholder="Detalhes" rows="7" ng-model="ad.details" ng-required="true"></textarea>
     <p class="help-block">(Máximo de 1000 caracteres. 1000 caracteres restando)</p>
   </div>
   <div class="form-group">
@@ -23,7 +24,7 @@
 	    </div>
 	    <div class="col-xs-3">
 	    	<label for="zip_code">Cep</label>
-	    	<input type="text" class="form-control" id="zip_code" placeholder="Cep" ng-model="ad.addres.zip_code">
+	    	<input type="text" class="form-control" id="zip_code" placeholder="Cep" ng-model="ad.address.zip_code">
 	  	</div>
   	</div>
   </div>
@@ -59,19 +60,19 @@
 	    </div>
 	    <div class="col-xs-4">
 	    	<label for="city">Telefone</label>
-	    	<input type="text" class="form-control" id="city" placeholder="Telefone" ng-model="ad.contatc.phone">
+	    	<input type="text" class="form-control" id="city" placeholder="Telefone" ng-model="ad.contact.phone">
 	    </div>
 	    <div class="col-xs-4">
 	    	<label for="zip_code">Celular</label>
-	    	<input type="text" class="form-control" id="zip_code" placeholder="Celular" ng-model="ad.contac.cellphone">
+	    	<input type="text" class="form-control" id="zip_code" placeholder="Celular" ng-model="ad.contact.cellphone">
 	  	</div>
   	</div>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="foto">Fotos</label>
     <input type="file" id="foto">
     <p class="help-block">(Máximo de 10 imagens. 10 imagens restando)</p>
-  </div>
-  <button type="submit" class="btn btn-secondary" ng-click="cancel()">Cancelar</button>
+  </div> -->
+  <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button>
   <button type="submit" class="btn btn-primary" ng-click="confirm()">Criar anúncio</button>
 </form>

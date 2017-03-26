@@ -6,6 +6,10 @@
     "test": "test"
   },
   "scripts": {
+    "codecov": "codecov",
+    "coverage": "istanbul cover _mocha -- -R spec",
+    "lint": "eslint src",
+    "server": "nodemon ./src/server.js",
     "test": "mocha"
   },
   "author": "@romajs",

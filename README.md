@@ -72,44 +72,16 @@ Automatic browser refresh
 
 ### Commands
 
-`npm install`
+Install dependencies: `npm install`
 
-`npm test`
+Run tests: `npm test`
 
-`./run-coverage.sh`
+Run coverage: `npm run coverage`
 
-`./run-server.sh`
+Run lint: `npm run lint`
 
-`./script/docker/couchdb/build.sh`
+Run server `npm run server`
 
-`./script/docker/couchdb/run.sh`
+Build docker image for CouchDB: `./script/docker/couchdb/build.sh`
 
-### Preject structure
-
-```
-.
-├── coverage/
-├── node_modules/
-├── script/
-│   ├── docker/
-│   │   └── couchdb/
-│   └── fixture/
-├── src/
-│   ├── api/
-│   │   ├── middleware
-│   │   ├── model
-│   │   ├── resource
-│   │   └── service
-│   ├── app.js
-│   ├── config.js
-│   ├── server.js
-│   └── web
-└── test/
-├── circle.yml
-├── nodejs-ad.sublime-project
-├── nodejs-ad.sublime-workspace
-├── package.json
-├── README.md
-├── run-coverage.sh
-├── run-server.sh
-```
+Run docker container for CouchDB: `./script/docker/couchdb/run.sh`

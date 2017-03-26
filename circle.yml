@@ -5,7 +5,10 @@ dependencies:
   override:
     - npm install
 test:
+  pre:
+    - npm run lint
   override:
     - npm test
   post:
-    - ./run-coverage.sh && ./node_modules/.bin/codecov
+    - npm run coverage
+    - npm run codecov

@@ -76,6 +76,10 @@
     <input type="file" id="foto">
     <p class="help-block">(Máximo de 10 imagens. 10 imagens restando)</p>
   </div> -->
-  <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button>
+  <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
+  <div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
+    <p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
+    <p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formúĺario. Corrija-os para continuar</p>
+   </div>
   <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
 </form>

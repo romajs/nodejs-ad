@@ -71,15 +71,31 @@
 	  	</div>
   	</div>
   </div>
-  <!-- <div class="form-group">
+  <div class="form-group">
     <label for="foto">Fotos</label>
-    <input type="file" id="foto">
-    <p class="help-block">(Máximo de 10 imagens. 10 imagens restando)</p>
-  </div> -->
-  <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
+	  <div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" 
+      ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true"
+      accept="image/*,application/pdf" 
+      ngf-pattern="'image/*,application/pdf'">Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos</div>
+	</div>
+  <div class="form-group">
+		<div ng-repeat="file in files" style="font:smaller">
+	  	<div class="row">
+		  	<div class="col-xs-12">
+		  		<a href="#">{{file.name}}</a>
+			  	<div class="progress" ng-hide="file.progress == 100">
+			  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">{{file.progress}}%</div>
+			  	</div>
+		  	</div>
+		  </div>
+	  </div>
+    <p class="help-block">(Máximo de {{check.files.qtd.max}} imagens. {{check.files.qtd.left()}} imagens restando)</p>
+    </ul>
+  </div>
   <div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
     <p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
-    <p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formúĺario. Corrija-os para continuar</p>
+    <p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
    </div>
+  <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
   <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
 </form>

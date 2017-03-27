@@ -3,6 +3,15 @@ label.required:after {
    padding: 2px;
 }
 
+.alert-sm {
+	padding: 5px;
+	margin-bottom: 0; 
+}
+
+/*.ng-invalid {
+  border-color: #a94442;
+}*/
+
 .ad {
 	-webkit-box-shadow: none;
 	background-color: #fff;

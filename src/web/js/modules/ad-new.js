@@ -18,10 +18,31 @@ angular.module('ad-new' , [
 .controller('adNewController', function($scope, $state) {
 
 	$scope.ad = {
+		title : '',
+		details : '',
 		address : {
 		},
 		contact : {
 		},
+	}
+
+	$scope.check = {
+		title : {
+			length : {
+				max : 110,
+				left: function() {
+					return this.max - ($scope.ad.title || '').length
+				},
+			},
+		},
+		details : {
+			length : {
+				max : 1000,
+				left: function() {
+					return this.max - ($scope.ad.details || '').length
+				},
+			},
+		}
 	}
 
 	$scope.cancel = function() {

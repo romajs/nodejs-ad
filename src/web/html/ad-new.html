@@ -1,16 +1,19 @@
-<form class="" role="form" name="adForm">
-  <div class="form-group">
+<form class="" name="adForm" role="form" novalidate>
+  <div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
     <label for="title" class="required">Título</label>
-    <input type="text" class="form-control" id="title" placeholder="Título" ng-model="ad.title" ng-required="true"
-    	ng-required-message="asdasdsd">
-    <p class="help-block">(Máximo de 250 caracteres. 250 caracteres restando)</p>
+    <input type="text" class="form-control" id="title" name="title" placeholder="Título" ng-model="ad.title" required
+    	maxlength="{{check.title.length.max}}">
+    <p class="help-block" ng-if="adForm.title.$valid">(Máximo de {{check.title.length.max}} caracteres, restando {{check.title.length.left()}})</p>
+    <p class="help-block" ng-if="adForm.title.$error.required">O preenchimento deste campo é obrigatório</p>
   </div>
-  <div class="form-group">
+  <div class="form-group" ng-class="{ 'has-error' : adForm.details.$invalid }">
     <label for="details" class="required">Detalhes</label>
   	<!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
     <!-- <div ng-model="article" quill></div> -->
-    <textarea class="form-control" id="details" placeholder="Detalhes" rows="7" ng-model="ad.details" ng-required="true"></textarea>
-    <p class="help-block">(Máximo de 1000 caracteres. 1000 caracteres restando)</p>
+    <textarea class="form-control" id="details" name="details" placeholder="Detalhes" rows="7" ng-model="ad.details" required
+    	maxlength="{{check.details.length.max}}"></textarea>
+    <p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
+    <p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
   </div>
   <div class="form-group">
     <div class="row">
@@ -74,5 +77,5 @@
     <p class="help-block">(Máximo de 10 imagens. 10 imagens restando)</p>
   </div> -->
   <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button>
-  <button type="submit" class="btn btn-primary" ng-click="confirm()">Criar anúncio</button>
+  <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
 </form>

@@ -1,8 +1,8 @@
 angular.module('app', [
-	// 'ui.router',
 	'ad',
-	'ads',
 	'ad-new',
+	'ads',
+	'auth',
 	'login',
 ])
 

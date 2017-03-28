@@ -12,7 +12,7 @@ angular.module('ad-new' , [
 		controller: 'adNewController',
 		templateUrl: '/html/ad-new.html',
 		data: {
-			requireAuthentication: false,
+			requireAuthentication: true,
 		}
 	})
 })

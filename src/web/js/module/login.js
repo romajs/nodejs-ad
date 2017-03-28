@@ -14,7 +14,7 @@ angular.module('login' , [
 	})
 })
 
-.controller('loginController', function($scope, $state, $timeout, Upload, authService) {
+.controller('loginController', function($scope, $state, $timeout, Upload, authService, userSession) {
 
 	$scope.credentials = {
 		username : 'admin',
@@ -27,6 +27,7 @@ angular.module('login' , [
 			authService.authenticate($scope.credentials).then(function(res) {
 				console.info(res)
 				if(res.status == 200 && res.data.success) {
+					userSession.create(res.data.token)
 					$state.go('ads')
 				}
 			}).catch(function(res) {
@@ -36,6 +37,34 @@ angular.module('login' , [
 				}
 			})
 		}
+	}
+
+})
+
+.service('userSession', function() {
+
+	var token = localStorage.getItem('token')
+	console.info(token)
+
+	this.isAuthenticated = function() {
+		return token != null
+	}
+
+	this.create = function(new_token) {
+		localStorage.setItem('token', token = new_token)
+	}
+
+	this.destroy = function() {
+		token = null
+		localStorage.removeItem('token')
+	}
+
+})
+
+.run(function($rootScope, userSession) {
+
+	$rootScope.logout = function() {
+		userSession.destroy()
 	}
 
 })

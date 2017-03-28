@@ -15,7 +15,7 @@
     <p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
     <p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <div class="row">
 	    <div class="col-xs-5">
 	    	<label for="estate">Estado</label>
@@ -70,13 +70,11 @@
 	    	<input type="text" class="form-control" id="zip_code" placeholder="Celular" ng-model="ad.contact.cellphone">
 	  	</div>
   	</div>
-  </div>
+  </div> -->
   <div class="form-group">
     <label for="foto">Fotos</label>
-	  <div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" 
-      ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true"
-      accept="image/*,application/pdf" 
-      ngf-pattern="'image/*,application/pdf'">Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos</div>
+	  <div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true"
+      accept="image/*" ngf-pattern="'image/*'">Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos</div>
 	</div>
   <div class="form-group">
 		<div ng-repeat="file in files" style="font:smaller">
@@ -84,7 +82,10 @@
 		  	<div class="col-xs-12">
 		  		<a href="#">{{file.name}}</a>
 			  	<div class="progress" ng-hide="file.progress == 100">
-			  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">{{file.progress}}%</div>
+			  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" role="progressbar"
+			  			aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">
+			  			{{file.progress}}%
+			  		</div>
 			  	</div>
 		  	</div>
 		  </div>

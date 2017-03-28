@@ -31,6 +31,7 @@ label.required:after {
 
 .file-upload-drop-box {
 	color: #999;
+	cursor: pointer;
   background: #F8F8F8;
   border-radius: 10px;
   border: 3px dashed #DDD;
@@ -38,7 +39,14 @@ label.required:after {
   text-align: center;
 }
 
+.file-upload-drop-box:hover {
+  color: #000;
+  border-color: #66afe9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+}
+
 .file-upload-dragover {
-	color: blue;
-  border: 3px dashed blue;
+  color: #000;
+  border-color: #66afe9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
 }

@@ -1,6 +1,7 @@
 angular.module('ad-new' , [
 	'ui.router',
 	'ngFileUpload',
+	'ad-service',
 	// 'ngQuill'
 	// 'angular-quill',
 ])
@@ -16,11 +17,11 @@ angular.module('ad-new' , [
 	})
 })
 
-.controller('adNewController', function($scope, $state, Upload, $timeout) {
+.controller('adNewController', function($scope, $state, $timeout, Upload, adService) {
 
 	$scope.ad = {
-		title : '',
-		details : '',
+		title : 'Teste',
+		details : 'Testando',
 		address : {
 		},
 		contact : {
@@ -90,8 +91,15 @@ angular.module('ad-new' , [
 	}
 
 	$scope.confirm = function() {
-		console.info($scope.ad)
-		// $state.go('ads')
+		console.info($scope.adForm.$valid, $scope.ad)
+		if($scope.adForm.$valid) {
+			adService.create($scope.ad).then(function(result) {
+				console.info(result)
+				if(result) {
+					$state.go('ad', { id: result} )
+				}
+			})
+		}
 	}
 
 })

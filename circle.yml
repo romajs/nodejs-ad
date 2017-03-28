@@ -5,8 +5,8 @@ dependencies:
   override:
     - npm install
 test:
-  pre:
-    - npm run lint
+  # pre:
+    # - npm run lint
   override:
     - npm test
   post:

@@ -3,6 +3,7 @@ angular.module('app', [
 	'ad',
 	'ads',
 	'ad-new',
+	'login',
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

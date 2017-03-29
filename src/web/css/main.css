@@ -4,10 +4,7 @@ label.required:after {
 }
 
 .jumbotron {
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: fadein 2s; /* Firefox < 16 */
-      -ms-animation: fadein 2s; /* Internet Explorer */
-       -o-animation: fadein 2s; /* Opera < 12.1 */
+  -webkit-animation: fadein 2s;
           animation: fadein 2s;
 }
 
@@ -19,51 +16,29 @@ label.required:after {
 .overlay {
 	position: relative;
 }
-
-.overlay .overlay-panel {
-  background-color: #fff;
-  border-radius: 6px;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 1;
-  -webkit-animation: fadein 2s;
-          animation: fadein 2s;
+.overlay.off {
+  pointer-events: none;
+  opacity: 0;
+  -webkit-animation: fadeout 2s;
+          animation: fadeout 2s;
 }
 
 @keyframes fadein {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+  from { opacity:0; }
+  to { opacity:1; }
 }
-@-moz-keyframes fadein { /* Firefox */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+@-webkit-keyframes fadein {
+  from { opacity:0; }
+  to { opacity:1; }
 }
-@-webkit-keyframes fadein { /* Safari and Chrome */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
+
+@keyframes fadeout {
+  from { opacity:1; }
+  to { opacity:0; display: none; }
 }
-@-o-keyframes fadein { /* Opera */
-    from {
-        opacity:0;
-    }
-    to {
-        opacity: 1;
-    }
+@-webkit-keyframes fadeout {
+  from { opacity:1; }
+  to { opacity:0; display: none; }
 }
 
 .ad {

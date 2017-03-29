@@ -1,10 +1,12 @@
 <div class="jumbotron" ng-if="!isAuthenticated()">
-  <h2>Para anunciar é necessário estar logado</>
-  <p>Clique no botão abaixo para logar ou criar uma conta</p>
-  <p><a class="btn btn-primary btn-lg" href="#" role="button" ui-sref="login">Login</a></p>
+  <h2>Para anunciar é necessário estar logado</h2>
+  <br/>
+  <p>Caso já tenha uma conta, clique <a ui-sref="login">aqui</a> para acessá-la.</p>
+  <br/>
+  <p>Não tem uma conta ainda?</p>
+  <p>Cadastra-se agora mesmo clicando <a ui-sref="login">aqui</a>. É grátis.</p>
 </div>
-<div class="" ng-class="{ 'overlay': !isAuthenticated() }">
-	<div class="overlay-panel"></div>
+<div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
 	<form class="" name="adForm" role="form" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
 	    <label for="title" class="required">Título</label>

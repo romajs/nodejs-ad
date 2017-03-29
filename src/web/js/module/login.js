@@ -18,7 +18,7 @@ angular.module('login' , [
 
 	$scope.credentials = {
 		username : 'admin',
-		password : '123mudar',
+		password : 'MTIzbXVkYXIK',
 	}
 
 	$scope.confirm = function() {
@@ -44,7 +44,6 @@ angular.module('login' , [
 .service('userSession', function() {
 
 	var token = localStorage.getItem('token')
-	console.info(token)
 
 	this.isAuthenticated = function() {
 		return token != null
@@ -65,6 +64,10 @@ angular.module('login' , [
 
 	$rootScope.logout = function() {
 		userSession.destroy()
+	}
+
+	$rootScope.isAuthenticated = function() {
+		return userSession.isAuthenticated()
 	}
 
 })

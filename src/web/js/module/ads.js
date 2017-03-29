@@ -8,7 +8,7 @@ angular.module('ads' , [
 		controller: 'adsController',
 		templateUrl: '/html/ads.html',
 		data: {
-			requireAuthentication: true,
+			requireAuthentication: false,
 		}
 	})
 })

@@ -2,6 +2,7 @@ angular.module('ad-new' , [
 	'ui.router',
 	'ngFileUpload',
 	'ad-service',
+	'login',
 	// 'ngQuill'
 	// 'angular-quill',
 ])
@@ -12,7 +13,7 @@ angular.module('ad-new' , [
 		controller: 'adNewController',
 		templateUrl: '/html/ad-new.html',
 		data: {
-			requireAuthentication: true,
+			requireAuthentication: false,
 		}
 	})
 })

@@ -16,5 +16,6 @@
     <p class="help-block" ng-if="userForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
    </div>
   <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
+  <button type="submit" class="btn btn-secondary" ng-click="create()" ng-disabled="true">Criar nova conta</button>
   <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="userForm.$invalid">Login</button>
 </form>

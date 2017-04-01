@@ -1,9 +1,18 @@
 <div class="container-fluid" ng-repeat="ad in ads">
+	<!-- {{ad|json}} -->
 	<div class="row-fluid">
 		<div class="ad">
-			<strong>Título do anúncio</strong>
-			<p class="detail">Detalhes do anúncio</p>
+			<strong>{{$index + 1}} # {{ad.doc.title}}</strong>
+			<p class="detail">{{ad.doc.details}}</p>
 			<a ui-sref="ad({ id: ad.id})">Ver anúncio</a>
 			</div>
 	</div>
+</div>
+<div class="jumbotron" ng-if="!ads || ads.length === 0">
+  <h1>Ooops...</h1>
+  <br/>
+  <p>Nenhum anúncio encontrado</p>
+  <p>:(</p>
+  <br/>
+  <p><a class="btn btn-primary btn-lg" ng-click="$back()">Voltar</a></p>
 </div>

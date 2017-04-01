@@ -1,5 +1,5 @@
 angular.module('ads' , [
-	'ui.router',
+	'ui.router'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -13,13 +13,11 @@ angular.module('ads' , [
 	})
 })
 
-.controller('adsController', function($scope) {
+.controller('adsController', function($scope, adService, userSession) {
 
-	$scope.ads = [];
-
-	for(var i = 1; i <= 10; i++) {
-		$scope.ads.push({
-			id: i,
+	if(userSession.isAuthenticated()) {
+		adService.list({ include_docs: true }).then(function(ads) {
+			$scope.ads = ads.data.rows
 		})
 	}
 

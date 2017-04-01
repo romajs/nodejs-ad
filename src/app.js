@@ -34,6 +34,7 @@ app.use(expressWinston.logger(config.logger))
 
 // non-authenticated resources
 app.use('/auth', require('./api/resource/auth.js'))
+app.use('/ads', require('./api/resource/adSearch.js'))
 
 // auth
 app.use(auth)

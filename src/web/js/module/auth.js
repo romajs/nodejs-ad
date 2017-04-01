@@ -1,7 +1,5 @@
 angular.module('auth', [
-	'angular-jwt',
-	'auth-service',
-	'login',
+	// 'angular-jwt',
 ])
 
 // .config(function($httpProvider, jwtOptionsProvider) {
@@ -21,10 +19,10 @@ angular.module('auth', [
 
 // })
 
-.service('tokenInterceptor', function(userSession) {
+.service('tokenInterceptor', function(sessionService) {
 	this.request = function(config) {
-		if (config.url.indexOf('.html') === -1 && userSession.getToken() !== undefined) {
-			config.headers['x-access-token'] = userSession.getToken('token')
+		if (config.url.indexOf('.html') === -1 && sessionService.getToken() !== undefined) {
+			config.headers['x-access-token'] = sessionService.getToken('token')
 		}
 		return config
 	}
@@ -34,13 +32,12 @@ angular.module('auth', [
 	$httpProvider.interceptors.push('tokenInterceptor')
 })
 
-
-.run(function($rootScope, $state, userSession) {
+.run(function($rootScope, $state, sessionService) {
 
 	// Client side authentication solution
 	$rootScope.$on('$stateChangeStart', function(event, toState, fromState) {
 		var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
-		var isAuthenticated = userSession.isAuthenticated()
+		var isAuthenticated = sessionService.isAuthenticated()
 		console.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
 		if(requireAuthentication && !isAuthenticated) {
 			event.preventDefault()

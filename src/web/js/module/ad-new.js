@@ -1,8 +1,6 @@
 angular.module('ad-new' , [
 	'ui.router',
 	'ngFileUpload',
-	'ad-service',
-	'login',
 	// 'ngQuill'
 	// 'angular-quill',
 ])

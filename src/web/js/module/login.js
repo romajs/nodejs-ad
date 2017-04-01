@@ -1,6 +1,5 @@
 angular.module('login' , [
 	'ui.router',
-	'auth-service'
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -14,7 +13,7 @@ angular.module('login' , [
 	})
 })
 
-.controller('loginController', function($scope, $state, $timeout, Upload, authService, userSession) {
+.controller('loginController', function($scope, $state, $timeout, Upload, authService, sessionService) {
 
 	$scope.credentials = {
 		username : 'admin',
@@ -27,7 +26,7 @@ angular.module('login' , [
 			authService.authenticate($scope.credentials).then(function(res) {
 				console.info(res)
 				if(res.status == 200 && res.data.success) {
-					userSession.create(res.data.token)
+					sessionService.create(res.data.token)
 					$state.go($state.params.redirect || 'ads')
 				}
 			}).catch(function(res) {
@@ -37,41 +36,6 @@ angular.module('login' , [
 				}
 			})
 		}
-	}
-
-})
-
-.service('userSession', function() {
-
-	var token = localStorage.getItem('token')
-
-	this.create = function(new_token) {
-		localStorage.setItem('token', token = new_token)
-	}
-
-	this.destroy = function() {
-		token = null
-		localStorage.removeItem('token')
-	}
-
-	this.isAuthenticated = function() {
-		return token != null
-	}
-
-	this.getToken = function() {
-		return token
-	}
-
-})
-
-.run(function($rootScope, userSession) {
-
-	$rootScope.logout = function() {
-		userSession.destroy()
-	}
-
-	$rootScope.isAuthenticated = function() {
-		return userSession.isAuthenticated()
 	}
 
 })

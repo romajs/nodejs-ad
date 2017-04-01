@@ -1,11 +1,9 @@
-angular.module('auth-service' , [
+angular.module('app')
 
-])
-
-.service('authService', ['$http', function($http) {
+.service('authService', function($http) {
 
 	this.authenticate = function(credentials) {
 		return $http.post('/auth', credentials)
 	}
 	
-}])
+})

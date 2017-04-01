@@ -13,12 +13,10 @@ angular.module('ads' , [
 	})
 })
 
-.controller('adsController', function($scope, adService, userSession) {
+.controller('adsController', function($scope, adsService) {
 
-	if(userSession.isAuthenticated()) {
-		adService.list({ include_docs: true }).then(function(ads) {
-			$scope.ads = ads.data.rows
-		})
-	}
+	adsService.list({ include_docs: true }).then(function(ads) {
+		$scope.ads = ads.data.rows
+	})
 
 })

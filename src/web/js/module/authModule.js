@@ -1,4 +1,4 @@
-angular.module('auth', [
+angular.module('app.auth', [
 	// 'angular-jwt',
 ])
 

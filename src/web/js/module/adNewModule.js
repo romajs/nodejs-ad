@@ -1,4 +1,4 @@
-angular.module('ad-new' , [
+angular.module('app.adNew' , [
 	'ui.router',
 	'ngFileUpload',
 	// 'ngQuill'

@@ -1,4 +1,4 @@
-angular.module('ad' , [
+angular.module('app.ad' , [
 	'ui.router',
 ])
 

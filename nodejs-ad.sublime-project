@@ -3,7 +3,7 @@
 	[
 		{
 			"path": ".",
-    		"folder_exclude_patterns": ["node_modules/**", "coverage/**"],
+    		"folder_exclude_patterns": ["node_modules/**", "coverage/**", "bower_components/**"],
 		}
 	]
 }

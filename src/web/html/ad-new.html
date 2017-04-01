@@ -1,13 +1,13 @@
 <div class="jumbotron" ng-if="!isAuthenticated()">
   <h2>Para anunciar é necessário estar logado</h2>
   <br/>
-  <p>Caso já tenha uma conta, clique <a ui-sref="login">aqui</a> para acessá-la.</p>
+  <p>Caso já tenha uma conta, clique <a ui-sref="login({redirect: 'ad-new'})">aqui</a> para acessá-la.</p>
   <br/>
   <p>Não tem uma conta ainda?</p>
-  <p>Cadastra-se agora mesmo clicando <a ui-sref="login">aqui</a>. É grátis.</p>
+  <p>Cadastra-se agora mesmo clicando <a ui-sref="login({redirect: 'ad-new'})">aqui</a>. É grátis.</p>
 </div>
 <div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
-	<form class="" name="adForm" role="form" novalidate>
+	<form class="" name="adForm" novalidate>
 	  <div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
 	    <label for="title" class="required">Título</label>
 	    <input type="text" class="form-control" id="title" name="title" placeholder="Título" ng-model="ad.title" required
@@ -91,10 +91,7 @@
 			  	<div class="col-xs-12">
 			  		<a href="#">{{file.name}}</a>
 				  	<div class="progress" ng-hide="file.progress == 100">
-				  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" role="progressbar"
-				  			aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">
-				  			{{file.progress}}%
-				  		</div>
+				  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" style="width: {{file.progress}}%;">{{file.progress}}%</div>
 				  	</div>
 			  	</div>
 			  </div>

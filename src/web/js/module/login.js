@@ -5,7 +5,7 @@ angular.module('login' , [
 
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('login', {
-		url: '/login',
+		url: '/login?redirect',
 		controller: 'loginController',
 		templateUrl: '/html/login.html',
 		data: {
@@ -28,7 +28,7 @@ angular.module('login' , [
 				console.info(res)
 				if(res.status == 200 && res.data.success) {
 					userSession.create(res.data.token)
-					$state.go('ads')
+					$state.go($state.params.redirect || 'ads')
 				}
 			}).catch(function(res) {
 				console.info(res)

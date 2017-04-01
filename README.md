@@ -78,6 +78,7 @@ Misc:
 - [ ] search
 - [ ] browserify
 - [ ] infinite scroll
+- [ ] aria/role
 
 Forms:
 - [ ] Form validation

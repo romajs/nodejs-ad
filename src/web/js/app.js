@@ -8,11 +8,26 @@ angular.module('app', [
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-	$urlRouterProvider.when('/', function($state) {
-		$state.go('ads');
-	}).when('', function($state) {
-		$state.go('ads');
+	$stateProvider.state('not_found', {
+		url: '/not_found',
+		templateUrl: '/html/not_found.html',
+		data: {
+			requireAuthentication: false,
+		}
 	})
-  // }).otherwise('not_found');
+
+	$urlRouterProvider.when('/', function($state) {
+		$state.go('ads')
+	}).when('', function($state) {
+		$state.go('ads')
+	}).otherwise('not_found')
+
+})
+
+.run(function($rootScope, $window) {
+
+	$rootScope.$back = function() {
+    $window.history.back()
+	}
 
 })

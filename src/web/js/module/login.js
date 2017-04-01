@@ -45,10 +45,6 @@ angular.module('login' , [
 
 	var token = localStorage.getItem('token')
 
-	this.isAuthenticated = function() {
-		return token != null
-	}
-
 	this.create = function(new_token) {
 		localStorage.setItem('token', token = new_token)
 	}
@@ -56,6 +52,14 @@ angular.module('login' , [
 	this.destroy = function() {
 		token = null
 		localStorage.removeItem('token')
+	}
+
+	this.isAuthenticated = function() {
+		return token != null
+	}
+
+	this.getToken = function() {
+		return token
 	}
 
 })

@@ -1,37 +1,51 @@
-angular.module('auth' , [
-    'angular-jwt',
-    'auth-service',
-    'login',
+angular.module('auth', [
+	'angular-jwt',
+	'auth-service',
+	'login',
 ])
 
-.config(function($httpProvider, jwtOptionsProvider) {
+// .config(function($httpProvider, jwtOptionsProvider) {
 
-    // Configuration for angular-jwt
-    jwtOptionsProvider.config({
-        tokenGetter: function() {
-            return localStorage.getItem('token');
-        },
-        whiteListedDomains: ['localhost'],
-        unauthenticatedRedirectPath: '/login'
-    });
+//     // Configuration for angular-jwt
+//     jwtOptionsProvider.config({
+//         tokenGetter: function() {
+//             return localStorage.getItem('token')
+//         },
+//         whiteListedDomains: ['localhost'],
+//         unauthenticatedRedirectPath: '/login'
+//     });
 
-    // Add the jwtInterceptor to the array of HTTP interceptors
-    // so that JWTs are attached as Authorization headers
-    $httpProvider.interceptors.push('jwtInterceptor');
+//     // Add the jwtInterceptor to the array of HTTP interceptors
+//     // so that JWTs are attached as Authorization headers
+//     $httpProvider.interceptors.push('jwtInterceptor');
 
+// })
+
+.service('tokenInterceptor', function(userSession) {
+	this.request = function(config) {
+		if (config.url.indexOf('.html') === -1 && userSession.getToken() !== undefined) {
+			config.headers['x-access-token'] = userSession.getToken('token')
+		}
+		return config
+	}
 })
+
+.config(function($httpProvider) {
+	$httpProvider.interceptors.push('tokenInterceptor')
+})
+
 
 .run(function($rootScope, $state, userSession) {
 
-    // Client side authentication solution
-    $rootScope.$on('$stateChangeStart', function(event, toState, fromState) {
-        var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
-        var isAuthenticated = userSession.isAuthenticated()
-        console.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
-        if(requireAuthentication && !isAuthenticated) {
-            event.preventDefault()
-            $state.go('login')
-        }
-    })
+	// Client side authentication solution
+	$rootScope.$on('$stateChangeStart', function(event, toState, fromState) {
+		var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
+		var isAuthenticated = userSession.isAuthenticated()
+		console.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
+		if(requireAuthentication && !isAuthenticated) {
+			event.preventDefault()
+			$state.go('login')
+		}
+	})
 
 })

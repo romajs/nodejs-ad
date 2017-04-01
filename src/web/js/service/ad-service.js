@@ -2,12 +2,10 @@ angular.module('ad-service' , [
 
 ])
 
-.service('adService', [function AdService() {
+.service('adService', function($http) {
 
-	this.create = function() {
-		var d = $.Deferred()
-		d.resolve(new Date().getTime())
-		return d.promise()
+	this.create = function(ad) {
+		return $http.post('/ad', ad)
 	}
 	
-}])
+})

@@ -23,12 +23,11 @@ module.exports.create = function(params, callback) {
 }
 
 module.exports.list = function(username, callback) {
-	try {
-		var query = datastore.createQuery('Ad')
-		datastore.runQuery(query).then(function(body) {
-	    callback(null, body[0] || [])
-	  })
-  } catch(err) {
-		callback(err, null)
-  }
+	var query = datastore.createQuery('Ad')
+	datastore.runQuery(query, function(err, entities, info) {
+		if(err)
+			callback(err, null)
+		else
+	    callback(null, entities)
+  })
 }

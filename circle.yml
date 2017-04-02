@@ -9,6 +9,6 @@ test:
     # - npm run lint
   override:
     - echo 'true' # FIXME: npm test
-  post:
-    - npm run coverage
-    - npm run codecov
+  # post:
+  #   - npm run coverage
+  #   - npm run codecov

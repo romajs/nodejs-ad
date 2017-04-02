@@ -7,5 +7,5 @@ module.exports.get_by_username = function(username, callback) {
 			callback(err, null)
 		else
     	callback(null, entities.length > 0 ? entities[0] : null)
-  })
+	})
 }

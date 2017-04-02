@@ -120,7 +120,7 @@ Run coverage: `npm run coverage`
 
 Run lint: `npm run lint`
 
-Run server `npm run server`
+Run app server (express): `npm start`
 
 Build docker image for CouchDB: `./script/docker/couchdb/build.sh`
 

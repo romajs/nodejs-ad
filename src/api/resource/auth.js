@@ -2,11 +2,15 @@ var config = require('../../config.js')
 var express = require('express')
 var jwt = require('jsonwebtoken')
 var router = express.Router()
+
 var userService = require('../service/user.js')
 
 router.post('/', function(req, res, next) {
 
-	userService.get_by_username(req.body.username, function(err, user) {
+	// TODO: validate form param
+	var username = req.body.username || ''
+
+	userService.get_by_username(username, function(err, user) {
 
 		if(err)
 			return next(err)

@@ -7,7 +7,7 @@ var config = {
 		expiresIn : 86400 // expires in 24 hours
 	},
 	gcloud : {
-		projectId : process.env.GCLOUD_PROJECT_ID
+		projectId : process.env.GCLOUD_PROJECT || 'test-123456',
 	},
 	logger : {
 		transports: [
@@ -21,14 +21,14 @@ var config = {
 		expressFormat: true,
 		colorize: true
 	},
-	couchdb : {
-		protocol : 'http',
-		host : process.env.COUCHDB_HOST || 'localhost',
-		port : process.env.COUCHDB_PORT || 5984,
-		url : function() {
-			return [this.protocol, '://', this.host, ':', this.port].join('')
-		}
-	},
+	// couchdb : {
+	// 	protocol : 'http',
+	// 	host : process.env.COUCHDB_HOST || 'localhost',
+	// 	port : process.env.COUCHDB_PORT || 5984,
+	// 	url : function() {
+	// 		return [this.protocol, '://', this.host, ':', this.port].join('')
+	// 	}
+	// },
 	http : {
 		host : process.env.HTTP_HOST || '127.0.0.1',
 		port : process.env.HTTP_PORT || 8000

@@ -10,7 +10,7 @@
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
     "start": "nodemon ./src/server.js",
-    "test": "mocha"
+    "test": "./test.sh"
   },
   "author": "@romajs",
   "dependencies": {
@@ -29,6 +29,7 @@
     "assert": "^1.4.1",
     "codecov": "^1.0.1",
     "eslint": "^3.18.0",
+    "google-datastore-emulator": "^1.0.5",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "mock-couch": "^0.1.8",

@@ -6,6 +6,9 @@ var config = {
 		secret : 'JHVwM3JfJDNjcjM3Cg==',
 		expiresIn : 86400 // expires in 24 hours
 	},
+	gcloud : {
+		projectId : process.env.GCLOUD_PROJECT_ID
+	},
 	logger : {
 		transports: [
 			new winston.transports.Console({

@@ -8,7 +8,8 @@ router.post('/', function(req, res, next) {
 
 	userService.get_by_username(req.body.username, function(err, user) {
 
-		if(err) return next(err)
+		if(err)
+			return next(err)
 
 		if(!user) {
 			return res.status(404).json({

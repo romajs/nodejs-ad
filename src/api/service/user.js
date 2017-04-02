@@ -1,15 +1,13 @@
-var config = require('../../config.js')
-
-var couchdb = require('nano')(config.couchdb.url()).use('user')
+var datastore = require('../datastore.js')
 
 module.exports.get_by_username = function(username, callback) {
-	
-	couchdb.view('user', 'by_username', { keys: [username] }, function(err, body) {
-		if(err) {
-			callback(err, null)
-		} else {
-			callback(null, body.total_rows > 0 ? body.rows[0].value : null)
-		}
-	})
-
+	try {
+		var query = datastore.createQuery('User').filter('username', username)
+		datastore.runQuery(query).then(function(body) {
+			var results = body[0]
+	    callback(null, results.length > 0 ? results[0] : null)
+	  })
+  } catch(err) {
+		callback(err, null)
+  }
 }

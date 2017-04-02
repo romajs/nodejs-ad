@@ -9,11 +9,12 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
-    "server": "nodemon ./src/server.js",
+    "start": "nodemon ./src/server.js",
     "test": "mocha"
   },
   "author": "@romajs",
   "dependencies": {
+    "@google-cloud/datastore": "^0.8.0",
     "blocked": "^1.2.1",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",

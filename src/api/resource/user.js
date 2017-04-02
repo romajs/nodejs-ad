@@ -1,57 +1,9 @@
-// var config = require('../../config.js')
-// var express = require('express')
-// var router = express.Router()
+var config = require('../../config.js')
+var express = require('express')
+var jwt = require('jsonwebtoken')
+var router = express.Router()
+var userService = require('../service/user.js')
 
-// var db = require('nano')(config.couchdb.url()).use('user')
+// TODO
 
-// router.get('/', function (req, res, next) {
-// 	db.list(req.query(), function(err, body) {
-// 		if (err) next(err)
-// 		else {
-// 			res.json(body)
-// 		}
-// 	})
-// })
-
-// router.get('/:id', function (req, res, next) {
-// 	db.get(req.params.id, function(err, body, headers) {
-// 		if (err) next(err)
-// 		else {
-// 			res.json(body)
-// 		}
-// 	})
-// })
-
-// router.post('/', function (req, res, next) {
-// 	var doc = req.body
-// 	db.insert(doc, function(err, body) {
-// 		if (err) next(err)
-// 		else {
-// 			res.json(body)
-// 		}
-// 	})
-// })
-
-// router.put('/:id/:rev', function (req, res, next) {
-// 	var doc = req.body
-// 	doc._id = req.params.id
-// 	doc._rev = req.params.rev
-// 	db.insert(req.body, function(err, body) {
-// 		if (err) next(err)
-// 		else {
-// 			res.json(body)
-// 		}
-// 	})
-// })
-
-// router.delete('/:id/:rev', function (req, res, next) {
-// 	var id = req.params.id, rev = req.params.rev
-// 	db.destroy(id, rev, function(err, body) {
-// 		if (err) next(err)
-// 		else {
-// 			res.json(body)
-// 		}
-// 	})
-// })
-
-// module.exports = router
+module.exports = router

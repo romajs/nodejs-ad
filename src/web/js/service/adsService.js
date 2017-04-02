@@ -4,7 +4,7 @@ angular.module('app')
 
 	this.list = function(params) {
 		// TODO: query
-		return $http.get('/ads?include_docs=true')
+		return $http.get('/ads')
 	}
 	
 })

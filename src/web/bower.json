@@ -1,8 +1,7 @@
 {
   "name": "nodejs-ad",
-  "homepage": "https://github.com/romajs/nodejs-ad",
   "authors": [
-    "romajs <joseromualdoneto@gmail.com>"
+    "@romajs>"
   ],
   "description": "",
   "main": "",

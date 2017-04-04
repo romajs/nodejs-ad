@@ -12,7 +12,7 @@
 
 ### Back-end
 
-- [x] couchdb
+- [x] mondogb
 - [x] docker
 - [x] express
 - [x] nodejs
@@ -28,17 +28,16 @@ Express:
 - [ ] multipart form/data
 - [ ] NODE_ENV
 
-Couchdb:
+MongoDB:
 - [ ] auth/admin
-- [ ] backup and restore (https://github.com/danielebailo/couchdb-dump)
+- [ ] backup and restore
 - [ ] fixture
-- [ ] migration (knex)
-- [x] nano
-- [x] views
+- [ ] migration
+- [x] mongoose
+- [ ] views
 
 Integrated tests:
-- [x] mocha
-- [x] mock-couch
+- [ ] mongo mock
 - [x] supertest (request)
 - [ ] test fixture (faker)
 
@@ -122,6 +121,6 @@ Run lint: `npm run lint`
 
 Run app server (express): `npm start`
 
-Build docker image for CouchDB: `./script/docker/couchdb/build.sh`
+Build docker image for MongoDB: `./script/docker/mongodb/build.sh`
 
-Run docker container for CouchDB: `./script/docker/couchdb/run.sh`
+Run docker container for MongoDB: `./script/docker/mongodb/run.sh`

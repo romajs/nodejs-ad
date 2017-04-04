@@ -56,3 +56,16 @@ app.use(function (err, req, res, next) {
 module.exports = app
 module.exports.config = config
 module.exports.logger = logger
+
+var mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost/nodejs-ad')
+mongoose.Promise = global.Promise
+
+var db = mongoose.connection
+
+db.on('error', logger.error)
+
+db.once('open', function() {
+  logger.info('mongodb/mongoose connected successfully')
+})

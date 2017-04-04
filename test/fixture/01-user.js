@@ -1,27 +1,18 @@
 module.exports = function(config, callback) {
 
-	var Datastore = require('@google-cloud/datastore')
+	var datastore = require('../../src/api/datastore.js')
+	var User = require('../../src/api/model/userModel.js')
 
-	datastore = Datastore({
-	  projectId: config.gcloud.projectId,
+	var admin = new User({
+		username : 'admin',
+		password : 'MTIzbXVkYXIK',
+		admin: false,
 	})
 
-	datastore.save({
-    key: datastore.key(['User']),
-    data: [
-      {
-        name: 'created_at',
-        value: new Date().toJSON()
-      },
-      {
-        name: 'username',
-        value: 'admin',
-      },
-      {
-        name: 'password',
-        value: 'MTIzbXVkYXIK',
-      },
-    ]
-  }).then(callback)
+  admin.save(function (err, user) {
+	  if (err)
+	  	return console.error(err)
+	  callback && callback()
+	})
 
 }

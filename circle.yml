@@ -13,7 +13,7 @@ dependencies:
     - npm install
 test:
   pre:
-    - sudo service mongodb stop
+    - sudo stop mongodb
     # - npm run lint
   override:
     - npm test

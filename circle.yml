@@ -6,8 +6,7 @@ machine:
 
 dependencies:
   override:
-    # - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-    # - sudo apt-get update -y && sudo-apt get install docker-ce
+    - sudo service mongodb stop
     - sudo pip install --upgrade docker-compose==1.6.0
 
 dependencies:

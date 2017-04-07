@@ -1,0 +1,5 @@
+mongodb_test:
+  image: mongo:3.0
+  container_name: mongodb_test
+  ports:
+    - "0.0.0.0:27017:27017"

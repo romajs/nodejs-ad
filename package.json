@@ -9,12 +9,14 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
+    "posttest": "docker-compose down",
+    "pretest": "docker-compose up -d mongodb_test && npm run w84mongo",
     "start": "nodemon ./src/server.js",
-    "test": "mocha"
+    "test": "mocha",
+    "w84mongo" : "./script/docker/mongodb/w84mongo.sh"
   },
   "author": "@romajs",
   "dependencies": {
-    "@google-cloud/datastore": "^0.8.0",
     "blocked": "^1.2.1",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
@@ -22,7 +24,6 @@
     "express-winston": "^2.3.0",
     "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.9.3",
-    "nano": "^6.2.0",
     "path": "^0.12.7",
     "winston": "^2.3.0"
   },
@@ -30,13 +31,10 @@
     "assert": "^1.4.1",
     "codecov": "^1.0.1",
     "eslint": "^3.18.0",
-    "google-datastore-emulator": "^1.0.5",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
-    "mock-couch": "^0.1.8",
     "node-debug": "^0.1.0",
     "nodemon": "^1.11.0",
-    "supertest": "^3.0.0",
-    "util": "^0.10.3"
+    "supertest": "^3.0.0"
   }
 }

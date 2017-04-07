@@ -1,9 +1,9 @@
-var config = require('../../config.js')
+var ctx = require(process.env.src + '/ctx.js')
 var express = require('express')
-var jwt = require('jsonwebtoken')
 var router = express.Router()
+var jwt = require('jsonwebtoken')
 
-var userService = require('../service/user.js')
+var userService = require(process.env.src + '/api/service/user.js')
 
 router.post('/', function(req, res, next) {
 
@@ -31,8 +31,8 @@ router.post('/', function(req, res, next) {
 
 		} else {
 
-			var token = jwt.sign(user, config.auth.secret, {
-				expiresIn: config.auth.expiresIn,
+			var token = jwt.sign(user, ctx.config.auth.secret, {
+				expiresIn: ctx.config.auth.expiresIn,
 			})
 
 			return res.status(200).json({

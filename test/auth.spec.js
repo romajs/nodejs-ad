@@ -4,9 +4,9 @@ var util = require('./util.js')
 
 describe('/auth', function() {
 
-	var u = util()
-	beforeEach(u.setUp)
-	afterEach(u.tearDown)
+	var u = util(this)
+	// beforeEach(u.setUp)
+	// afterEach(u.tearDown)
 
 	describe('/post', function() {
 

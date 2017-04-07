@@ -6,9 +6,6 @@ var config = {
 		secret : 'JHVwM3JfJDNjcjM3Cg==',
 		expiresIn : 86400 // expires in 24 hours
 	},
-	gcloud : {
-		projectId : process.env.GCLOUD_PROJECT || 'test-123456',
-	},
 	logger : {
 		transports: [
 			new winston.transports.Console({
@@ -21,14 +18,15 @@ var config = {
 		expressFormat: true,
 		colorize: true
 	},
-	// couchdb : {
-	// 	protocol : 'http',
-	// 	host : process.env.COUCHDB_HOST || 'localhost',
-	// 	port : process.env.COUCHDB_PORT || 5984,
-	// 	url : function() {
-	// 		return [this.protocol, '://', this.host, ':', this.port].join('')
-	// 	}
-	// },
+	mongodb : {
+		protocol : 'mongodb',
+		host : process.env.MONGODB_HOST || 'localhost',
+		port : process.env.MONGODB_PORT || 27017,
+		dbname : 'nodejs-ad',
+		url : function() {
+			return [this.protocol, '://', this.host, ':', this.port, '/', this.dbname].join('')
+		}
+	},
 	http : {
 		host : process.env.HTTP_HOST || '127.0.0.1',
 		port : process.env.HTTP_PORT || 8000

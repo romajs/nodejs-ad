@@ -1,20 +1,11 @@
-var auth = require('./api/middleware/auth.js')
-var blocked = require('blocked')
 var bodyParser = require('body-parser')
 var compression = require('compression')
-var config = require('./config.js')
 var express = require('express')
 var expressWinston = require('express-winston')
 var path = require('path')
-var winston = require('winston')
 
-// logger
-var logger = new (winston.Logger)(config.logger)
-
-// blocked
-blocked(function(ms) {
-	logger.warn('blocked for %sms', ms | 0)
-})
+// config
+var config = require(path.join(__dirname, 'config.js'))
 
 // app
 var app = express()
@@ -33,11 +24,11 @@ app.use(bodyParser.json())
 app.use(expressWinston.logger(config.logger))
 
 // non-authenticated resources
-app.use('/auth', require('./api/resource/auth.js'))
-app.use('/ads', require('./api/resource/ads.js'))
+app.use('/auth', require(path.join(__dirname, 'api/resource/auth.js')))
+app.use('/ads', require(path.join(__dirname, 'api/resource/ads.js')))
 
 // auth
-app.use(auth)
+app.use(require('./api/middleware/auth.js'))
 
 // authenticated resources
 app.use('/ad', require('./api/resource/ad.js'))
@@ -54,18 +45,3 @@ app.use(function (err, req, res, next) {
 })
 
 module.exports = app
-module.exports.config = config
-module.exports.logger = logger
-
-var mongoose = require('mongoose')
-
-mongoose.connect('mongodb://localhost/nodejs-ad')
-mongoose.Promise = global.Promise
-
-var db = mongoose.connection
-
-db.on('error', logger.error)
-
-db.once('open', function() {
-  logger.info('mongodb/mongoose connected successfully')
-})

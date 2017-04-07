@@ -10,7 +10,7 @@
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
     "start": "nodemon ./src/server.js",
-    "test": "./test.sh"
+    "test": "mocha"
   },
   "author": "@romajs",
   "dependencies": {
@@ -36,6 +36,7 @@
     "mock-couch": "^0.1.8",
     "node-debug": "^0.1.0",
     "nodemon": "^1.11.0",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "util": "^0.10.3"
   }
 }

@@ -1,8 +1,8 @@
-var config = require('../../config.js')
+var ctx = require(process.env.src + '/ctx.js')
 var express = require('express')
-var jwt = require('jsonwebtoken')
 var router = express.Router()
-var userService = require('../service/user.js')
+
+var userService = require(process.env.src + '/api/service/user.js')
 
 // TODO
 

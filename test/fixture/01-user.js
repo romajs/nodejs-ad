@@ -1,6 +1,5 @@
 module.exports = function(config, callback) {
 
-	var datastore = require('../../src/api/datastore.js')
 	var User = require('../../src/api/model/userModel.js')
 
 	var admin = new User({

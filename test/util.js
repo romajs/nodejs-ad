@@ -1,28 +1,23 @@
-var app = require('../src/app.js')
-var config = require('../src/config.js')
-var Emulator = require('google-datastore-emulator')
+var ctx = require(process.env.PWD + '/src/ctx.js')
 
-function util() {
+function util(spec) {
 
-	var self = this
+	var self = Object.assign(this, ctx)
 
-	self.app = app
-	self.config = config
-
-	this.setUp = function(done) {
+	beforeEach(function(done) {
 		// require('./fixture/00-init.js')(config, function() {
-			require('./fixture/01-user.js')(config, function() {
-				self.server = app.listen(config.http.port, config.http.host, function() {
+			// require('./fixture/01-user.js')(config, function() {
+				self.server = ctx.app.listen(ctx.config.http.port, ctx.config.http.host, function() {
 					// self.authToken('admin', 'MTIzbXVkYXIK', done)
 					done()
 				})
-			})
+			// })
 		// })
-	}
-	 
-	self.tearDown = function(done) {
+	})
+
+	afterEach(function(done) {
 		self.server.close(done)
-	}
+	})
 
 	// self.authToken = function(username, password, done) {
 	// 	request(app).post('/auth').send({

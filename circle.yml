@@ -4,19 +4,18 @@ machine:
   services:
     - docker
 
-dependencies:
-  override:
-    - sudo pip install --upgrade docker-compose==1.6.0
+# dependencies:
+#   override:
+#     - sudo pip install --upgrade docker-compose==1.6.0
 
 dependencies:
   override:
     - npm install
 test:
   pre:
-    - sudo stop mongo
     # - npm run lint
   override:
     - npm test
-  # post:
-  #   - npm run coverage
-  #   - npm run codecov
+  post:
+    - npm run coverage
+    - npm run codecov

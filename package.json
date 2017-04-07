@@ -9,8 +9,8 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
-    "posttest": "docker-compose down",
-    "pretest": "docker-compose up -d mongodb_test && npm run w84mongo",
+    "posttest": "docker stop mongodb",
+    "pretest": "docker start mongodb && npm run w84mongo",
     "start": "nodemon ./src/server.js",
     "test": "mocha",
     "w84mongo" : "./script/docker/mongodb/w84mongo.sh"

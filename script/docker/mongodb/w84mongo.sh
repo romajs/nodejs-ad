@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run --link mongodb_test jwilder/dockerize dockerize -wait tcp://mongodb_test:27017
+docker run jwilder/dockerize dockerize -wait tcp://172.17.0.1:27017

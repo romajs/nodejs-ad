@@ -6,12 +6,12 @@ function util(spec) {
 
 	beforeEach(function(done) {
 		// require('./fixture/00-init.js')(config, function() {
-			// require('./fixture/01-user.js')(config, function() {
+			require('./fixture/01-user.js')(config, function() {
 				self.server = ctx.app.listen(ctx.config.http.port, ctx.config.http.host, function() {
 					// self.authToken('admin', 'MTIzbXVkYXIK', done)
 					done()
 				})
-			// })
+			})
 		// })
 	})
 

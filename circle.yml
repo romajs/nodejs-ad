@@ -6,14 +6,14 @@ machine:
 
 dependencies:
   override:
-    - sudo service mongodb stop
     - sudo pip install --upgrade docker-compose==1.6.0
 
 dependencies:
   override:
     - npm install
 test:
-  # pre:
+  pre:
+    - sudo service mongodb stop
     # - npm run lint
   override:
     - npm test

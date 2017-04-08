@@ -4,7 +4,7 @@ var test = require('./test.js')
 
 describe('/auth', function() {
 
-	test.setUp(this)
+	test.setUp()
 
 	describe('/post', function() {
 

@@ -13,7 +13,7 @@ var test = {
 	auth,
 }
 
-function setUp(spec, beforeEachPromises, afterEachPromises) {
+function setUp() {
 
 	beforeEach('test.setUp.beforeEach', function() {
 		return Promise.all([
@@ -21,23 +21,23 @@ function setUp(spec, beforeEachPromises, afterEachPromises) {
 			require('./fixture/00-init.js').load(),
 			require('./fixture/01-user.js').load(),
 			server.start()
-		].concat(beforeEachPromises || []))
+		])
 	})
 
 	afterEach('test.setUp.afterEach', function() {
 		return Promise.all([
 			server.close()
-		].concat(afterEachPromises || []))
+		])
 	})
-
+	
 }
 
-function auth(username, password) {
+function auth(username, password, status) {
 	return request(test.app).post('/auth').send({
 		username : username, password : password,
-	}).expect(function(res) {
-		return !res.body.success ? res.body : test.token = res.body.token
-	})
+	// }).expect(function(res) {
+	// 	return !res.body.success ? res.body : test.token = res.body.token
+	}).expect(status)
 }
 
 module.exports = test

@@ -8,6 +8,21 @@ describe('/auth', function() {
 
 	describe('/post', function() {
 
+		it('200: success', function() {
+			return request(test.app)
+				.post('/auth')
+			 	.send({
+					username : 'admin',
+					password : 'MTIzbXVkYXIK',
+				})
+				.expect(function(res) {
+					assert.equal(true, res.body.success)
+					assert.equal('Authentication granted successfully', res.body.message)
+					assert.notEqual(null, res.body.token)
+				})
+				.expect(200)
+		})
+
 		it('400: invalid params', function() {
 			return request(test.app)
 				.post('/auth')
@@ -16,20 +31,6 @@ describe('/auth', function() {
   				{ param: 'password', msg: 'required' },
 				])
 				.expect(400)
-		})
-
-		it('404: not found', function() {
-			return request(test.app)
-				.post('/auth')
-			 	.send({
-					username : 'Wr0nG_u$rn4m3',
-					password : 'Wr0nG_p4$$w0d',
-				})
-				.expect({
-					success: false,
-					message: 'Authentication failed. User not found',
-				})
-				.expect(404)
 		})
 
 		it('403: wrong password', function() {
@@ -46,19 +47,64 @@ describe('/auth', function() {
 				.expect(401)
 		})
 
-		it('200: success', function() {
+		it('404: not found', function() {
 			return request(test.app)
 				.post('/auth')
 			 	.send({
-					username : 'admin',
-					password : 'MTIzbXVkYXIK',
+					username : 'Wr0nG_u$rn4m3',
+					password : 'Wr0nG_p4$$w0d',
 				})
-				.expect(function(res) {
-					assert.equal(true, res.body.success)
-					assert.equal('Authentication granted successfully', res.body.message)
-					assert.notEqual(null, res.body.token)
+				.expect({
+					success: false,
+					message: 'Authentication failed. User not found',
 				})
-				.expect(200)
+				.expect(404)
+		})
+
+		describe('authMiddleware', function() {
+
+			var token = null
+
+			beforeEach(function() {
+				return test.auth('admin', 'MTIzbXVkYXIK', 200).then(function(res) {
+					token = res.body.token
+				})
+			})
+
+			it('200: body token', function() {
+				return request(test.app)
+					.get('/domain')
+				 	.send({ token : token })
+					.expect(200)
+			})
+
+			it('200: param token', function() {
+				return request(test.app)
+					.get('/domain')
+				 	.query({ token : token })
+					.expect(200)
+			})
+
+			it('200: header token', function() {
+				return request(test.app)
+					.get('/domain')
+					.set(test.config.auth.header_name, token)
+					.expect(200)
+			})
+
+			it('400: no token', function() {
+				return request(test.app)
+					.get('/domain')
+					.expect(400)
+			})
+
+			it('403: invalid token', function() {
+				return request(test.app)
+					.get('/domain')
+				 	.send({ token : '1nv4l1d_t0k3n' })
+					.expect(403)
+			})
+
 		})
 
 	})

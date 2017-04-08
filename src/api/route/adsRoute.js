@@ -14,12 +14,11 @@ router.get('/', function (req, res, next) {
     }
 
   }).then(function() {
-  	
-  	Ad.find(req.query, function(err, results) {
-			if (err)
-				next(err)
-			else
-				res.json(results)
+
+  	Ad.find(req.query).then(function(results) {
+			return res.json(results)
+		}).catch(function(err) {
+			return next(err)
 		})
 
   })

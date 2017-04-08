@@ -26,9 +26,9 @@ router.post('/', function (req, res, next) {
 		})
 
 		ad.save().then(function(ad) {
-			res.status(200).json(ad)
+			return res.status(200).json(ad)
 		}).catch(function(err) {
-			next(err)
+			return next(err)
 		})
 
 	})
@@ -50,7 +50,7 @@ router.get('/:id', function (req, res, next) {
 		Ad.findById(req.params.id).then(function(ad) {
 			res.status(ad ? 200 : 404).json(ad)
 		}).catch(function(err) {
-			next(err)
+			return next(err)
 		})
 
 	})

@@ -3,6 +3,8 @@ var config = require('../../config.js')
 
 module.exports = function(req, res, next) {
 
+	// TODO: validade w/ express validator?
+
 	var token = req.body.token || req.param('token') || req.headers[config.auth.header_name]
 
 	if (token) {
@@ -16,14 +18,14 @@ module.exports = function(req, res, next) {
 				})		
 			} else {
 				req.decoded = decoded	
-				next()
+				return next()
 			}
 
 		})
 
 	} else {
 
-		return res.status(403).send({ 
+		return res.status(400).send({ 
 			success: false, 
 			message: 'No token provided'
 		})

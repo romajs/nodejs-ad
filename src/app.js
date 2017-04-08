@@ -26,14 +26,15 @@ app.use(expressWinston.logger(config.logger))
 app.use(expressValidator())
 
 // non-authenticated routes
-app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
 app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
+app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
 
 // auth
-app.use(require('./api/middleware/authMiddleware.js'))
+app.use(require(path.join(__dirname, 'api/middleware/authMiddleware.js')))
 
 // authenticated routes
-app.use('/ad', require('./api/route/adRoute.js'))
+app.use('/ad', require(path.join(__dirname, '/api/route/adRoute.js')))
+app.use('/domain', require(path.join(__dirname, 'api/route/domainRoute.js')))
 
 // error logger
 app.use(function (err, req, res, next) {

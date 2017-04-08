@@ -1,16 +1,12 @@
-var Ad = require('../model/adModel.js')
+var Ad = require('../model/adModel.js').Ad
+var AdStatus = require('../model/adModel.js').AdStatus
 
-module.exports.create = function(params, callback) {
-
-  var ad = new Ad({
-		title : params.title,
-		details : params.details,
-	})
-
-  ad.save().then(function() {
-  	callback()
-  })
-
+module.exports.create = function(ad) {
+  return new Ad({
+		title : ad.title,
+		details : ad.details,
+		status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+	}).save()
 }
 
 module.exports.list = function(username, callback) {

@@ -34,16 +34,9 @@ describe('/ad', function() {
 				.expect(200)
 		})
 
-		it('404: no param', function() {
-			return request(test.app) 
-				.get('/ad/')
-				.set(test.config.auth.header_name, token)
-				.expect(404)
-		})
-
 		it('404: not found', function() {
 			return request(test.app) 
-				.get('/ad/' + ObjectId('Wr0ng_Obj_Id'))
+				.get('/ad/' + ObjectId())
 				.set(test.config.auth.header_name, token)
 				.expect(404)
 		})
@@ -79,6 +72,17 @@ describe('/ad', function() {
 					assert.notEqual(null, res.body._id)
 				})
 				.expect(200)
+		})
+ 
+		it('400: invalid params', function() {
+			return request(test.app)
+				.post('/ad')
+				.set(test.config.auth.header_name, token)
+				.expect([
+					{ param: 'title', msg: 'required' },
+  				{ param: 'details', msg: 'required' },
+				])
+				.expect(400)
 		})
 
 	})

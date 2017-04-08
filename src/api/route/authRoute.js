@@ -9,41 +9,51 @@ var User = UserModel.User
 
 router.post('/', function(req, res, next) {
 
-	// TODO: validate form param
-	var username = req.body.username || ''
+	req.checkBody('username', 'required').notEmpty()
+	req.checkBody('password', 'required').notEmpty()
 
-	User.findOne({ username : username }).then(function(user) {
+	req.getValidationResult().then(function(result) {
 
-		if(!user) {
-			return res.status(404).json({
-				success: false,
-				message: 'Authentication failed. User not found',
-			})
-		}
+    if (!result.isEmpty()) {
+      return res.status(400).json(result.array())
+    }
 
-		if(user.password != req.body.password) {
+  }).then(function() {
 
-			return res.status(401).json({
-				success: false,
-				message: 'Authentication failed. Wrong password',
-			})
+		User.findOne({ username : req.body.username }).then(function(user) {
 
-		} else {
+			if(!user) {
+				return res.status(404).json({
+					success: false,
+					message: 'Authentication failed. User not found',
+				})
+			}
 
-			var token = jwt.sign(user, ctx.config.auth.secret, {
-				expiresIn: ctx.config.auth.expiresIn,
-			})
+			if(user.password != req.body.password) {
 
-			return res.status(200).json({
-				success: true,
-				message: 'Authentication granted successfully',
-				token: token,
-			})
-		}
+				return res.status(401).json({
+					success: false,
+					message: 'Authentication failed. Wrong password',
+				})
 
-	}).catch(function(err) {
+			} else {
 
-		return next(err)
+				var token = jwt.sign(user, ctx.config.auth.secret, {
+					expiresIn: ctx.config.auth.expiresIn,
+				})
+
+				return res.status(200).json({
+					success: true,
+					message: 'Authentication granted successfully',
+					token: token,
+				})
+			}
+
+		}).catch(function(err) {
+
+			return next(err)
+
+		})
 
 	})
 

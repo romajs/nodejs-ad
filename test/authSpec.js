@@ -8,14 +8,14 @@ describe('/auth', function() {
 
 	describe('/post', function() {
 
-		it('404: not found (no user)', function() {
+		it('400: invalid params', function() {
 			return request(test.app)
 				.post('/auth')
-				.expect({
-					success: false,
-					message: 'Authentication failed. User not found',
-				})
-				.expect(404)
+				.expect([
+					{ param: 'username', msg: 'required' },
+  				{ param: 'password', msg: 'required' },
+				])
+				.expect(400)
 		})
 
 		it('404: not found', function() {

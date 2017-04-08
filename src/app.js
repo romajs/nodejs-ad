@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser')
 var compression = require('compression')
 var express = require('express')
+var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
 var path = require('path')
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data
 app.use(expressWinston.logger(config.logger))
+app.use(expressValidator())
 
 // non-authenticated routes
 app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))

@@ -5,6 +5,7 @@ var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
 var mongoose = require('mongoose')
 var path = require('path')
+var winston = require('winston')
 
 // config
 var config = require(path.join(__dirname, 'config.js'))
@@ -13,7 +14,9 @@ var config = require(path.join(__dirname, 'config.js'))
 var app = express()
 
 // logger
+var logger = new (winston.Logger)(config.logger)
 app.use(expressWinston.logger(config.logger))
+app.set('logger', logger)
 
 // static
 app.use(express.static(path.join(__dirname, 'web')))
@@ -23,7 +26,6 @@ app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data
-// app.use(expressWinston.logger(config.logger))
 app.use(expressValidator({
  customValidators: {
     isObjectId: function(id) {
@@ -47,13 +49,14 @@ app.use(require(path.join(__dirname, 'api/middleware/authMiddleware.js')))
 app.use('/ad', require(path.join(__dirname, '/api/route/adRoute.js')))
 app.use('/domain', require(path.join(__dirname, 'api/route/domainRoute.js')))
 
-// error logger
+// error handling
 app.use(function (err, req, res, next) {
+	logger.error(err)
 	return res.status(500).send({
 		status: 500,
 		message: 'Internal error',
 		type: 'internal_error',
-	}) && next(err)
+	})
 })
 
 module.exports = app

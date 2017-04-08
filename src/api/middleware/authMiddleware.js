@@ -1,5 +1,5 @@
+var config = require(process.env.src + '/config.js')
 var jwt = require('jsonwebtoken')
-var config = require('../../config.js')
 
 module.exports = function(req, res, next) {
 

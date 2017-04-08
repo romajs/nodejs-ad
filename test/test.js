@@ -15,23 +15,19 @@ var test = {
 
 function setUp(spec, beforeEachPromises, afterEachPromises) {
 
-	beforeEach(function(done) {
-		Promise.all([
+	beforeEach('test.setUp.beforeEach', function() {
+		return Promise.all([
 			ctx.db.dropDatabase(),
 			require('./fixture/00-init.js').load(),
 			require('./fixture/01-user.js').load(),
 			server.start()
-		].concat(beforeEachPromises || [])).then(function() {
-			done()
-		})
+		].concat(beforeEachPromises || []))
 	})
 
-	afterEach(function(done) {
-		Promise.all([
+	afterEach('test.setUp.afterEach', function() {
+		return Promise.all([
 			server.close()
-		].concat(afterEachPromises || [])).then(function() {
-			done()
-		})
+		].concat(afterEachPromises || []))
 	})
 
 }

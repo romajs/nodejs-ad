@@ -8,18 +8,18 @@ describe('/auth', function() {
 
 	describe('/post', function() {
 
-		it('404: not found (no user)', function(done) {
-			request(test.app)
+		it('404: not found (no user)', function() {
+			return request(test.app)
 				.post('/auth')
 				.expect({
 					success: false,
 					message: 'Authentication failed. User not found',
 				})
-				.expect(404, done)
+				.expect(404)
 		})
 
-		it('404: not found', function(done) {
-			request(test.app)
+		it('404: not found', function() {
+			return request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'Wr0nG_u$rn4m3',
@@ -29,11 +29,11 @@ describe('/auth', function() {
 					success: false,
 					message: 'Authentication failed. User not found',
 				})
-				.expect(404, done)
+				.expect(404)
 		})
 
-		it('403: wrong password', function(done) {
-			request(test.app)
+		it('403: wrong password', function() {
+			return request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'admin',
@@ -43,11 +43,11 @@ describe('/auth', function() {
 					success: false,
 					message: 'Authentication failed. Wrong password',
 				})
-				.expect(401, done)
+				.expect(401)
 		})
 
-		it('200: success', function(done) {
-			request(test.app)
+		it('200: success', function() {
+			return request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'admin',
@@ -58,7 +58,7 @@ describe('/auth', function() {
 					assert(res.body.success)
 					assert.equal('Authentication granted successfully', res.body.message)
 				})
-				.expect(200, done)
+				.expect(200)
 		})
 
 	})

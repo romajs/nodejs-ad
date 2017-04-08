@@ -3,14 +3,16 @@ var express = require('express')
 var router = express.Router()
 var jwt = require('jsonwebtoken')
 
-var userService = require(process.env.src + '/api/service/user.js')
+var UserModel = require(process.env.src + '/api/model/userModel.js')
+
+var User = UserModel.User
 
 router.post('/', function(req, res, next) {
 
 	// TODO: validate form param
 	var username = req.body.username || ''
 
-	userService.get_by_username(username).then(function(user) {
+	User.findOne({ username : username }).then(function(user) {
 
 		if(!user) {
 			return res.status(404).json({
@@ -40,7 +42,9 @@ router.post('/', function(req, res, next) {
 		}
 
 	}).catch(function(err) {
+
 		return next(err)
+
 	})
 
 })

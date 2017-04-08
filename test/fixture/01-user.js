@@ -4,7 +4,7 @@ module.exports.load = function() {
 
 	return new Promise(function(resolve, reject) {
 
-		var User = require('../../src/api/model/userModel.js')
+		var User = require('../../src/api/model/userModel.js').User
 
 		var admin = new User({
 			username : 'admin',

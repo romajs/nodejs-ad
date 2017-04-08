@@ -54,9 +54,9 @@ describe('/auth', function() {
 					password : 'MTIzbXVkYXIK',
 				})
 				.expect(function(res) {
-					assert(res.body.token)
-					assert(res.body.success)
+					assert.equal(true, res.body.success)
 					assert.equal('Authentication granted successfully', res.body.message)
+					assert.notEqual(null, res.body.token)
 				})
 				.expect(200)
 		})

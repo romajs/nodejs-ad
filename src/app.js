@@ -23,16 +23,15 @@ app.use(bodyParser.json())
 // TODO: accept multipart/form-data
 app.use(expressWinston.logger(config.logger))
 
-// non-authenticated resources
-app.use('/auth', require(path.join(__dirname, 'api/resource/auth.js')))
-app.use('/ads', require(path.join(__dirname, 'api/resource/ads.js')))
+// non-authenticated routes
+app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
+app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
 
 // auth
-app.use(require('./api/middleware/auth.js'))
+app.use(require('./api/middleware/authMiddleware.js'))
 
-// authenticated resources
-app.use('/ad', require('./api/resource/ad.js'))
-// app.use('/user', require('./api/resource/user.js'))
+// authenticated routes
+app.use('/ad', require('./api/route/adRoute.js'))
 
 // error logger
 app.use(function (err, req, res, next) {

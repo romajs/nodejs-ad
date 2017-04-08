@@ -15,13 +15,16 @@ var AdStatus = Enum([
 	'EXPIRED'
 ])
 
-var Ad = mongoose.model('Ad', new Schema({
+var AdSchema = new Schema({
   title:  String,
   details: String,
   status: { type: String, enum: Object.keys(AdStatus) },
-}))
+})
+
+var Ad = mongoose.model('Ad', AdSchema)
 
 module.exports = {
 	Ad,
+	AdSchema,
 	AdStatus,
 }

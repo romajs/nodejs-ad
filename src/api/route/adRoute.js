@@ -1,11 +1,18 @@
 var express = require('express')
 var router = express.Router()
 
-var adService = require(process.env.src + '/api/service/ad.js')
-var Ad = require(process.env.src + '/api/model/adModel.js').Ad
+var AdModel = require(process.env.src + '/api/model/adModel.js')
+
+var Ad = AdModel.Ad
+var AdStatus = AdModel.AdStatus
 
 router.post('/', function (req, res, next) {
-	adService.create(req.body).then(function(ad) {
+	var ad = new Ad({
+		title : req.body.title,
+		details : req.body.details,
+		status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+	})
+	ad.save().then(function(ad) {
 		res.status(200).json(ad)
 	}).catch(function(err) {
 		next(err)

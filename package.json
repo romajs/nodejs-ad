@@ -9,7 +9,7 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
-    "start": "nodemon ./src/server.js",
+    "start": "nodemon ./src/server.js start",
     "test": "mocha"
   },
   "author": "@romajs",
@@ -20,6 +20,7 @@
     "express": "^4.15.2",
     "express-winston": "^2.3.0",
     "jsonwebtoken": "^7.3.0",
+    "make-runnable": "^1.1.1",
     "mongoose": "^4.9.3",
     "path": "^0.12.7",
     "winston": "^2.3.0"

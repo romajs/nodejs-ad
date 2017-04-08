@@ -10,10 +10,7 @@ router.post('/', function(req, res, next) {
 	// TODO: validate form param
 	var username = req.body.username || ''
 
-	userService.get_by_username(username, function(err, user) {
-
-		if(err)
-			return next(err)
+	userService.get_by_username(username).then(function(user) {
 
 		if(!user) {
 			return res.status(404).json({
@@ -42,6 +39,8 @@ router.post('/', function(req, res, next) {
 			})
 		}
 
+	}).catch(function(err) {
+		return next(err)
 	})
 
 })

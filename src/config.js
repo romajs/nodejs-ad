@@ -1,14 +1,21 @@
 var winston = require('winston')
 
-process.env.NODE_ENV = 'dev'
+var configs = new Object(), env = process.env.NODE_ENV
 
-function config(env) {
+function config(env, callback) {
+	callback(configs[env] = baseConfig())
+}
 
-	var baseConfig = {
+function baseConfig() {
+	return {
 		auth : {
 			header_name : 'x-access-token',
 			secret : 'JHVwM3JfJDNjcjM3Cg==',
 			expiresIn : 86400 // expires in 24 hours
+		},
+		http : {
+			host : '127.0.0.1',
+			port : 8000
 		},
 		logger : {
 			transports: [
@@ -23,29 +30,31 @@ function config(env) {
 			colorize: true
 		},
 		mongodb : {
+			host : 'localhost',
+			port : 27017,
 			protocol : 'mongodb',
-			host : process.env.MONGODB_HOST || 'localhost',
-			port : process.env.MONGODB_PORT || 27017,
 			dbname : 'nodejs-ad',
 			url : function() {
 				return [this.protocol, '://', this.host, ':', this.port, '/', this.dbname].join('')
 			}
-		},
-		http : {
-			host : process.env.HTTP_HOST || '127.0.0.1',
-			port : process.env.HTTP_PORT || 8000
 		}
 	}
-
-	var configs = {}
-
-	configs.dev = Object.assign(baseConfig)
-	configs.dev.mongodb.host = 'localhost'
-	configs.dev.mongodb.port = 27017
-	configs.dev.mongodb.dbname = 'nodejs-ad'
-
-	return configs[env]
-
 }
 
-module.exports = config(process.env.NODE_ENV)
+config('dev', function(config) {
+	config.http.host = '127.0.0.1'
+	config.http.port = 8000
+	config.mongodb.dbname = 'nodejs-ad'
+	config.mongodb.host = 'localhost'
+	config.mongodb.port = 27017
+})
+
+config('test', function(config) {
+	config.http.host = '127.0.0.1'
+	config.http.port = 8001
+	config.mongodb.dbname = 'nodejs-ad-test'
+	config.mongodb.host = 'localhost'
+	config.mongodb.port = 27017
+})
+
+module.exports = configs[env]

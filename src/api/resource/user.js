@@ -1,4 +1,3 @@
-var ctx = require(process.env.src + '/ctx.js')
 var express = require('express')
 var router = express.Router()
 

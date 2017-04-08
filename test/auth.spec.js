@@ -1,17 +1,15 @@
 var assert = require('assert')
 var request = require('supertest')
-var util = require('./util.js')
+var test = require('./test.js')
 
 describe('/auth', function() {
 
-	var u = util(this)
-	// beforeEach(u.setUp)
-	// afterEach(u.tearDown)
+	test.setUp(this)
 
 	describe('/post', function() {
 
 		it('404: not found (no user)', function(done) {
-			request(u.app)
+			request(test.app)
 				.post('/auth')
 				.expect({
 					success: false,
@@ -21,7 +19,7 @@ describe('/auth', function() {
 		})
 
 		it('404: not found', function(done) {
-			request(u.app)
+			request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'Wr0nG_u$rn4m3',
@@ -35,7 +33,7 @@ describe('/auth', function() {
 		})
 
 		it('403: wrong password', function(done) {
-			request(u.app)
+			request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'admin',
@@ -49,7 +47,7 @@ describe('/auth', function() {
 		})
 
 		it('200: success', function(done) {
-			request(u.app)
+			request(test.app)
 				.post('/auth')
 			 	.send({
 					username : 'admin',

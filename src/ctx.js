@@ -1,4 +1,5 @@
-// src
+// env
+process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 process.env.src = process.env.src || __dirname
 
 // config
@@ -24,7 +25,9 @@ db.once('open', function() {
 // express
 var app = require(process.env.src + '/app.js')
 
+// info
 logger.info('process.env.src: %s', process.env.src)
+logger.info('process.env.NODE_ENV: %s', process.env.NODE_ENV)
 
 module.exports.app = app
 module.exports.config = config

@@ -35,6 +35,36 @@ router.post('/', function (req, res, next) {
 
 })
 
+router.put('/:id', function (req, res, next) {
+
+	req.checkParams('id', 'invalid').isObjectId()
+	req.checkBody('title', 'required').notEmpty()
+	req.checkBody('details', 'required').notEmpty()
+
+	req.getValidationResult().then(function(result) {
+
+    if (!result.isEmpty()) {
+      return res.status(400).json(result.array())
+    }
+
+  }).then(function() {
+
+		var ad = {
+			title : req.body.title,
+			details : req.body.details,
+			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+		}
+
+		Ad.findByIdAndUpdate(req.params.id, { $set: ad }, { new: true }).then(function(ad) {
+			return res.status(ad ? 200 : 404).json(ad)
+		}).catch(function(err) {
+			return next(err)
+		})
+
+	})
+
+})
+
 router.get('/:id', function (req, res, next) {
 
 	req.checkParams('id').isObjectId()

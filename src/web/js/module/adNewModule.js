@@ -92,10 +92,9 @@ angular.module('app.adNew' , [
 	$scope.confirm = function() {
 		console.info($scope.adForm.$valid, $scope.ad)
 		if($scope.adForm.$valid) {
-			adService.create($scope.ad).then(function(result) {
-				console.info(result)
-				if(result) {
-					$state.go('ad', { id: result} )
+			adService.create($scope.ad).then(function(res) {
+				if(res.status == 200 && res.data) {
+					$state.go('ad', { id: res.data._id} )
 				}
 			})
 		}

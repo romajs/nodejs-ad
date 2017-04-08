@@ -15,8 +15,8 @@ angular.module('app.ads' , [
 
 .controller('adsController', function($scope, adsService) {
 
-	adsService.list().then(function(ads) {
-		$scope.ads = ads.data
+	adsService.list().then(function(res) {
+		$scope.ads = res.data
 	})
 
 })

@@ -1,6 +1,22 @@
-<div class="jumbotron">
+<div class="jumbotron" ng-if="ad.status == 'PENDING'">
   <h1>Seu anúncio esta sendo criado</h1>
   <p>Fique tranquilo, estamos providenciando tudo para você ;)</p>
   <p>Dentro de instantes seu anúncio estará disponível em nossas páginas de pesquisa</p>
   <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+</div>
+<div class="jumbotron" ng-if="ad.status == 'REPROVED' || ad.status == 'BANNED'">
+  <h1>Este anúncio foi removido</h1>
+  <p>Lamentamos pelo inconveniente</p>
+  <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+</div>
+<div class="jumbotron" ng-if="ad.status == 'EXPIRED'">
+  <h1>Este anúncio expirou</h1>
+  <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+</div>
+<div ng-if="ad.status == 'APPROVED'">
+	<h3>Anúncio # {{ad._id}}</h3>
+    <label>Título</label>
+    <p>{{ad.title}}</p>
+    <label>Detalhes</label>
+    <p>{{ad.details}}</p>
 </div>

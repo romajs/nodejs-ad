@@ -13,8 +13,10 @@ angular.module('app.ad' , [
 	})
 })
 
-.controller('adController', function($scope, $stateParams) {
+.controller('adController', function($scope, $stateParams, adService) {
 
-	$scope.id = $stateParams.id
+	adService.get($stateParams.id).then(function(res) {
+		$scope.ad = res.data;
+	})
 
 })

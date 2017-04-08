@@ -34,6 +34,16 @@ describe('/ad', function() {
 				.expect(200)
 		})
 
+		it('400: invalid id', function() {
+			return request(test.app) 
+				.get('/ad/' + '1nv4l1d_1d')
+				.set(test.config.auth.header_name, token)
+				.expect([
+					{ param: 'id', msg: 'Invalid value', value: '1nv4l1d_1d' },
+				])
+				.expect(400)
+		})
+
 		it('404: not found', function() {
 			return request(test.app) 
 				.get('/ad/' + ObjectId())

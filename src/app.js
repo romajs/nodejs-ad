@@ -3,6 +3,7 @@ var compression = require('compression')
 var express = require('express')
 var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
+var mongoose = require('mongoose')
 var path = require('path')
 
 // config
@@ -22,8 +23,18 @@ app.use(compression())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // TODO: accept multipart/form-data
-app.use(expressWinston.logger(config.logger))
-app.use(expressValidator())
+// app.use(expressWinston.logger(config.logger))
+app.use(expressValidator({
+ customValidators: {
+    isObjectId: function(id) {
+    		try {
+    			return mongoose.Types.ObjectId(id)
+    		} catch(err) {
+    			return false
+    		}
+    },
+ }
+}))
 
 // non-authenticated routes
 app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
@@ -38,12 +49,11 @@ app.use('/domain', require(path.join(__dirname, 'api/route/domainRoute.js')))
 
 // error logger
 app.use(function (err, req, res, next) {
-	res.status(500).send({
+	return res.status(500).send({
 		status: 500,
 		message: 'Internal error',
 		type: 'internal_error',
-	})
-	next(err)
+	}) && next(err)
 })
 
 module.exports = app

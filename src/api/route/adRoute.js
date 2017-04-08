@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
 
-	req.checkParams('id', 'required').notEmpty()
+	req.checkParams('id').isObjectId()
 
 	req.getValidationResult().then(function(result) {
 

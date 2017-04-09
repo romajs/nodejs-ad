@@ -79,9 +79,9 @@ Misc:
 - [ ] user authentication
 
 Forms:
-- [ ] Form validation
+- [x] Drag and drop file upload
+- [x] Form validation
 - [ ] Rich text (quill and ngQuill)
-- [ ] Drag and drop file upload
 
 Dependency control
 - [x] bower

@@ -13,7 +13,7 @@ angular.module('app.ad' , [
 	})
 })
 
-.controller('adController', function($scope, $stateParams, adService, $http) {
+.controller('adController', function($scope, $stateParams, adService, uploadService) {
 
 	$scope.ad = null
 	$scope.uploads = []
@@ -23,9 +23,9 @@ angular.module('app.ad' , [
 		$scope.ad = res.data
 		console.info($scope.ad)
 
-		$scope.ad.upload_ids.forEach(function(_id) {
+		$scope.ad.upload_ids.forEach(function(id) {
 
-			$http.get('/upload/' + _id).then(function(res){
+			uploadService.get(id).then(function(res){
 				$scope.uploads.push(res.data)
 				console.info(res.data)
 			})

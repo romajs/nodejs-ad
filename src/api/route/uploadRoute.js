@@ -1,6 +1,8 @@
-var express = require('express')
 var formidable = require('formidable')
+var fs = require('fs')
 var path = require('path')
+
+var express = require('express')
 var router = express.Router()
 
 var UploadModel = require(process.env.src + '/api/model/uploadModel.js')
@@ -78,6 +80,38 @@ router.get('/:id', function (req, res, next) {
 			return res.status(upload ? 200 : 404).json(upload)
 		}).catch(function(err) {
 			return next(err)
+		})
+
+	})
+
+})
+
+router.delete('/:id', function (req, res, next) {
+
+	req.checkParams('id').isObjectId()
+
+	req.getValidationResult().then(function(result) {
+
+    if (!result.isEmpty()) {
+      return res.status(400).json(result.array())
+    }
+
+  }).then(function() {
+  	
+		Upload.findById(req.params.id).then(function(upload) {
+
+  		fs.unlink(upload.path, function(err) {
+
+  			if(err) return next(err)
+
+  			upload.remove().then(function() {
+					return res.status(200).end()
+				}).catch(function(err) {
+					return next(err)
+				})
+
+  		})
+
 		})
 
 	})

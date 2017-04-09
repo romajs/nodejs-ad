@@ -16,7 +16,7 @@ angular.module('app.adNew' , [
 	})
 })
 
-.controller('adNewController', function($scope, $state, $timeout, Upload, adService) {
+.controller('adNewController', function($scope, $state, $timeout, Upload, adService, uploadService) {
 
 	$scope.ad = {
 		title : 'Teste',
@@ -79,7 +79,13 @@ angular.module('app.adNew' , [
 
           $timeout(function() {
           	console.info('successfully uploaded: file.name="%s"', res.config.data.file.name)
+          	
+          	files.find(function(file) {
+	        		return file.name === res.config.data.file.name
+	        	}).upload_id = res.data._id
+
           	$scope.uploads.push(res.data)
+
           })
 
         }, null, function (evt) {
@@ -96,6 +102,24 @@ angular.module('app.adNew' , [
       }
     })
 
+  }
+
+  $scope.removeFile = function(name) {
+  	
+  	var fileIndex = $scope.files.findIndex(function(file) {
+  		return file.name == name
+  	})
+  	
+  	$scope.files.splice(fileIndex, 1)
+
+  	var uploadIndex = $scope.uploads.findIndex(function(upload) {
+  		return upload.name == name
+  	})
+  	
+  	var upload = $scope.uploads.splice(uploadIndex, 1)[0]
+  	uploadService.delete(upload._id)
+
+  	console.info('removed: file.name="%s"', name)
   }
 
 	$scope.cancel = function() {

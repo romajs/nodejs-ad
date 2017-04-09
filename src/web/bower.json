@@ -21,6 +21,7 @@
     "ngQuill": "ng-quill#^3.0.1",
     "angular-quill": "^0.9.1",
     "ng-file-upload": "^12.2.13",
-    "angular-jwt": "^0.1.9"
+    "angular-jwt": "^0.1.9",
+    "font-awesome": "^4.7.0"
   }
 }

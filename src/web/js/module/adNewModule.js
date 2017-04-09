@@ -9,7 +9,7 @@ angular.module('app.adNew' , [
 	$stateProvider.state('ad-new', {
 		url: '/ad-new',
 		controller: 'adNewController',
-		templateUrl: '/html/ad-new.html',
+		templateUrl: '/html/adNew.html',
 		data: {
 			requireAuthentication: false,
 		}

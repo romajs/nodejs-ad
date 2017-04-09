@@ -1,10 +1,8 @@
-var ctx = require('../../src/ctx.js')
-
 module.exports.load = function() {
 
 	return new Promise(function(resolve, reject) {
 
-		var User = require('../../src/api/model/userModel.js').User
+		var User = rootRequire('api/model/userModel').User
 
 		var admin = new User({
 			username : 'admin',
@@ -19,5 +17,3 @@ module.exports.load = function() {
 	})
 
 }
-
-require('make-runnable')

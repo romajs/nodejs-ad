@@ -1,6 +1,6 @@
 var assert = require('assert')
 var request = require('supertest')
-var test = require('./test.js')
+var test = require('./test')
 
 describe('/ads', function() {
 

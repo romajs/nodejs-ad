@@ -9,7 +9,7 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint src",
-    "start": "nodemon ./src/server.js start",
+    "start": "nodemon ./src/server.js",
     "test": "mocha"
   },
   "author": "@romajs",

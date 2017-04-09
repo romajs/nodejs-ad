@@ -1,6 +1,6 @@
 var assert = require('assert')
 var request = require('supertest')
-var test = require('./test.js')
+var test = require('./test')
 var ObjectId = require('mongoose').Types.ObjectId
 
 describe('/ad', function() {

@@ -1,3 +1,4 @@
+var blocked = require('blocked')
 var bodyParser = require('body-parser')
 var compression = require('compression')
 var express = require('express')
@@ -28,7 +29,11 @@ var config = rootRequire('config')
 
 // logger
 var logger = rootRequire('logger')
-logger.info('APP_DIR: %s', APP_DIR)
+
+// blocked
+blocked(function(ms) {
+	logger.warn('blocked for %sms', ms | 0)
+})
 
 // app
 var app = express()
@@ -76,4 +81,43 @@ app.use(function (err, req, res, next) {
 	})
 })
 
-module.exports = app
+// mongo/db
+mongoose.connect(config.mongodb.url())
+mongoose.Promise = global.Promise
+
+var db = mongoose.connection
+
+db.on('error', logger.error)
+
+db.once('open', function() {
+  logger.info('MongoDB/mongoose connected successfully at: %s', config.mongodb.url())
+})
+
+// server http/https?
+var server = null
+
+function start() {
+	return new Promise(function(resolve, reject) {
+		server = app.listen(config.http.port, config.http.host, function () {
+			logger.info('App listening on:', server.address())
+			logger.info('APP_DIR="%s", process.env.NODE_ENV="%s"', APP_DIR, process.env.NODE_ENV)
+			resolve(server)
+		})
+	})
+}
+
+function close() {
+	return new Promise(function(resolve, reject) {
+		resolve(server.close())
+	})
+}
+
+module.exports = {
+	app,
+	close,
+	config,
+	db,
+	logger,
+	server,
+	start,
+}

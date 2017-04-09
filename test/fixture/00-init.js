@@ -1,5 +1,3 @@
-var ctx = require('../../src/ctx.js')
-
 module.exports.load = function() {
 
 	return new Promise(function(resolve, reject) {
@@ -10,5 +8,3 @@ module.exports.load = function() {
 	})
 
 }
-
-require('make-runnable')

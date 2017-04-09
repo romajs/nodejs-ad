@@ -16,7 +16,7 @@ var AdStatus = Enum([
 ])
 
 var AdSchema = new Schema({
-  title:  String,
+  title: String,
   details: String,
   status: { type: String, enum: Object.keys(AdStatus) },
 })

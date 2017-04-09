@@ -23,6 +23,7 @@ router.post('/', function (req, res, next) {
 			title : req.body.title,
 			details : req.body.details,
 			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			user_id: req.auth.user._id,
 		})
 
 		ad.save().then(function(ad) {
@@ -53,6 +54,7 @@ router.put('/:id', function (req, res, next) {
 			title : req.body.title,
 			details : req.body.details,
 			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			user_id: req.auth.user._id,
 		}
 
 		Ad.findByIdAndUpdate(req.params.id, { $set: ad }, { new: true }).then(function(ad) {

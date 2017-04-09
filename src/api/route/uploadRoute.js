@@ -40,10 +40,11 @@ router.post('/', function (req, res, next) {
     console.log('received file:', name, file.name, file.path, file.type, file.size)
 
     var upload = new Upload({
-			name : file.name,
-			path : file.path,
-			type : file.type,
+			name: file.name,
+			path: file.path,
+			type: file.type,
 			size: file.size,
+			user_id: req.auth.user._id,
 		})
 
     uploadPromises.push(upload.save())

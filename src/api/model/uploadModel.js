@@ -6,6 +6,7 @@ var UploadSchema = new Schema({
   path: String,
   type: String,
   size: Number,
+  user_id: { type: Schema.ObjectId, ref: 'User' },
 })
 
 var Upload = mongoose.model('Upload', UploadSchema)

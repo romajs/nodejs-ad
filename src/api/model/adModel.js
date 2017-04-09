@@ -19,6 +19,7 @@ var AdSchema = new Schema({
   title: String,
   details: String,
   status: { type: String, enum: Object.keys(AdStatus) },
+  user_id: { type: Schema.ObjectId, ref: 'User' },
 })
 
 var Ad = mongoose.model('Ad', AdSchema)

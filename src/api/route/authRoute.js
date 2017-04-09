@@ -38,7 +38,13 @@ router.post('/', function(req, res, next) {
 
 			} else {
 
-				var token = jwt.sign(user, config.auth.secret, {
+				var json = {
+					__v : user.__v,
+					_id : user._id,
+					username: user.username,
+				}
+
+				var token = jwt.sign(json, config.auth.secret, {
 					expiresIn: config.auth.expiresIn,
 				})
 

@@ -1,6 +1,10 @@
 var config = require(process.env.src + '/config.js')
 var jwt = require('jsonwebtoken')
 
+var UserModel = require(process.env.src + '/api/model/userModel.js')
+
+var User = UserModel.User
+
 module.exports = function(req, res, next) {
 
 	// TODO: validade w/ express validator?
@@ -17,8 +21,18 @@ module.exports = function(req, res, next) {
 					message: 'Failed to authenticate token',
 				})		
 			} else {
-				req.decoded = decoded	
-				return next()
+
+				User.findById(decoded._id).then(function(user) {
+					req.auth = {
+						token,
+						decoded,
+						user,
+					}
+					return next()
+				}).catch(function(err) {
+					return next(err)
+				})
+				
 			}
 
 		})

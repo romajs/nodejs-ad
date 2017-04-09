@@ -20,7 +20,7 @@ router.post('/', function (req, res, next) {
   form.maxFieldsSize = 1024 * 1024 * 2 // 2 MB
   form.multiples = false
   form.type = 'multipart'
-  form.uploadDir = './attachments'
+  form.uploadDir = rootPath('attachments')
 
   form.on('progress', function (recv, total) {
     logger.info('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)

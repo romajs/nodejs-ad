@@ -1,15 +1,3 @@
-global.rootRequire = function(name) {
-	return require(__dirname + '/' + name)
-}
-
-global.Enum = function (arr) {
-	var obj = {}
-	arr.forEach(function(e) { obj[e] = e })
-	return obj
-}
-
-// global.APP_DIR = process.env.PWD
-
 var bodyParser = require('body-parser')
 var compression = require('compression')
 var express = require('express')
@@ -18,8 +6,29 @@ var expressWinston = require('express-winston')
 var mongoose = require('mongoose')
 var path = require('path')
 
+// globals
+global.APP_DIR = process.cwd()
+
+global.rootRequire = function(name) {
+	return require(__dirname + '/' + name)
+}
+
+global.rootPath = function(name) {
+	return path.resolve(APP_DIR + '/' + name)
+}
+
+global.Enum = function (arr) {
+	var obj = {}
+	arr.forEach(function(e) { obj[e] = e })
+	return obj
+}
+
 // config
 var config = rootRequire('config')
+
+// logger
+var logger = rootRequire('logger')
+logger.info('APP_DIR: %s', APP_DIR)
 
 // app
 var app = express()

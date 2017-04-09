@@ -1,12 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-function Enum(arr) {
-	var obj = {}
-	arr.forEach(function(e) { obj[e] = e })
-	return obj
-}
-
 var AdStatus = Enum([
 	'PENDING',
 	'APPROVED',

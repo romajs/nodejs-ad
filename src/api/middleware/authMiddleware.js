@@ -1,11 +1,9 @@
-var config = require(process.env.src + '/config.js')
+var config = rootRequire('config')
 var jwt = require('jsonwebtoken')
 
-var UserModel = require(process.env.src + '/api/model/userModel.js')
+var User = rootRequire('api/model/userModel').User
 
-var User = UserModel.User
-
-module.exports = function(req, res, next) {
+function AuthMiddleware(req, res, next) {
 
 	// TODO: validade w/ express validator?
 
@@ -45,5 +43,7 @@ module.exports = function(req, res, next) {
 		})
 		
 	}
-	
+
 }
+
+module.exports = AuthMiddleware

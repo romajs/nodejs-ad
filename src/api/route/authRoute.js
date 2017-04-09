@@ -1,11 +1,10 @@
-var config = require(process.env.src + '/config.js')
-var express = require('express')
-var router = express.Router()
+var User = rootRequire('api/model/userModel').User
+
+var config = rootRequire('config')
 var jwt = require('jsonwebtoken')
 
-var UserModel = require(process.env.src + '/api/model/userModel.js')
-
-var User = UserModel.User
+var express = require('express')
+var router = express.Router()
 
 router.post('/', function(req, res, next) {
 

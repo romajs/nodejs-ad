@@ -1,9 +1,7 @@
+var Ad = rootRequire('api/model/adModel').Ad
+
 var express = require('express')
 var router = express.Router()
-
-var AdModel = require(process.env.src + '/api/model/adModel.js')
-
-var Ad = AdModel.Ad
 
 router.get('/', function (req, res, next) {
 

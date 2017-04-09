@@ -7,7 +7,7 @@ var config = require(process.env.src + '/config.js')
 
 // express
 var app = require(process.env.src + '/app.js')
-var logger = app.get('logger')
+var logger = require(process.env.src + '/logger.js')
 
 // mongodb
 var mongoose = require('mongoose')

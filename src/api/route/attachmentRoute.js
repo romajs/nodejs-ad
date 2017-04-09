@@ -1,18 +1,15 @@
+var AttachmentModel = rootRequire('api/model/attachmentModel'),
+	Attachment = AttachmentModel.Attachment, 
+	AttachmentStatus = AttachmentModel.AttachmentStatus
+
 var formidable = require('formidable')
 var fs = require('fs')
-var path = require('path')
+var logger = rootRequire('logger')
 
 var express = require('express')
 var router = express.Router()
 
-var AttachmentModel = require(process.env.src + '/api/model/attachmentModel.js')
-
-var Attachment = AttachmentModel.Attachment
-var AttachmentStatus = AttachmentModel.AttachmentStatus
-
 router.post('/', function (req, res, next) {
-
-	// TODO: winston logger
 
   var form = new formidable.IncomingForm()
 
@@ -26,7 +23,7 @@ router.post('/', function (req, res, next) {
   form.uploadDir = './attachments'
 
   form.on('progress', function (recv, total) {
-    console.log('#### received: (%s / %s bytes) %s %', recv, total, Number(recv / total * 100).toFixed(2))
+    logger.info('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)
 	})
 
   form.on('error', function (err) {
@@ -34,7 +31,7 @@ router.post('/', function (req, res, next) {
   })
 
   form.on('aborted', function (name, file) {
-    console.log('aborted ', arguments)
+    logger.warn('aborted: name="%s", path="%s", type="%s", size=%s bytes', file.name, file.path, file.type, file.size)
 		res.status(308).end()
   })
 
@@ -42,7 +39,7 @@ router.post('/', function (req, res, next) {
 
   	var file = files.file
 
-  	console.log('received file:', fields, file.name, file.path, file.type, file.size)
+  	logger.info('file: name="%s", path="%s", type="%s", size=%s bytes', file.name, file.path, file.type, file.size)
 
   	var attachment = new Attachment({
 			name: file.name,

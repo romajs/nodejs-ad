@@ -1,3 +1,15 @@
+global.rootRequire = function(name) {
+	return require(__dirname + '/' + name)
+}
+
+global.Enum = function (arr) {
+	var obj = {}
+	arr.forEach(function(e) { obj[e] = e })
+	return obj
+}
+
+// global.APP_DIR = process.env.PWD
+
 var bodyParser = require('body-parser')
 var compression = require('compression')
 var express = require('express')
@@ -5,18 +17,12 @@ var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
 var mongoose = require('mongoose')
 var path = require('path')
-var winston = require('winston')
 
 // config
-var config = require(path.join(__dirname, 'config.js'))
+var config = rootRequire('config')
 
 // app
 var app = express()
-
-// logger
-var logger = new (winston.Logger)(config.logger)
-app.use(expressWinston.logger(config.logger))
-app.set('logger', logger)
 
 // static
 app.use(express.static(path.join(__dirname, 'web')))
@@ -36,19 +42,20 @@ app.use(expressValidator({
     },
  }
 }))
+app.use(expressWinston.logger(config.logger))
 
 // non-authenticated routes
-app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
-app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
-app.use('/attachment', require(path.join(__dirname, 'api/route/attachmentViewRoute.js')))
+app.use('/ads', rootRequire('api/route/adsRoute'))
+app.use('/auth', rootRequire('api/route/authRoute'))
+app.use('/attachment', rootRequire('api/route/attachmentViewRoute'))
 
 // auth
-app.use(require(path.join(__dirname, 'api/middleware/authMiddleware.js')))
+app.use(rootRequire('api/middleware/authMiddleware'))
 
 // authenticated routes
-app.use('/ad', require(path.join(__dirname, '/api/route/adRoute.js')))
-app.use('/attachment', require(path.join(__dirname, 'api/route/attachmentRoute.js')))
-app.use('/domain', require(path.join(__dirname, 'api/route/domainRoute.js')))
+app.use('/ad', rootRequire('/api/route/adRoute'))
+app.use('/attachment', rootRequire('api/route/attachmentRoute'))
+app.use('/domain', rootRequire('api/route/domainRoute'))
 
 // error handling
 app.use(function (err, req, res, next) {

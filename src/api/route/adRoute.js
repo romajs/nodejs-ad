@@ -1,14 +1,13 @@
+var AdModel = rootRequire('api/model/adModel'),
+	Ad = AdModel.Ad,
+	AdStatus = AdModel.AdStatus
+
+var AttachmentModel = rootRequire('api/model/attachmentModel'),
+	Attachment = AttachmentModel.Attachment,
+	AttachmentStatus = AttachmentModel.AttachmentStatus
+
 var express = require('express')
 var router = express.Router()
-
-var AdModel = require(process.env.src + '/api/model/adModel.js')
-var AttachmentModel = require(process.env.src + '/api/model/attachmentModel.js')
-
-var Ad = AdModel.Ad
-var AdStatus = AdModel.AdStatus
-
-var Attachment = AttachmentModel.Attachment
-var AttachmentStatus = AttachmentModel.AttachmentStatus
 
 router.post('/', function (req, res, next) {
 

@@ -1,9 +1,9 @@
-var express = require('express')
-var path = require('path')
-var router = express.Router()
+var Attachment = rootRequire('api/model/attachmentModel').Attachment
 
-var AttachmentModel = require(process.env.src + '/api/model/attachmentModel.js')
-var Attachment = AttachmentModel.Attachment
+var path = require('path')
+
+var express = require('express')
+var router = express.Router()
 
 router.get('/:id', function (req, res, next) {
 
@@ -41,7 +41,7 @@ router.get('/:id/download', function (req, res, next) {
   	
 		Attachment.findById(req.params.id).then(function(attachment) {
 			if(attachment) {
-				var file_path = path.resolve(process.env.src + '/../' + attachment.path)
+				var file_path = path.resolve(process.env.src + '/../' + attachment.path) // FIXME
 				res.status(200).sendFile(file_path)
 			} else {
 				res.status(404).end()

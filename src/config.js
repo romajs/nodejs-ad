@@ -1,7 +1,5 @@
 var winston = require('winston')
 
-var configs = new Object(), env = process.env.NODE_ENV
-
 function config(env, callback) {
 	callback(configs[env] = baseConfig())
 }
@@ -41,6 +39,8 @@ function baseConfig() {
 	}
 }
 
+var configs = new Object()
+
 config('dev', function(config) {
 	config.http.host = '127.0.0.1'
 	config.http.port = 8000
@@ -56,5 +56,7 @@ config('test', function(config) {
 	config.mongodb.host = 'localhost'
 	config.mongodb.port = 27017
 })
+
+var env = process.env.NODE_ENV || 'dev'
 
 module.exports = configs[env]

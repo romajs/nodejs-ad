@@ -2,9 +2,13 @@ var express = require('express')
 var router = express.Router()
 
 var AdModel = require(process.env.src + '/api/model/adModel.js')
+var UploadModel = require(process.env.src + '/api/model/uploadModel.js')
 
 var Ad = AdModel.Ad
 var AdStatus = AdModel.AdStatus
+
+var Upload = UploadModel.Upload
+var UploadStatus = UploadModel.UploadStatus
 
 router.post('/', function (req, res, next) {
 
@@ -20,15 +24,32 @@ router.post('/', function (req, res, next) {
   }).then(function() {
 
 		var ad = new Ad({
-			title : req.body.title,
-			details : req.body.details,
-			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			title: req.body.title,
+			details: req.body.details,
+			status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
 			user_id: req.auth.user._id,
 			upload_ids: req.body.upload_ids,
 		})
 
 		ad.save().then(function(ad) {
-			return res.status(200).json(ad)
+
+			var uploadPromises = []
+
+			ad.upload_ids.forEach(function(upload_id) {
+
+				var upload = {
+					status: UploadStatus.STEADY,
+				}
+
+				var uploadPromise = Upload.findByIdAndUpdate(upload_id, {$set: upload }, { new: true })
+				uploadPromises.push(uploadPromise)
+
+			})
+
+			return Promise.all(uploadPromises).then(function(uploads) {
+				return res.status(200).json(ad)
+			})
+
 		}).catch(function(err) {
 			return next(err)
 		})

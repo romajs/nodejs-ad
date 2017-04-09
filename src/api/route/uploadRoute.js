@@ -47,6 +47,7 @@ router.post('/', function (req, res, next) {
 			path: file.path,
 			type: file.type,
 			size: file.size,
+			hash_md5: file.hash,
 			status: UploadStatus.TEMPORARY,
 			user_id: req.auth.user._id,
 		})

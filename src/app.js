@@ -40,6 +40,7 @@ app.use(expressValidator({
 // non-authenticated routes
 app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
 app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
+app.use('/download', require(path.join(__dirname, 'api/route/downloadRoute.js')))
 
 // auth
 app.use(require(path.join(__dirname, 'api/middleware/authMiddleware.js')))

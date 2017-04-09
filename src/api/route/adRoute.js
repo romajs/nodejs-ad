@@ -24,6 +24,7 @@ router.post('/', function (req, res, next) {
 			details : req.body.details,
 			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
 			user_id: req.auth.user._id,
+			upload_ids: req.body.upload_ids,
 		})
 
 		ad.save().then(function(ad) {

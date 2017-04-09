@@ -54,35 +54,47 @@ angular.module('app.adNew' , [
 		},
 	}
 
+	$scope.files = []
+	$scope.uploads = []
+
 	$scope.$watch('files', function () {
     $scope.upload($scope.files)
   })
 
   $scope.upload = function (files) {
-    if (files && files.length) {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        if (!file.$error) {
-          Upload.upload({
-            url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-            data: {
-              username: $scope.username, // TODO
-              file: file  
-            }
-          }).then(function (resp) {
-            $timeout(function() {
-            	console.info(resp.config.data.file.name, resp.data)
-            })
-          }, null, function (evt) {
-          	var file = $scope.files.find(function(file) {
-          		return file.name === evt.config.data.file.name
-          	})
-            file.progress = parseInt(100.0 * evt.loaded / evt.total)
-            console.info(file.name, file.progress)
-          });
-        }
+
+    files && files.forEach(function(file) {
+
+      if (file.$error) {
+
+      	console.error(file.$error)
+
+      } else {
+
+        Upload.upload({
+          url: '/upload',
+          data: { file: file, },
+        }).then(function (res) {
+
+          $timeout(function() {
+          	console.info('successfully uploaded: file.name="%s"', res.config.data.file.name)
+          	$scope.uploads.push(res.data)
+          })
+
+        }, null, function (evt) {
+
+        	var file = files.find(function(file) {
+        		return file.name === evt.config.data.file.name
+        	})
+
+          file.progress = parseInt(100.0 * evt.loaded / evt.total)
+          console.info('uploading: file.name="%s", progress=%s%', file.name, file.progress)
+
+        })
+
       }
-    }
+    })
+
   }
 
 	$scope.cancel = function() {
@@ -90,13 +102,24 @@ angular.module('app.adNew' , [
 	}
 
 	$scope.confirm = function() {
-		console.info($scope.adForm.$valid, $scope.ad)
+
+		var ad = angular.copy($scope.ad)
+		ad.upload_ids = $scope.uploads.map(function(upload) {
+			return upload._id
+		})
+
+		console.info($scope.adForm.$valid, ad)
+
 		if($scope.adForm.$valid) {
-			adService.create($scope.ad).then(function(res) {
+
+			adService.create(ad).then(function(res) {
+
 				if(res.status == 200 && res.data) {
 					$state.go('ad', { id: res.data._id} )
 				}
+
 			})
+
 		}
 	}
 

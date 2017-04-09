@@ -20,6 +20,7 @@ var AdSchema = new Schema({
   details: String,
   status: { type: String, enum: Object.keys(AdStatus) },
   user_id: { type: Schema.ObjectId, ref: 'User' },
+  upload_ids: [{ type: Schema.ObjectId, ref: 'Upload' }],
 })
 
 var Ad = mongoose.model('Ad', AdSchema)

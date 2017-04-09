@@ -82,8 +82,7 @@
 	  </div> -->
 	  <div class="form-group">
 	    <label for="foto">Fotos</label>
-		  <div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-keep="distinct"
-	      accept="image/*" ngf-pattern="'image/*'">Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos</div>
+		  <div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-keep="'distinct'" ng-disabled="check.files.qtd.left() <= 0" accept="image/*" ngf-pattern="'image/*'">{{check.files.qtd.left() > 0 ? 'Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos' : 'Você já atingiu o limite máximo de imagens para upload' }}</div>
 		</div>
 	  <div class="form-group">
 			<div ng-repeat="file in files" style="font:smaller">

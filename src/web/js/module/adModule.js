@@ -19,14 +19,19 @@ angular.module('app.ad' , [
 	$scope.uploads = []
 
 	adService.get($stateParams.id).then(function(res) {
+
 		$scope.ad = res.data
 		console.info($scope.ad)
+
 		$scope.ad.upload_ids.forEach(function(_id) {
+
 			$http.get('/upload/' + _id).then(function(res){
 				$scope.uploads.push(res.data)
 				console.info(res.data)
 			})
+			
 		})
+
 	})
 
 })

@@ -57,8 +57,9 @@ angular.module('app.adNew' , [
 	$scope.files = []
 	$scope.uploads = []
 
-	$scope.$watch('files', function () {
-    $scope.upload($scope.files)
+	$scope.$watch('files', function(newFiles) {
+    newFiles.splice($scope.check.files.qtd.max, newFiles.length)
+    $scope.upload(newFiles)
   })
 
   $scope.upload = function (files) {

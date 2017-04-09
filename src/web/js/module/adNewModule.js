@@ -16,7 +16,7 @@ angular.module('app.adNew' , [
 	})
 })
 
-.controller('adNewController', function($scope, $state, $timeout, Upload, adService, uploadService) {
+.controller('adNewController', function($scope, $state, $timeout, Upload, adService, attachmentService) {
 
 	$scope.ad = {
 		title : 'Teste',
@@ -55,14 +55,14 @@ angular.module('app.adNew' , [
 	}
 
 	$scope.files = []
-	$scope.uploads = []
+	$scope.attachments = []
 
 	$scope.$watch('files', function(newFiles) {
     newFiles.splice($scope.check.files.qtd.max, newFiles.length)
-    $scope.upload(newFiles)
+    $scope.attachment(newFiles)
   })
 
-  $scope.upload = function (files) {
+  $scope.attachment = function (files) {
 
     files && files.forEach(function(file) {
 
@@ -73,18 +73,18 @@ angular.module('app.adNew' , [
       } else {
 
         Upload.upload({
-          url: '/upload',
+          url: attachmentService.uploadUrl(),
           data: { file: file, },
         }).then(function (res) {
 
           $timeout(function() {
-          	console.info('successfully uploaded: file.name="%s"', res.config.data.file.name)
+          	console.info('successfully attachmented: file.name="%s"', res.config.data.file.name)
           	
           	files.find(function(file) {
 	        		return file.name === res.config.data.file.name
-	        	}).upload_id = res.data._id
+	        	}).attachment_id = res.data._id
 
-          	$scope.uploads.push(res.data)
+          	$scope.attachments.push(res.data)
 
           })
 
@@ -95,7 +95,7 @@ angular.module('app.adNew' , [
         	})
 
           file.progress = parseInt(100.0 * evt.loaded / evt.total)
-          console.info('uploading: file.name="%s", progress=%s%', file.name, file.progress)
+          console.info('attachmenting: file.name="%s", progress=%s%', file.name, file.progress)
 
         })
 
@@ -112,12 +112,12 @@ angular.module('app.adNew' , [
   	
   	$scope.files.splice(fileIndex, 1)
 
-  	var uploadIndex = $scope.uploads.findIndex(function(upload) {
-  		return upload.name == name
+  	var attachmentIndex = $scope.attachments.findIndex(function(attachment) {
+  		return attachment.name == name
   	})
   	
-  	var upload = $scope.uploads.splice(uploadIndex, 1)[0]
-  	uploadService.delete(upload._id)
+  	var attachment = $scope.attachments.splice(attachmentIndex, 1)[0]
+  	attachmentService.delete(attachment._id)
 
   	console.info('removed: file.name="%s"', name)
   }
@@ -129,8 +129,8 @@ angular.module('app.adNew' , [
 	$scope.confirm = function() {
 
 		var ad = angular.copy($scope.ad)
-		ad.upload_ids = $scope.uploads.map(function(upload) {
-			return upload._id
+		ad.attachment_ids = $scope.attachments.map(function(attachment) {
+			return attachment._id
 		})
 
 		console.info($scope.adForm.$valid, ad)

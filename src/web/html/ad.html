@@ -19,7 +19,7 @@
     <p>{{ad.title}}</p>
     <label>Detalhes</label>
     <p>{{ad.details}}</p>
-    <div ng-repeat="upload in uploads">
-    	<img ng-src="/download/{{upload._id}}" alt="{{upload.name}}" height="300" width="300">
+    <div ng-repeat="attachment in attachments">
+    	<img ng-src="{{downloadUrl(attachment._id)}}" alt="{{attachment.name}}" height="300" width="300">
     </div>
 </div>

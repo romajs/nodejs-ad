@@ -40,15 +40,15 @@ app.use(expressValidator({
 // non-authenticated routes
 app.use('/ads', require(path.join(__dirname, 'api/route/adsRoute.js')))
 app.use('/auth', require(path.join(__dirname, 'api/route/authRoute.js')))
-app.use('/download', require(path.join(__dirname, 'api/route/downloadRoute.js')))
+app.use('/attachment', require(path.join(__dirname, 'api/route/attachmentViewRoute.js')))
 
 // auth
 app.use(require(path.join(__dirname, 'api/middleware/authMiddleware.js')))
 
 // authenticated routes
 app.use('/ad', require(path.join(__dirname, '/api/route/adRoute.js')))
+app.use('/attachment', require(path.join(__dirname, 'api/route/attachmentRoute.js')))
 app.use('/domain', require(path.join(__dirname, 'api/route/domainRoute.js')))
-app.use('/upload', require(path.join(__dirname, 'api/route/uploadRoute.js')))
 
 // error handling
 app.use(function (err, req, res, next) {

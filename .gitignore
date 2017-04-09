@@ -1,6 +1,6 @@
 **.sublime-workspace
+attachments/**
 coverage/**
 node_modules/**
 npm-debug.log
 src/web/bower_components/**
-uploads/**

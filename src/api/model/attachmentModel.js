@@ -7,25 +7,25 @@ function Enum(arr) {
 	return obj
 }
 
-var UploadStatus = Enum([
+var AttachmentStatus = Enum([
 	'TEMPORARY',
 	'STEADY',
 ])
 
-var UploadSchema = new Schema({
+var AttachmentSchema = new Schema({
   name: String,
   path: String,
   type: String,
   size: Number,
   hash_md5: String,
-  status: { type: String, enum: Object.keys(UploadStatus) },
+  status: { type: String, enum: Object.keys(AttachmentStatus) },
   user_id: { type: Schema.ObjectId, ref: 'User' },
 })
 
-var Upload = mongoose.model('Upload', UploadSchema)
+var Attachment = mongoose.model('Attachment', AttachmentSchema)
 
 module.exports = {
-	Upload,
-	UploadSchema,
-	UploadStatus,
+	Attachment,
+	AttachmentSchema,
+	AttachmentStatus,
 }

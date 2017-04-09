@@ -88,7 +88,7 @@
 			<div ng-repeat="file in files" style="font:smaller">
 		  	<div class="row">
 			  	<div class="col-xs-12">
-			  		<a ng-href="/download/{{file.upload_id}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
+			  		<a ng-href="{{downloadUrl(file.attachment_id)}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
 			  		<i class="btn btn-sm fa fa-times text-danger" ng-click="removeFile(file.name)" title="Clique para remover {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"></i>
 				  	<div class="progress" ng-hide="file.progress == 100">
 				  		<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }"" class="progress-bar" style="width: {{file.progress}}%;">{{file.progress}}%</div>

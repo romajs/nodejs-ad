@@ -5,10 +5,10 @@ var path = require('path')
 var express = require('express')
 var router = express.Router()
 
-var UploadModel = require(process.env.src + '/api/model/uploadModel.js')
+var AttachmentModel = require(process.env.src + '/api/model/attachmentModel.js')
 
-var Upload = UploadModel.Upload
-var UploadStatus = UploadModel.UploadStatus
+var Attachment = AttachmentModel.Attachment
+var AttachmentStatus = AttachmentModel.AttachmentStatus
 
 router.post('/', function (req, res, next) {
 
@@ -23,7 +23,7 @@ router.post('/', function (req, res, next) {
   form.maxFieldsSize = 1024 * 1024 * 2 // 2 MB
   form.multiples = false
   form.type = 'multipart'
-  form.uploadDir = './uploads'
+  form.uploadDir = './attachments'
 
   form.on('progress', function (recv, total) {
     console.log('#### received: (%s / %s bytes) %s %', recv, total, Number(recv / total * 100).toFixed(2))
@@ -44,45 +44,23 @@ router.post('/', function (req, res, next) {
 
   	console.log('received file:', fields, file.name, file.path, file.type, file.size)
 
-  	var upload = new Upload({
+  	var attachment = new Attachment({
 			name: file.name,
 			path: file.path,
 			type: file.type,
 			size: file.size,
 			hash_md5: file.hash,
-			status: UploadStatus.TEMPORARY,
+			status: AttachmentStatus.TEMPORARY,
 			user_id: req.auth.user._id,
 		})
 
-		upload.save().then(function(upload) {
-			return res.status(200).json(upload)
+		attachment.save().then(function(attachment) {
+			return res.status(200).json(attachment)
 		}).catch(function(err) {
 			return next(err)
 		})
 
   })
-
-})
-
-router.get('/:id', function (req, res, next) {
-
-	req.checkParams('id').isObjectId()
-
-	req.getValidationResult().then(function(result) {
-
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
-
-  }).then(function() {
-  	
-		Upload.findById(req.params.id).then(function(upload) {
-			return res.status(upload ? 200 : 404).json(upload)
-		}).catch(function(err) {
-			return next(err)
-		})
-
-	})
 
 })
 
@@ -98,13 +76,13 @@ router.delete('/:id', function (req, res, next) {
 
   }).then(function() {
   	
-		Upload.findById(req.params.id).then(function(upload) {
+		Attachment.findById(req.params.id).then(function(attachment) {
 
-  		fs.unlink(upload.path, function(err) {
+  		fs.unlink(attachment.path, function(err) {
 
   			if(err) return next(err)
 
-  			upload.remove().then(function() {
+  			attachment.remove().then(function() {
 					return res.status(200).end()
 				}).catch(function(err) {
 					return next(err)

@@ -13,20 +13,20 @@ angular.module('app.ad' , [
 	})
 })
 
-.controller('adController', function($scope, $stateParams, adService, uploadService) {
+.controller('adController', function($scope, $stateParams, adService, attachmentViewService) {
 
 	$scope.ad = null
-	$scope.uploads = []
+	$scope.attachments = []
 
 	adService.get($stateParams.id).then(function(res) {
 
 		$scope.ad = res.data
 		console.info($scope.ad)
 
-		$scope.ad.upload_ids.forEach(function(id) {
+		$scope.ad.attachment_ids.forEach(function(id) {
 
-			uploadService.get(id).then(function(res){
-				$scope.uploads.push(res.data)
+			attachmentViewService.get(id).then(function(res){
+				$scope.attachments.push(res.data)
 				console.info(res.data)
 			})
 			

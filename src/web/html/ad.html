@@ -19,7 +19,17 @@
     <p>{{ad.title}}</p>
     <label>Detalhes</label>
     <p>{{ad.details}}</p>
-    <div ng-repeat="attachment in attachments">
-    	<img ng-src="{{downloadUrl(attachment._id)}}" alt="{{attachment.name}}" height="300" width="300">
+    <div>
+      <div style="height: 305px">
+        <div uib-carousel active="0" interval="3000" no-wrap="false">
+          <div uib-slide ng-repeat="attachment in attachments" index="$index">
+            <img ng-src="{{downloadUrl(attachment._id)}}" style="margin:auto;" height="350">
+            <div class="carousel-caption">
+              <h4>attachment {{attachment.name}}</h4>
+              <p>({{attachment.type}}) {{hrSize(attachment.size)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 </div>

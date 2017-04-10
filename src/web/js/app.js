@@ -1,10 +1,11 @@
 angular.module('app', [
-	'ui.router',
 	'app.ad',
 	'app.adNew',
 	'app.ads',
 	'app.auth',
 	'app.login',
+	'ui.bootstrap',
+	'ui.router',
 ])
 
 .config(function($stateProvider, $urlRouterProvider) {

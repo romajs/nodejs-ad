@@ -26,6 +26,7 @@ angular.module('app.ad' , [
 		$scope.ad.attachment_ids.forEach(function(id) {
 
 			attachmentViewService.get(id).then(function(res){
+				var attachment = res.data
 				$scope.attachments.push(res.data)
 				console.info(res.data)
 			})

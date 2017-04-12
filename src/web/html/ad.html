@@ -1,35 +1,84 @@
+<input type="hidden" id="_id" value="{{ad._id}}"/>
 <div class="jumbotron" ng-if="ad.status == 'PENDING'">
-  <h1>Seu anúncio esta sendo criado</h1>
-  <p>Fique tranquilo, estamos providenciando tudo para você ;)</p>
-  <p>Dentro de instantes seu anúncio estará disponível em nossas páginas de pesquisa</p>
-  <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+	<h1>Seu anúncio esta sendo criado</h1>
+	<p>Fique tranquilo, estamos providenciando tudo para você ;)</p>
+	<p>Dentro de instantes seu anúncio estará disponível em nossas páginas de pesquisa</p>
+	<p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
 </div>
 <div class="jumbotron" ng-if="ad.status == 'REPROVED' || ad.status == 'BANNED'">
-  <h1>Este anúncio foi removido</h1>
-  <p>Lamentamos pelo inconveniente</p>
-  <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+	<h1>Este anúncio foi removido</h1>
+	<p>Lamentamos pelo inconveniente</p>
+	<p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
 </div>
 <div class="jumbotron" ng-if="ad.status == 'EXPIRED'">
-  <h1>Este anúncio expirou</h1>
-  <p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
+	<h1>Este anúncio expirou</h1>
+	<p><a class="btn btn-primary btn-lg" ui-sref="login">Ver meus anúncios</a></p>
 </div>
-<div ng-if="ad.status == 'APPROVED'">
-	<h3>Anúncio # {{ad._id}}</h3>
-    <label>Título</label>
-    <p>{{ad.title}}</p>
-    <label>Detalhes</label>
-    <p>{{ad.details}}</p>
-    <div>
-      <div style="height: 305px">
-        <div uib-carousel active="0" interval="3000" no-wrap="false">
-          <div uib-slide ng-repeat="attachment in attachments" index="$index">
-            <img ng-src="{{downloadUrl(attachment._id)}}" style="margin:auto;" height="350">
-            <div class="carousel-caption">
-              <h4>attachment {{attachment.name}}</h4>
-              <p>({{attachment.type}}) {{hrSize(attachment.size)}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="row" ng-if="ad.status == 'APPROVED'">
+	<div class="col-sm-6">
+		<p>
+			<h3><i class="fa fa-star-o"></i>&nbsp;{{ad.title}}</h3>
+		</p>
+		<p>
+			<i>Criado em: 11/04/2017 às 22:58 por <a href="#">Usuário</a></i>
+		</p>
+		<p>
+			<span>Avaliações: <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i></span>
+		</p>
+		<hr/>
+		<p>
+			<span>{{ad.details}}</span>
+		</p>
+		<p>
+			<b>Valor: R$ 1.000,00</b>
+		</p>
+		<p>
+			<b>Tipo de anúncio: <i class="fa fa-shopping-basket"></i> Compra - <i class="fa fa-money"></i> Venda - <i class="fa fa-balance-scale"></i> Aceita Troca</b>
+		</p>
+		<hr/>
+		<p>
+			<span>Endereço: Algumar lugar qualquer, 1000, Em um bairro, Cidade - Estado</span>
+			<span>CEP: 12345-678</span>
+		</p>
+		<hr/>
+		<p>
+			<span>Contato: (19) 1234-5678 <i class="fa fa-whatsapp"></i> <i class="fa fa-check-circle-o"></i> </span>
+		</p>
+		<hr/>
+		<p>
+			<span>palavras chave key words keys word</span>
+		<hr/>
+		<p>
+			<span>Visualizações: 100.300</span>
+		</p>
+		<hr/>
+		<p>
+			<span>Reportar um problema nesta página <i class="fa fa-bug"></i></span>
+		</p>
+		<p>
+			<span>Denunciar este anúncio <i class="fa fa-ban"></i></span>
+		</p>
+		</p>
+		<hr/>
+		<p>
+			<span>Compartilhar: <i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i> </span>
+		</p>
+	</div>
+	<div class="col-sm-6">
+		<div ng-repeat="attachment in attachments" index="$index">
+			<img ng-src="{{downloadUrl(attachment._id)}}" style="margin:auto; margin-bottom: 10px;" width="100%">
+		</div>
+			<!-- <div style="height: 305px">
+				<div uib-carousel active="0" interval="3000" no-wrap="false">
+					<div uib-slide ng-repeat="attachment in attachments" index="$index">
+					<img ng-src="{{downloadUrl(attachment._id)}}" style="margin:auto;" height="100" width="100">
+						<div class="carousel-caption">
+							<h4>attachment {{attachment.name}}</h4>
+							<p>({{attachment.type}}) {{hrSize(attachment.size)}}</p>
+						</div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
 </div>

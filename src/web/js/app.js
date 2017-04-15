@@ -6,7 +6,7 @@ angular.module('app', [
 	'app.login',
 	'ui.bootstrap',
 	'ui.router',
-])
+	])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

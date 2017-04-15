@@ -15,7 +15,7 @@ angular.module('app.ads' , [
 
 .controller('adsController', function($scope, adsService, attachmentViewService, userService) {
 
-	$scope.ads = []
+	$scope.ads = null
 	$scope.bookmarks = []
 	$scope.first_attachments = {}
 	$scope.users = {}

@@ -19,18 +19,17 @@ angular.module('app.adNew' , [
 .controller('adNewController', function($scope, $state, $timeout, Upload, adService, attachmentService) {
 
 	$scope.ad = {
-		title : 'Teste',
-		details : 'Testando',
-		address : {
-		},
-		contact : {
-		},
+		title: 'Teste',
+		details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+		value: 1000,
+		address: {},
+		contact: {},
 	}
 
 	$scope.check = {
 		title : {
 			length : {
-				max : 110,
+				max : 85,
 				left: function() {
 					return this.max - ($scope.ad.title || '').length
 				},

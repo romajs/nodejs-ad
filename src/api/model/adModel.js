@@ -12,6 +12,7 @@ var AdStatus = Enum([
 var AdSchema = new Schema({
 	title: String,
 	details: String,
+	value: Number,
 	status: { type: String, enum: Object.keys(AdStatus) },
 	user_id: { type: Schema.ObjectId, ref: 'User' },
 	attachment_ids: [{ type: Schema.ObjectId, ref: 'Attachment' }],

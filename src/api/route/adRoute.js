@@ -13,6 +13,7 @@ router.post('/', function (req, res, next) {
 
 	req.checkBody('title', 'required').notEmpty()
 	req.checkBody('details', 'required').notEmpty()
+	req.checkBody('value', 'required').notEmpty()
 
 	req.getValidationResult().then(function(result) {
 
@@ -25,6 +26,7 @@ router.post('/', function (req, res, next) {
 		var ad = new Ad({
 			title: req.body.title,
 			details: req.body.details,
+			value: req.body.value,
 			status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
 			created_at: new Date(),
 			user_id: req.auth.user._id,

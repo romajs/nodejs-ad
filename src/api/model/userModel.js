@@ -6,6 +6,8 @@ var UserSchema = new Schema({
   password: String,
   admin: Boolean,
   name: String,
+	created_at: { type: Date },
+	updated_at: { type: Date, default: Date.now },
 })
 
 var User = mongoose.model('User', UserSchema)

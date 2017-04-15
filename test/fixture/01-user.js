@@ -9,6 +9,7 @@ module.exports.load = function() {
 			password : 'MTIzbXVkYXIK',
 			admin: true,
 			name: 'admin',
+			created_at: new Date(),
 		})
 
 	  admin.save(function (err, user) {

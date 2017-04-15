@@ -50,4 +50,8 @@ angular.module('app.ads' , [
 		}
 	}
 
+	$scope.openImageGallery = function(ad_id) {
+		// TODO
+	}
+
 })

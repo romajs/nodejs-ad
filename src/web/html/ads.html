@@ -3,7 +3,9 @@
 	<div class="row-fluid ad" ui-sref="ad({ id: ad._id})" title="Clique para ver mais detalhes do anúncio">
 		<div class="col-sm-3">
 			{{ first_attachment = first_attachments[ad._id]; "" }}
-			<img ng-src="{{ first_attachment ? downloadUrl(first_attachment._id) : '/image/no-ad-image.png' }}" width="100%" height="100%" title="{{ first_attachment ? first_attachment.name + ' (' + first_attachment.type + ') ' + hrSize(first_attachment.size) : 'Anúncio sem imagem disponível' }}"/>
+			<a class="thumbnail" ng-click="openImageGallery(ad._id); $event.stopPropagation();">
+				<img ng-src="{{ first_attachment ? downloadUrl(first_attachment._id) : '/image/no-ad-image.png' }}" width="100%" height="100%" title="{{ first_attachment ? first_attachment.name + ' (' + first_attachment.type + ') ' + hrSize(first_attachment.size) : 'Anúncio sem imagem disponível' }}"/>
+			</a>
 		</div>
 		<div class="col-sm-9">
 			<div class="row ad-title">

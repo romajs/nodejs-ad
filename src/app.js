@@ -70,6 +70,7 @@ app.use(rootRequire('api/middleware/authMiddleware'))
 app.use('/ad', rootRequire('/api/route/adRoute'))
 app.use('/attachment', rootRequire('api/route/attachmentRoute'))
 app.use('/domain', rootRequire('api/route/domainRoute'))
+app.use('/user', rootRequire('/api/route/userRoute'))
 
 // error handling
 app.use(function (err, req, res, next) {

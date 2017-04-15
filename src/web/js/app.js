@@ -4,6 +4,7 @@ angular.module('app', [
 	'app.ads',
 	'app.auth',
 	'app.login',
+	'app.user',
 	'ui.bootstrap',
 	'ui.router',
 	])

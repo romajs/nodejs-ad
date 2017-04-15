@@ -83,18 +83,18 @@ label.required:after {
 	color: #555;
 }
 
-.ad-title {
+.ad .ad-title {
 	font-size: 20px;
 }
 
-.ad-title .ad-bookmark {
+.ad .ad-title .ad-bookmark {
 	margin-right: 2px;
 }
 
-.ad-value {
+.ad .ad-value {
 	color: darkgreen;
 }
-.ad-value:hover {
+.ad .ad-value:hover {
 	color: green;
 	transition: color ease-in-out .15s, border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	-webkit-transition: color ease-in-out .15s, border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;

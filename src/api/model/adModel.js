@@ -7,14 +7,16 @@ var AdStatus = Enum([
 	'REPROVED',
 	'BANNED',
 	'EXPIRED'
-])
+	])
 
 var AdSchema = new Schema({
-  title: String,
-  details: String,
-  status: { type: String, enum: Object.keys(AdStatus) },
-  user_id: { type: Schema.ObjectId, ref: 'User' },
-  attachment_ids: [{ type: Schema.ObjectId, ref: 'Attachment' }],
+	title: String,
+	details: String,
+	status: { type: String, enum: Object.keys(AdStatus) },
+	user_id: { type: Schema.ObjectId, ref: 'User' },
+	attachment_ids: [{ type: Schema.ObjectId, ref: 'Attachment' }],
+	created_at: { type: Date },
+	updated_at: { type: Date, default: Date.now },
 })
 
 var Ad = mongoose.model('Ad', AdSchema)

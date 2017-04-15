@@ -1,10 +1,10 @@
 var AdModel = rootRequire('api/model/adModel'),
-	Ad = AdModel.Ad,
-	AdStatus = AdModel.AdStatus
+Ad = AdModel.Ad,
+AdStatus = AdModel.AdStatus
 
 var AttachmentModel = rootRequire('api/model/attachmentModel'),
-	Attachment = AttachmentModel.Attachment,
-	AttachmentStatus = AttachmentModel.AttachmentStatus
+Attachment = AttachmentModel.Attachment,
+AttachmentStatus = AttachmentModel.AttachmentStatus
 
 var express = require('express')
 var router = express.Router()
@@ -16,16 +16,17 @@ router.post('/', function (req, res, next) {
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
+	}).then(function() {
 
 		var ad = new Ad({
 			title: req.body.title,
 			details: req.body.details,
 			status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			created_at: new Date(),
 			user_id: req.auth.user._id,
 			attachment_ids: req.body.attachment_ids,
 		})
@@ -65,16 +66,17 @@ router.put('/:id', function (req, res, next) {
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
+	}).then(function() {
 
 		var ad = {
 			title : req.body.title,
 			details : req.body.details,
 			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			created_at: new Date(),
 			user_id: req.auth.user._id,
 		}
 
@@ -94,12 +96,12 @@ router.get('/:id', function (req, res, next) {
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
-  	
+	}).then(function() {
+		
 		Ad.findById(req.params.id).then(function(ad) {
 			res.status(ad ? 200 : 404).json(ad)
 		}).catch(function(err) {

@@ -13,11 +13,12 @@ angular.module('app.ads' , [
 	})
 })
 
-.controller('adsController', function($scope, adsService, attachmentViewService) {
+.controller('adsController', function($scope, adsService, attachmentViewService, userService) {
 
 	$scope.ads = []
 	$scope.bookmarks = []
 	$scope.first_attachments = {}
+	$scope.users = {}
 
 	adsService.list().then(function(res) {
 
@@ -27,6 +28,14 @@ angular.module('app.ads' , [
 			if(ad.attachment_ids && ad.attachment_ids.length > 0) {
 				attachmentViewService.get(ad.attachment_ids[0]).then(function(res) {
 					$scope.first_attachments[ad._id] = res.data
+				}) 
+			}
+		})
+
+		$scope.ads.forEach(function(ad) {
+			if(!$scope.users[ad.user_id]) {
+				userService.get(ad.user_id).then(function(res) {
+					$scope.users[ad.user_id] = res.data
 				}) 
 			}
 		})

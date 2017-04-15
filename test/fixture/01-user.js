@@ -7,7 +7,8 @@ module.exports.load = function() {
 		var admin = new User({
 			username : 'admin',
 			password : 'MTIzbXVkYXIK',
-			admin: false,
+			admin: true,
+			name: 'admin',
 		})
 
 	  admin.save(function (err, user) {

@@ -1,38 +1,41 @@
-<div class="container-fluid" ng-repeat="ad in ads">
+<div class="container-fluid ads" ng-repeat="ad in ads">
 	<!-- {{ad|json}} -->
 	<div class="row-fluid ad" ui-sref="ad({ id: ad._id})" title="Clique para ver mais detalhes do anúncio">
 		<div class="col-sm-3">
 			{{ first_attachment = first_attachments[ad._id]; "" }}
-			<a class="thumbnail" ng-click="openImageGallery(ad._id); $event.stopPropagation();">
+			<div class="thumbnail">
 				<img ng-src="{{ first_attachment ? downloadUrl(first_attachment._id) : '/image/no-ad-image.png' }}" width="100%" height="100%" title="{{ first_attachment ? first_attachment.name + ' (' + first_attachment.type + ') ' + hrSize(first_attachment.size) : 'Anúncio sem imagem disponível' }}"/>
-			</a>
+			</div>
 		</div>
 		<div class="col-sm-9">
 			<div class="row ad-title">
-				<div class="col-sm-8">
-					{{ bookmarkedIndex = bookmarks.indexOf(ad._id); "" }}
-					<i class="fa ad-bookmark" ng-class="{ 'fa-star' : bookmarkedIndex > -1, 'fa-star-o' : bookmarkedIndex == -1}" ng-click="bookmark(ad._id, bookmarkedIndex); $event.stopPropagation();" title="{{ !ad.bookmarkd ? 'Clique para marcar este anúncio como favorito': 'Clique para desmarcar este anúncio como favorito' }}"></i>
+				<div class="col-xs-8">
+					<!-- {{ bookmarkedIndex = bookmarks.indexOf(ad._id); "" }}
+					<i class="fa ad-bookmark" ng-class="{ 'fa-star' : bookmarkedIndex > -1, 'fa-star-o' : bookmarkedIndex == -1}" ng-click="bookmark(ad._id, bookmarkedIndex); $event.stopPropagation();" title="{{ !ad.bookmarkd ? 'Clique para marcar este anúncio como favorito': 'Clique para desmarcar este anúncio como favorito' }}"></i> -->
 					<a>{{ad.title}}</a>
 				</div>
-				<div class="col-sm-4" style="text-align: right;">
-					<b class="ad-value">R$ {{ad.value|number:2}}</b>
+				<div class="col-xs-4" style="text-align: right;">
+					<!-- <b class="ad-value">R$ {{ad.value|number:2}}</b> -->
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-12 ad-detail">
+				<div class="col-xs-12 ad-detail">
 					<span class="">{{ad.details}}</span>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-xs-8">
 					{{ user = users[ad.user_id]; "" }}
 					<span class="ad-creation-info">Em {{ad.updated_at|date:'dd/MM/yyyy'}} às {{ad.updated_at|date:'hh:mm'}} por <a ui-sref="user({ id: user._id})" title="Clique para ver mais detalhes deste usuário" ng-click="$event.stopPropagation();">{{user.name}}</a></span>
 				</div>
-				<div class="col-sm-4" style="text-align: right;">
-					<div class="ad-evaluation" ng-click="$event.stopPropagation();">
+				<div class="col-xs-4 ad-value-info ad-value-selling" title="Anúncio de venda">
+					<span class="ad-value-type">VENDA</span>
+					<!-- <i class="fa fa-money"></i> -->
+					<span class="ad-value">R$ {{ad.value|number:2}}</span>
+					<!-- <div class="ad-evaluation" ng-click="$event.stopPropagation();" title="Clique para avaliar este anúncio">
 						<i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

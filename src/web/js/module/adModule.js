@@ -1,6 +1,6 @@
 angular.module('app.ad' , [
 	'ui.router',
-])
+	])
 
 .config(function($stateProvider, $urlRouterProvider) {
 	$stateProvider.state('ad', {
@@ -17,6 +17,7 @@ angular.module('app.ad' , [
 
 	$scope.ad = null
 	$scope.attachments = []
+	$scope.selected_attachment = null
 
 	adService.get($stateParams.id).then(function(res) {
 
@@ -25,14 +26,35 @@ angular.module('app.ad' , [
 
 		$scope.ad.attachment_ids.forEach(function(id) {
 
-			attachmentViewService.get(id).then(function(res){
+			attachmentViewService.get(id).then(function(res) {
+
 				var attachment = res.data
-				$scope.attachments.push(res.data)
-				console.info(res.data)
+				$scope.attachments.push(attachment)
+
+				if(!$scope.selected_attachment) {
+					$scope.selected_attachment = attachment
+				}
+
 			})
 			
 		})
 
 	})
+
+	$scope.select = function(index) {
+		$scope.selected_attachment = $scope.attachments[index]
+	}
+
+	$scope.previous = function() {
+		var index = $scope.attachments.indexOf($scope.selected_attachment) - 1 
+		index = Math.max(index, 0)
+		$scope.select(index)
+	}
+
+	$scope.next = function() {
+		var index = $scope.attachments.indexOf($scope.selected_attachment) + 1
+		index = Math.min(index, $scope.attachments.length - 1)
+		$scope.select(index)
+	}
 
 })

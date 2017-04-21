@@ -3,6 +3,7 @@ angular.module('app', [
 	'app.adNew',
 	'app.ads',
 	'app.auth',
+	'app.imageGallery',
 	'app.login',
 	'app.user',
 	'ui.bootstrap',
@@ -11,9 +12,9 @@ angular.module('app', [
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-	$stateProvider.state('not_found', {
-		url: '/not_found',
-		templateUrl: '/html/not_found.html',
+	$stateProvider.state('notFound', {
+		url: '/notFound',
+		templateUrl: '/html/notFound.html',
 		data: {
 			requireAuthentication: false,
 		}
@@ -23,7 +24,7 @@ angular.module('app', [
 		$state.go('ads')
 	}).when('', function($state) {
 		$state.go('ads')
-	}).otherwise('not_found')
+	}).otherwise('notFound')
 
 })
 

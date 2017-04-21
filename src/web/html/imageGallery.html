@@ -1,0 +1,26 @@
+<div class="ad-image-gallery">
+	<div class="ad-image-gallery-selected">
+		<div>
+			<img ng-src="{{downloadUrl(selected_attachment._id)}}" title="{{ selected_attachment.name + ' (' + selected_attachment.type + ') ' + hrSize(selected_attachment.size) }}">
+		</div>
+	</div>
+	<ul class="ad-image-gallery-bottom">
+		<li class="ad-image-gallery-slider ad-image-gallery-slider-left">
+			<a ng-click="previous()" title="Clique para visualizar a imagem anterior">
+				<i class="fa fa-chevron-left"/>
+			</a>
+		</li>
+		<li class="ad-image-gallery-vertical-scroll">
+			<div class="ad-image-gallery-photos">
+				<a ng-repeat="attachment in attachments" ng-click="select($index)">
+					<img ng-src="{{downloadUrl(attachment._id)}}" ng-class="{ 'selected': attachment == selected_attachment }" title="Clique para visualizar esta imagem">
+				</a>
+			</div>
+		</li>
+		<li class="ad-image-gallery-slider ad-image-gallery-slider-right">
+			<a ng-click="next()" title="Clique para visualizar a próxima imagem">
+				<i class="fa fa-chevron-right"/>
+			</a>
+		</li>
+	</ul>
+</div>

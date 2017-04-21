@@ -1,38 +1,41 @@
-<div class="jumbotron" ng-if="!isAuthenticated()">
-	<h2>Para anunciar é necessário estar logado</h2>
-	<br/>
-	<p>Caso já tenha uma conta, clique <a ui-sref="login({redirect: 'ad-new'})">aqui</a> para acessá-la.</p>
-	<br/>
-	<p>Não tem uma conta ainda?</p>
-	<p>Cadastra-se agora mesmo clicando <a ui-sref="login({redirect: 'ad-new'})">aqui</a>. É grátis.</p>
-</div>
-<div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
-	<form class="" name="adForm" novalidate>
-		<div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
-			<div class="row">
-				<div class="col-xs-9">
-					<label for="title" class="required">Título</label>
-					<input type="text" class="form-control" id="title" name="title" placeholder="Título" ng-model="ad.title" required
-					maxlength="{{check.title.length.max}}">
-					<p class="help-block" ng-if="adForm.title.$valid">(Máximo de {{check.title.length.max}} caracteres, restando {{check.title.length.left()}})</p>
-					<p class="help-block" ng-if="adForm.title.$error.required">O preenchimento deste campo é obrigatório</p>
-				</div>
-				<div class="col-xs-3">
-					<label for="value" class="required">Valor</label>
-					<input type="text" class="form-control" id="value" name="value" placeholder="Valor" ng-model="ad.value" required>
-					<p class="help-block" ng-if="adForm.value.$error.required">O preenchimento deste campo é obrigatório</p>
+<div class="container">
+
+	<div class="jumbotron" ng-if="!isAuthenticated()">
+		<h2>Para anunciar é necessário estar logado</h2>
+		<br/>
+		<p>Caso já tenha uma conta, clique <a ui-sref="login({redirect: 'ad-new'})">aqui</a> para acessá-la.</p>
+		<br/>
+		<p>Não tem uma conta ainda?</p>
+		<p>Cadastra-se agora mesmo clicando <a ui-sref="login({redirect: 'ad-new'})">aqui</a>. É grátis.</p>
+	</div>
+	
+	<div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
+		<form class="" name="adForm" novalidate>
+			<div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
+				<div class="row">
+					<div class="col-xs-9">
+						<label for="title" class="required">Título</label>
+						<input type="text" class="form-control" id="title" name="title" placeholder="Título" ng-model="ad.title" required
+						maxlength="{{check.title.length.max}}">
+						<p class="help-block" ng-if="adForm.title.$valid">(Máximo de {{check.title.length.max}} caracteres, restando {{check.title.length.left()}})</p>
+						<p class="help-block" ng-if="adForm.title.$error.required">O preenchimento deste campo é obrigatório</p>
+					</div>
+					<div class="col-xs-3">
+						<label for="value" class="required">Valor</label>
+						<input type="text" class="form-control" id="value" name="value" placeholder="Valor" ng-model="ad.value" required>
+						<p class="help-block" ng-if="adForm.value.$error.required">O preenchimento deste campo é obrigatório</p>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group" ng-class="{ 'has-error' : adForm.details.$invalid }">
-			<label for="details" class="required">Detalhes</label>
-			<!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
-			<!-- <div ng-model="article" quill></div> -->
-			<textarea class="form-control" id="details" name="details" placeholder="Detalhes" rows="7" ng-model="ad.details" required
-			maxlength="{{check.details.length.max}}"></textarea>
-			<p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
-			<p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
-		</div>
+			<div class="form-group" ng-class="{ 'has-error' : adForm.details.$invalid }">
+				<label for="details" class="required">Detalhes</label>
+				<!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
+				<!-- <div ng-model="article" quill></div> -->
+				<textarea class="form-control" id="details" name="details" placeholder="Detalhes" rows="7" ng-model="ad.details" required
+				maxlength="{{check.details.length.max}}"></textarea>
+				<p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
+				<p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
+			</div>
 	  <!-- <div class="form-group">
 	    <div class="row">
 		    <div class="col-xs-5">
@@ -106,13 +109,13 @@
 	  		</div>
 	  	</div>
 	  	<p class="help-block">(Máximo de {{check.files.qtd.max}} imagens. {{check.files.qtd.left()}} imagens restando)</p>
-	  </ul>
-	</div>
-	<div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
-		<p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
-		<p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
-	</div>
-	<!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
-	<button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
-</form>
+	  </div>
+	  <div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
+	  	<p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
+	  	<p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
+	  </div>
+	  <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
+	  <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
+	</form>
+</div>
 </div>

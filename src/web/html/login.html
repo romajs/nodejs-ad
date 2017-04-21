@@ -1,21 +1,23 @@
-<form class="" name="userForm" novalidate>
-  <div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid }">
-    <label for="username" class="required">Usuario</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Usuario" ng-model="credentials.username" required
-    	maxlength="{{check.username.length.max}}">
-    <p class="help-block" ng-if="userForm.username.$error.required">O preenchimento deste campo é obrigatório</p>
-  </div>
-  <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid }">
-    <label for="password" class="required">Senha</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Senha" ng-model="credentials.password" required
-    	maxlength="{{check.password.length.max}}">
-    <p class="help-block" ng-if="userForm.password.$error.required">O preenchimento deste campo é obrigatório</p>
-  </div>
-  <div class="form-group" ng-class="{ 'has-error' : userForm.$invalid, 'has-success' : userForm.$valid }">
-    <p class="help-block" ng-if="userForm.$valid">Todos os campos foram preenchidos corretamente.</p>
-    <p class="help-block" ng-if="userForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
-   </div>
-  <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
-  <button type="submit" class="btn btn-secondary" ng-click="create()" ng-disabled="true">Criar nova conta</button>
-  <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="userForm.$invalid">Login</button>
-</form>
+<div class="container">
+	<form class="" name="userForm" novalidate>
+		<div class="form-group" ng-class="{ 'has-error' : userForm.username.$invalid }">
+			<label for="username" class="required">Usuario</label>
+			<input type="text" class="form-control" id="username" name="username" placeholder="Usuario" ng-model="credentials.username" required
+			maxlength="{{check.username.length.max}}">
+			<p class="help-block" ng-if="userForm.username.$error.required">O preenchimento deste campo é obrigatório</p>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid }">
+			<label for="password" class="required">Senha</label>
+			<input type="password" class="form-control" id="password" name="password" placeholder="Senha" ng-model="credentials.password" required
+			maxlength="{{check.password.length.max}}">
+			<p class="help-block" ng-if="userForm.password.$error.required">O preenchimento deste campo é obrigatório</p>
+		</div>
+		<div class="form-group" ng-class="{ 'has-error' : userForm.$invalid, 'has-success' : userForm.$valid }">
+			<p class="help-block" ng-if="userForm.$valid">Todos os campos foram preenchidos corretamente.</p>
+			<p class="help-block" ng-if="userForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
+		</div>
+		<!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
+		<button type="submit" class="btn btn-secondary" ng-click="create()" ng-disabled="true">Criar nova conta</button>
+		<button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="userForm.$invalid">Login</button>
+	</form>
+</div>

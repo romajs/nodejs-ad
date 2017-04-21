@@ -16,8 +16,6 @@ angular.module('app.ad' , [
 .controller('adController', function($scope, $stateParams, adService, attachmentViewService) {
 
 	$scope.ad = null
-	$scope.attachments = []
-	$scope.selected_attachment = null
 
 	adService.get($stateParams.id).then(function(res) {
 		$scope.ad = res.data

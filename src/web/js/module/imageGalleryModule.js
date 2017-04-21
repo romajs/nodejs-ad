@@ -14,9 +14,13 @@ angular.module('app.imageGallery' , [
 
 .controller('imageGalleryController', function($scope, attachmentViewService) {
 
-	$scope.attachments = []
+	$scope.selected_attachment = null
+	$scope.attachments = null
+	$scope.wide = false
+	$scope.width = 0
 
 	$scope.$watch('attachment_ids', function(attachment_ids) {
+		$scope.attachments = []
 		attachment_ids.forEach(function(id, index) {
 			attachmentViewService.get(id).then(function(res) {
 				var attachment = res.data
@@ -51,5 +55,30 @@ angular.module('app.imageGallery' , [
 	$scope.downloadUrl = function(id) {
 		return attachmentViewService.downloadUrl(id)
 	}
+
+	$scope.toggleWide = function(wide) {
+		$scope.wide = wide || !$scope.wide;
+
+		// $scope.width = document.querySelectorAll(".ad-image-gallery")[0].getBoundingClientRect().width;
+		// console.info($scope.width)
+	}
+
+	var $element = angular.element(document.querySelectorAll(".ad-image-gallery"))
+
+	$scope.getElementDimensions = function () {
+		return $element ? $element.width() : null;
+	};
+
+	$scope.$watch($scope.getElementDimensions, function (newValue, oldValue) {
+		console.info(newValue, oldValue)
+		$scope.width = oldValue // FIXME
+  });
+
+	$element.on('resize', function () {
+		console.info(arguments)
+		$scope.$apply(function() {
+			console.info(arguments)
+		});
+	});
 
 })

@@ -1,8 +1,14 @@
-<div class="ad-image-gallery">
+<div class="ad-image-gallery" ng-class="{ 'ad-image-gallery-wide' : wide }">
+	<a class="ad-image-gallery-close-wide" ng-click="toggleWide(false)">
+		<i class="fa fa-times"></i>
+	</a>
 	<div class="ad-image-gallery-selected">
-		<div>
-			<img ng-src="{{downloadUrl(selected_attachment._id)}}" title="{{ selected_attachment.name + ' (' + selected_attachment.type + ') ' + hrSize(selected_attachment.size) }}">
-		</div>
+		<a ng-if="!wide" ng-click="toggleWide(true)">
+			<img ng-src="{{downloadUrl(selected_attachment._id)}}" title="Clique para visualizar em tela cheia">
+		</a>
+		<a ng-if="wide">
+			<img ng-src="{{downloadUrl(selected_attachment._id)}}">
+		</a>
 	</div>
 	<ul class="ad-image-gallery-bottom">
 		<li class="ad-image-gallery-slider ad-image-gallery-slider-left">
@@ -10,8 +16,8 @@
 				<i class="fa fa-chevron-left"/>
 			</a>
 		</li>
-		<li class="ad-image-gallery-vertical-scroll">
-			<div class="ad-image-gallery-photos">
+		<li class="ad-image-gallery-vertical-scroll" ng-style="{ 'width': width - 80 + 'px' }">
+			<div class="ad-image-gallery-photos" ng-style="{ 'width': attachments.length * 100 + 'px' }">
 				<a ng-repeat="attachment in attachments" ng-click="select($index)">
 					<img ng-src="{{downloadUrl(attachment._id)}}" ng-class="{ 'selected': attachment == selected_attachment }" title="Clique para visualizar esta imagem">
 				</a>

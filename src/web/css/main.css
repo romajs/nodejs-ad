@@ -5,7 +5,6 @@ a:hover{
 	text-decoration: none;
 	transition: color ease-in-out .15s, border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	-webkit-transition: color ease-in-out .15s, border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-
 }
 
 label.required:after {
@@ -285,4 +284,45 @@ label.required:after {
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
 	-webkit-transition: color ease-in-out .15s, border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 	transition: color ease-in-out .15s, border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.ui-carousel {
+	background-color: #222;
+	border: 1px solid;
+	border-radius: 6px;
+}
+
+.carousel-caption {
+	/*color: goldenrod;*/
+}
+
+.carousel-control.right {
+	background-image: -webkit-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 100%);
+	background-image: -o-linear-gradient(left,rgba(0,0,0,0) 0,rgba(0,0,0,0) 100%);
+	background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0)));
+	background-image: linear-gradient(to right,rgba(0, 0, 0, 0) 0,rgb(0, 0, 0) 100%);
+}
+
+.carousel-control.left {
+	background-image: -webkit-linear-gradient(right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 100%);
+	background-image: -o-linear-gradient(right,rgba(0,0,0,0) 0,rgba(0,0,0,0) 100%);
+	background-image: -webkit-gradient(linear,right top,left top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0)));
+	background-image: linear-gradient(to left,rgba(0, 0, 0, 0) 0,rgb(0, 0, 0) 100%);	
+}
+
+.carousel-control {
+	/*color: #2a4e6c;*/
+}
+.carousel-control:hover {
+	/*color: #23527c;*/
+	/*transition: color ease-in-out .15s, border-color ease-in-out .15s,box-shadow ease-in-out .15s;*/
+	/*-webkit-transition: color ease-in-out .15s, border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;*/
+}
+
+.carousel-control .glyphicon-chevron-right {
+	margin-right: -40px;
+}
+
+.carousel-control .glyphicon-chevron-left {
+	margin-left: -40px;
 }

@@ -36,7 +36,7 @@
 				<p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
 				<p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
 			</div>
-	  <!-- <div class="form-group">
+	  <div class="form-group">
 	    <div class="row">
 		    <div class="col-xs-5">
 		    	<label for="estate">Estado</label>
@@ -91,7 +91,7 @@
 		    	<input type="text" class="form-control" id="zip_code" placeholder="Celular" ng-model="ad.contact.cellphone">
 		  	</div>
 	  	</div>
-	  </div> -->
+	  </div>
 	  <div class="form-group">
 	  	<label for="foto">Fotos</label>
 	  	<div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-keep="'distinct'" ng-disabled="check.files.qtd.left() <= 0" accept="image/*" ngf-pattern="'image/*'">{{check.files.qtd.left() > 0 ? 'Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos' : 'Você já atingiu o limite máximo de imagens para upload' }}</div>

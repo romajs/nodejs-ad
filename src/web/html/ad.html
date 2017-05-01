@@ -54,9 +54,53 @@
 				<ui-carousel attachment-ids="ad.attachment_ids"></ui-carousel>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<div class="row-fluid">
+						<div class="col-xs-12">
+							<h4>Localização</h4>
+						</div>
+						<div class="col-xs-12">
+							<label for="estate">Cidade / Estado</label>
+							<p class="form-control-static">{{ad.address.state}} / {{ad.address.city}}</p>
+						</div>
+						<div class="col-xs-12">
+							<label for="city">Endereço</label>
+							<p class="form-control-static">{{ad.address.street}}, {{ad.address.street_number}}, {{ad.address.neighborhood}}, {{ad.address.complement}}</p>
+						</div>
+						<div class="col-xs-12">
+							<label for="zip_code">Cep</label>
+							<p class="form-control-static">{{ad.address.zip_code}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6" style="text-align: right;">
+				<div class="form-group">
+					<div class="row-fluid">
+						<div class="col-xs-12">
+							<h4>Contato</h4>
+						</div>
+						<div class="col-xs-12">
+							<label for="estate">Email</label>
+							<p class="form-control-static">{{ad.contact.email}}</p>
+						</div>
+						<div class="col-xs-12">
+							<label for="city">Telefone</label>
+							<p class="form-control-static">{{ad.contact.phone}}</p>
+						</div>
+						<div class="col-xs-12">
+							<label for="zip_code">Celular</label>
+							<p class="form-control-static">{{ad.contact.cellphone}} <i class="fa fa-whatsapp"></i> <i class="fa fa-check-circle-o"></i> </p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row-fluid">
-			<div class="col-sm-12">
-				&nbsp;
+			<div class="col-xs-12">
+				<span>palavras chave key words keys word</span>
 			</div>
 		</div>
 		<!-- <div class="col-sm-3">
@@ -72,5 +116,4 @@
 			<span>Compartilhar: <i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i> </span>
 		</div>
 	</div>
-</div>
 </div>

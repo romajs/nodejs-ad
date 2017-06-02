@@ -8,7 +8,7 @@
   "scripts": {
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
-    "lint": "eslint src",
+    "lint": "eslint src/ --ignore-path .gitignore",
     "start": "nodemon ./src/server.js",
     "test": "mocha"
   },
@@ -32,7 +32,7 @@
   "devDependencies": {
     "assert": "^1.4.1",
     "codecov": "^1.0.1",
-    "eslint": "^3.18.0",
+    "eslint": "^3.19.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "node-debug": "^0.1.0",

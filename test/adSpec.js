@@ -26,6 +26,7 @@ describe('/ad', function() {
 				.send({
 					title: 'Test ad 1',
 					details : 'Details ad 1',
+					value: 1000.00,
 				})
 				.expect(function(res) {
 					assert.equal(__v = res.body.__v, 0)
@@ -76,6 +77,7 @@ describe('/ad', function() {
 				.send({
 					title: 'Test ad 1',
 					details : 'Details ad 1',
+					value: 1000.00,
 				})
 				.expect(function(res) {
 					assert.equal(res.body.__v, 0)
@@ -91,6 +93,7 @@ describe('/ad', function() {
 				.expect([
 					{ param: 'title', msg: 'required' },
   				{ param: 'details', msg: 'required' },
+  				{ param: 'value', msg: 'required' },
 				])
 				.expect(400)
 		})
@@ -108,6 +111,7 @@ describe('/ad', function() {
 				.send({
 					title: 'Test ad 1',
 					details : 'Details ad 1',
+					value: 1000.00,
 				})
 				.expect(function(res) {
 					assert.equal(__v = res.body.__v, 0)
@@ -135,6 +139,7 @@ describe('/ad', function() {
 				.send({
 					title: 'Test ad 1 update',
 					details : 'Details ad 1 update',
+					value: 1000.00,
 				})
 				.expect(404)
 		})
@@ -146,6 +151,7 @@ describe('/ad', function() {
 				.send({
 					title: 'Test ad 1 update',
 					details : 'Details ad 1 update',
+					value: 1000.00,
 				})
 				.expect(function(res) {
 					assert.equal(res.body.__v, __v)

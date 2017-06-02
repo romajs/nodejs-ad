@@ -39,6 +39,7 @@ describe('/ads', function() {
 				.send({
 					title: 'Test ad 1',
 					details : 'Details ad 1',
+					value: 1000.00,
 				})
 				.expect(function(res) {
 					assert.equal(0, __v = res.body.__v)

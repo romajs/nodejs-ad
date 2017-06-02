@@ -5,5 +5,5 @@ angular.module('app')
 	this.authenticate = function(credentials) {
 		return $http.post('/auth', credentials)
 	}
-	
+
 })

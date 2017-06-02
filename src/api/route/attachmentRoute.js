@@ -1,6 +1,6 @@
 var AttachmentModel = rootRequire('api/model/attachmentModel'),
-Attachment = AttachmentModel.Attachment, 
-AttachmentStatus = AttachmentModel.AttachmentStatus
+	Attachment = AttachmentModel.Attachment,
+	AttachmentStatus = AttachmentModel.AttachmentStatus
 
 var formidable = require('formidable')
 var fs = require('fs')
@@ -9,7 +9,7 @@ var logger = rootRequire('logger')
 var express = require('express')
 var router = express.Router()
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
 
 	var form = new formidable.IncomingForm()
 
@@ -22,15 +22,15 @@ router.post('/', function (req, res, next) {
 	form.type = 'multipart'
 	form.uploadDir = rootPath('attachments')
 
-	form.on('progress', function (recv, total) {
+	form.on('progress', function(recv, total) {
 		logger.info('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)
 	})
 
-	form.on('error', function (err) {
+	form.on('error', function(err) {
 		next(err)
 	})
 
-	form.on('aborted', function (name, file) {
+	form.on('aborted', function(name, file) {
 		logger.warn('aborted: name="%s", path="%s", type="%s", size=%s bytes', file.name, file.path, file.type, file.size)
 		res.status(308).end()
 	})
@@ -62,7 +62,7 @@ router.post('/', function (req, res, next) {
 
 })
 
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', function(req, res, next) {
 
 	req.checkParams('id').isObjectId()
 
@@ -73,20 +73,20 @@ router.delete('/:id', function (req, res, next) {
 		}
 
 	}).then(function() {
-		
+
 		Attachment.findById(req.params.id).then(function(attachment) {
 
 			fs.unlink(attachment.path, function(err) {
 
-				if(err) return next(err)
+				if (err) return next(err)
 
-					attachment.remove().then(function() {
-						return res.status(200).end()
-					}).catch(function(err) {
-						return next(err)
-					})
-
+				attachment.remove().then(function() {
+					return res.status(200).end()
+				}).catch(function(err) {
+					return next(err)
 				})
+
+			})
 
 		})
 

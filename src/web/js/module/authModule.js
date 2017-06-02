@@ -32,14 +32,14 @@ angular.module('app.auth', [
 	$httpProvider.interceptors.push('tokenInterceptor')
 })
 
-.run(function($rootScope, $state, sessionService) {
+.run(function($rootScope, $log, $state, sessionService) {
 
 	// Client side authentication solution
-	$rootScope.$on('$stateChangeStart', function(event, toState, fromState) {
+	$rootScope.$on('$stateChangeStart', function(event, toState) {
 		var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
 		var isAuthenticated = sessionService.isAuthenticated()
-		console.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
-		if(requireAuthentication && !isAuthenticated) {
+		$log.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
+		if (requireAuthentication && !isAuthenticated) {
 			event.preventDefault()
 			$state.go('login')
 		}

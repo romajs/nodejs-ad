@@ -13,22 +13,24 @@ router.post('/', function(req, res, next) {
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
+	}).then(function() {
 
-		User.findOne({ username : req.body.username }).then(function(user) {
+		User.findOne({
+			username: req.body.username
+		}).then(function(user) {
 
-			if(!user) {
+			if (!user) {
 				return res.status(404).json({
 					success: false,
 					message: 'Authentication failed. User not found',
 				})
 			}
 
-			if(user.password != req.body.password) {
+			if (user.password != req.body.password) {
 
 				return res.status(401).json({
 					success: false,
@@ -38,8 +40,8 @@ router.post('/', function(req, res, next) {
 			} else {
 
 				var json = {
-					__v : user.__v,
-					_id : user._id,
+					__v: user.__v,
+					_id: user._id,
 					username: user.username,
 				}
 

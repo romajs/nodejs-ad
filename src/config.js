@@ -6,33 +6,33 @@ function config(env, callback) {
 
 function baseConfig() {
 	return {
-		auth : {
-			header_name : 'x-access-token',
-			secret : 'JHVwM3JfJDNjcjM3Cg==',
-			expiresIn : 86400 // expires in 24 hours
+		auth: {
+			header_name: 'x-access-token',
+			secret: 'JHVwM3JfJDNjcjM3Cg==',
+			expiresIn: 86400 // expires in 24 hours
 		},
-		http : {
-			host : '127.0.0.1',
-			port : 8000
+		http: {
+			host: '127.0.0.1',
+			port: 8000
 		},
-		logger : {
+		logger: {
 			transports: [
 				new winston.transports.Console({
 					colorize: true,
 					timestamp: true
 				})
 			],
-			level : 'info',
+			level: 'info',
 			exitOnError: false,
 			expressFormat: true,
 			colorize: true
 		},
-		mongodb : {
-			host : 'localhost',
-			port : 27017,
-			protocol : 'mongodb',
-			dbname : 'nodejs-ad',
-			url : function() {
+		mongodb: {
+			host: 'localhost',
+			port: 27017,
+			protocol: 'mongodb',
+			dbname: 'nodejs-ad',
+			url: function() {
 				return [this.protocol, '://', this.host, ':', this.port, '/', this.dbname].join('')
 			}
 		}

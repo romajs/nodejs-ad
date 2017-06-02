@@ -7,19 +7,19 @@ router.get('/', function (req, res, next) {
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
+	}).then(function() {
 
-  	Ad.find(req.query).then(function(results) {
+		Ad.find(req.query).then(function(results) {
 			return res.json(results)
 		}).catch(function(err) {
 			return next(err)
 		})
 
-  })
+	})
 
 })
 

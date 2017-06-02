@@ -1,5 +1,4 @@
-angular.module('app.imageGallery' , [
-	])
+angular.module('app.imageGallery', [])
 
 .directive('imageGallery', function() {
 	return {
@@ -12,7 +11,7 @@ angular.module('app.imageGallery' , [
 	}
 })
 
-.controller('imageGalleryController', function($scope, attachmentViewService) {
+.controller('imageGalleryController', function($scope, $log, attachmentViewService) {
 
 	$scope.selected_attachment = null
 	$scope.attachments = null
@@ -25,7 +24,7 @@ angular.module('app.imageGallery' , [
 			attachmentViewService.get(id).then(function(res) {
 				var attachment = res.data
 				$scope.attachments.push(attachment)
-				if(index == 0) {
+				if (index == 0) {
 					$scope.select(0)
 				}
 			})
@@ -37,7 +36,7 @@ angular.module('app.imageGallery' , [
 	}
 
 	$scope.previous = function() {
-		var index = $scope.attachments.indexOf($scope.selected_attachment) - 1 
+		var index = $scope.attachments.indexOf($scope.selected_attachment) - 1
 		index = Math.max(index, 0)
 		$scope.select(index)
 	}
@@ -57,28 +56,27 @@ angular.module('app.imageGallery' , [
 	}
 
 	$scope.toggleWide = function(wide) {
-		$scope.wide = wide || !$scope.wide;
-
-		// $scope.width = document.querySelectorAll(".ad-image-gallery")[0].getBoundingClientRect().width;
-		// console.info($scope.width)
+		$scope.wide = wide || !$scope.wide
+			// $scope.width = document.querySelectorAll(".ad-image-gallery")[0].getBoundingClientRect().width
+			// $log.info($scope.width)
 	}
 
-	var $element = angular.element(document.querySelectorAll(".ad-image-gallery"))
+	var $element = angular.element(document.querySelectorAll('.ad-image-gallery'))
 
-	$scope.getElementDimensions = function () {
-		return $element ? $element.width() : null;
-	};
+	$scope.getElementDimensions = function() {
+		return $element ? $element.width() : null
+	}
 
-	$scope.$watch($scope.getElementDimensions, function (newValue, oldValue) {
-		console.info(newValue, oldValue)
+	$scope.$watch($scope.getElementDimensions, function(newValue, oldValue) {
+		$log.info(newValue, oldValue)
 		$scope.width = oldValue // FIXME
-  });
+	})
 
-	$element.on('resize', function () {
-		console.info(arguments)
+	$element.on('resize', function() {
+		$log.info(arguments)
 		$scope.$apply(function() {
-			console.info(arguments)
-		});
-	});
+			$log.info(arguments)
+		})
+	})
 
 })

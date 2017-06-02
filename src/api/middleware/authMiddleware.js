@@ -11,13 +11,13 @@ function AuthMiddleware(req, res, next) {
 
 	if (token) {
 
-		jwt.verify(token, config.auth.secret, function(err, decoded) {	
-				
+		jwt.verify(token, config.auth.secret, function(err, decoded) {
+
 			if (err) {
 				return res.status(403).json({
 					success: false,
 					message: 'Failed to authenticate token',
-				})		
+				})
 			} else {
 
 				User.findById(decoded._id).then(function(user) {
@@ -30,18 +30,18 @@ function AuthMiddleware(req, res, next) {
 				}).catch(function(err) {
 					return next(err)
 				})
-				
+
 			}
 
 		})
 
 	} else {
 
-		return res.status(400).send({ 
-			success: false, 
+		return res.status(400).send({
+			success: false,
 			message: 'No token provided'
 		})
-		
+
 	}
 
 }

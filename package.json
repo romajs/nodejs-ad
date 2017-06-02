@@ -1,42 +1,43 @@
 {
-  "name": "nodejs-ad",
-  "version": "1.0.0",
-  "private": true,
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "codecov": "codecov",
-    "coverage": "istanbul cover _mocha -- -R spec",
-    "lint": "eslint src/ --ignore-path .gitignore",
-    "start": "nodemon ./src/server.js",
-    "test": "mocha"
-  },
-  "author": "@romajs",
-  "dependencies": {
-    "blocked": "^1.2.1",
-    "body-parser": "^1.17.1",
-    "compression": "^1.6.2",
-    "express": "^4.15.2",
-    "express-validator": "^3.1.3",
-    "express-winston": "^2.3.0",
-    "formidable": "^1.1.1",
-    "install": "^0.8.8",
-    "jsonwebtoken": "^7.3.0",
-    "make-runnable": "^1.1.1",
-    "mongoose": "^4.9.3",
-    "npm": "^4.4.4",
-    "path": "^0.12.7",
-    "winston": "^2.3.0"
-  },
-  "devDependencies": {
-    "assert": "^1.4.1",
-    "codecov": "^1.0.1",
-    "eslint": "^3.19.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "node-debug": "^0.1.0",
-    "nodemon": "^1.11.0",
-    "supertest": "^3.0.0"
-  }
+	"name": "nodejs-ad",
+	"version": "1.0.0",
+	"private": true,
+	"directories": {
+		"test": "test"
+	},
+	"scripts": {
+		"codecov": "codecov",
+		"coverage": "istanbul cover _mocha -- -R spec",
+		"lint": "eslint src/ --ignore-path .gitignore",
+		"posttest": "npm run lint",
+		"start": "nodemon ./src/server.js",
+		"test": "mocha"
+	},
+	"author": "@romajs",
+	"dependencies": {
+		"blocked": "^1.2.1",
+		"body-parser": "^1.17.1",
+		"compression": "^1.6.2",
+		"express": "^4.15.2",
+		"express-validator": "^3.1.3",
+		"express-winston": "^2.3.0",
+		"formidable": "^1.1.1",
+		"install": "^0.8.8",
+		"jsonwebtoken": "^7.3.0",
+		"make-runnable": "^1.1.1",
+		"mongoose": "^4.9.3",
+		"npm": "^4.4.4",
+		"path": "^0.12.7",
+		"winston": "^2.3.0"
+	},
+	"devDependencies": {
+		"assert": "^1.4.1",
+		"codecov": "^1.0.1",
+		"eslint": "^3.19.0",
+		"istanbul": "^0.4.5",
+		"mocha": "^3.2.0",
+		"node-debug": "^0.1.0",
+		"nodemon": "^1.11.0",
+		"supertest": "^3.0.0"
+	}
 }

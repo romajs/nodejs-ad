@@ -9,5 +9,5 @@ angular.module('app')
 	this.get = function(id) {
 		return $http.get('/ad/' + id)
 	}
-	
+
 })

@@ -1,11 +1,11 @@
-angular.module('app.adNew' , [
+angular.module('app.adNew', [
 	'ui.router',
 	'ngFileUpload',
 	// 'ngQuill'
 	// 'angular-quill',
 ])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider) {
 	$stateProvider.state('ad-new', {
 		url: '/ad-new',
 		controller: 'adNewController',
@@ -16,7 +16,7 @@ angular.module('app.adNew' , [
 	})
 })
 
-.controller('adNewController', function($scope, $state, $timeout, Upload, adService, attachmentService) {
+.controller('adNewController', function($scope, $log, $state, $timeout, Upload, adService, attachmentService) {
 
 	$scope.ad = {
 		title: 'Teste',
@@ -27,25 +27,25 @@ angular.module('app.adNew' , [
 	}
 
 	$scope.check = {
-		title : {
-			length : {
-				max : 85,
+		title: {
+			length: {
+				max: 85,
 				left: function() {
 					return this.max - ($scope.ad.title || '').length
 				},
 			},
 		},
-		details : {
-			length : {
-				max : 1000,
+		details: {
+			length: {
+				max: 1000,
 				left: function() {
 					return this.max - ($scope.ad.details || '').length
 				},
 			},
 		},
-		files : {
-			qtd : {
-				max : 10,
+		files: {
+			qtd: {
+				max: 10,
 				left: function() {
 					return this.max - ($scope.files || []).length
 				},
@@ -57,69 +57,71 @@ angular.module('app.adNew' , [
 	$scope.attachments = []
 
 	$scope.$watch('files', function(newFiles) {
-    newFiles.splice($scope.check.files.qtd.max, newFiles.length)
-    $scope.attachment(newFiles)
-  })
+		newFiles.splice($scope.check.files.qtd.max, newFiles.length)
+		$scope.attachment(newFiles)
+	})
 
-  $scope.attachment = function (files) {
+	$scope.attachment = function(files) {
 
-    files && files.forEach(function(file) {
+		files && files.forEach(function(file) {
 
-      if (file.$error) {
+			if (file.$error) {
 
-      	console.error(file.$error)
+				$log.error(file.$error)
 
-      } else {
+			} else {
 
-        Upload.upload({
-          url: attachmentService.uploadUrl(),
-          data: { file: file, },
-        }).then(function (res) {
+				Upload.upload({
+					url: attachmentService.uploadUrl(),
+					data: {
+						file: file,
+					},
+				}).then(function(res) {
 
-          $timeout(function() {
-          	console.info('successfully attachmented: file.name="%s"', res.config.data.file.name)
-          	
-          	files.find(function(file) {
-	        		return file.name === res.config.data.file.name
-	        	}).attachment_id = res.data._id
+					$timeout(function() {
+						$log.info('successfully attachmented: file.name="%s"', res.config.data.file.name)
 
-          	$scope.attachments.push(res.data)
+						files.find(function(file) {
+							return file.name === res.config.data.file.name
+						}).attachment_id = res.data._id
 
-          })
+						$scope.attachments.push(res.data)
 
-        }, null, function (evt) {
+					})
 
-        	var file = files.find(function(file) {
-        		return file.name === evt.config.data.file.name
-        	})
+				}, null, function(evt) {
 
-          file.progress = parseInt(100.0 * evt.loaded / evt.total)
-          console.info('attachmenting: file.name="%s", progress=%s%', file.name, file.progress)
+					var file = files.find(function(file) {
+						return file.name === evt.config.data.file.name
+					})
 
-        })
+					file.progress = parseInt(100.0 * evt.loaded / evt.total)
+					$log.info('attachmenting: file.name="%s", progress=%s%', file.name, file.progress)
 
-      }
-    })
+				})
 
-  }
+			}
+		})
 
-  $scope.removeFile = function(name) {
-  	
-  	var fileIndex = $scope.files.findIndex(function(file) {
-  		return file.name == name
-  	})
-  	
-  	$scope.files.splice(fileIndex, 1)
+	}
 
-  	var attachmentIndex = $scope.attachments.findIndex(function(attachment) {
-  		return attachment.name == name
-  	})
-  	
-  	var attachment = $scope.attachments.splice(attachmentIndex, 1)[0]
-  	attachmentService.delete(attachment._id)
+	$scope.removeFile = function(name) {
 
-  	console.info('removed: file.name="%s"', name)
-  }
+		var fileIndex = $scope.files.findIndex(function(file) {
+			return file.name == name
+		})
+
+		$scope.files.splice(fileIndex, 1)
+
+		var attachmentIndex = $scope.attachments.findIndex(function(attachment) {
+			return attachment.name == name
+		})
+
+		var attachment = $scope.attachments.splice(attachmentIndex, 1)[0]
+		attachmentService.delete(attachment._id)
+
+		$log.info('removed: file.name="%s"', name)
+	}
 
 	$scope.cancel = function() {
 		// $state.go('ads')
@@ -132,14 +134,16 @@ angular.module('app.adNew' , [
 			return attachment._id
 		})
 
-		console.info($scope.adForm.$valid, ad)
+		$log.info($scope.adForm.$valid, ad)
 
-		if($scope.adForm.$valid) {
+		if ($scope.adForm.$valid) {
 
 			adService.create(ad).then(function(res) {
 
-				if(res.status == 200 && res.data) {
-					$state.go('ad', { id: res.data._id} )
+				if (res.status == 200 && res.data) {
+					$state.go('ad', {
+						id: res.data._id
+					})
 				}
 
 			})

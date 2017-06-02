@@ -3,18 +3,18 @@ var Attachment = rootRequire('api/model/attachmentModel').Attachment
 var express = require('express')
 var router = express.Router()
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function(req, res, next) {
 
 	req.checkParams('id').isObjectId()
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
-  	
+	}).then(function() {
+
 		Attachment.findById(req.params.id).then(function(attachment) {
 			return res.status(attachment ? 200 : 404).json(attachment)
 		}).catch(function(err) {
@@ -25,20 +25,20 @@ router.get('/:id', function (req, res, next) {
 
 })
 
-router.get('/:id/download', function (req, res, next) {
+router.get('/:id/download', function(req, res, next) {
 
 	req.checkParams('id').isObjectId()
 
 	req.getValidationResult().then(function(result) {
 
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
+		if (!result.isEmpty()) {
+			return res.status(400).json(result.array())
+		}
 
-  }).then(function() {
-  	
+	}).then(function() {
+
 		Attachment.findById(req.params.id).then(function(attachment) {
-			if(attachment) {
+			if (attachment) {
 				res.status(200).sendFile(attachment.path)
 			} else {
 				res.status(404).end()

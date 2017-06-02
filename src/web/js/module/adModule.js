@@ -1,8 +1,8 @@
-angular.module('app.ad' , [
+angular.module('app.ad', [
 	'ui.router',
-	])
+])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider) {
 	$stateProvider.state('ad', {
 		url: '/ad/:id',
 		controller: 'adController',
@@ -13,13 +13,13 @@ angular.module('app.ad' , [
 	})
 })
 
-.controller('adController', function($scope, $stateParams, adService, attachmentViewService) {
+.controller('adController', function($scope, $log, $stateParams, adService) {
 
 	$scope.ad = null
 
 	adService.get($stateParams.id).then(function(res) {
 		$scope.ad = res.data
-		console.info($scope.ad)
+		$log.info($scope.ad)
 		$scope.ad.address = {
 			state: 'São Paulo',
 			city: 'Campinas',

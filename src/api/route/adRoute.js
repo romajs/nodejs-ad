@@ -1,15 +1,15 @@
 var AdModel = rootRequire('api/model/adModel'),
-Ad = AdModel.Ad,
-AdStatus = AdModel.AdStatus
+	Ad = AdModel.Ad,
+	AdStatus = AdModel.AdStatus
 
 var AttachmentModel = rootRequire('api/model/attachmentModel'),
-Attachment = AttachmentModel.Attachment,
-AttachmentStatus = AttachmentModel.AttachmentStatus
+	Attachment = AttachmentModel.Attachment,
+	AttachmentStatus = AttachmentModel.AttachmentStatus
 
 var express = require('express')
 var router = express.Router()
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
 
 	req.checkBody('title', 'required').notEmpty()
 	req.checkBody('details', 'required').notEmpty()
@@ -43,12 +43,16 @@ router.post('/', function (req, res, next) {
 					status: AttachmentStatus.STEADY,
 				}
 
-				var attachmentPromise = Attachment.findByIdAndUpdate(attachment_id, {$set: attachment }, { new: true })
+				var attachmentPromise = Attachment.findByIdAndUpdate(attachment_id, {
+					$set: attachment
+				}, {
+					new: true
+				})
 				attachmentPromises.push(attachmentPromise)
 
 			})
 
-			return Promise.all(attachmentPromises).then(function(attachments) {
+			return Promise.all(attachmentPromises).then(function() {
 				return res.status(200).json(ad)
 			})
 
@@ -60,7 +64,7 @@ router.post('/', function (req, res, next) {
 
 })
 
-router.put('/:id', function (req, res, next) {
+router.put('/:id', function(req, res, next) {
 
 	req.checkParams('id', 'invalid').isObjectId()
 	req.checkBody('title', 'required').notEmpty()
@@ -75,14 +79,18 @@ router.put('/:id', function (req, res, next) {
 	}).then(function() {
 
 		var ad = {
-			title : req.body.title,
-			details : req.body.details,
-			status : AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+			title: req.body.title,
+			details: req.body.details,
+			status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
 			created_at: new Date(),
 			user_id: req.auth.user._id,
 		}
 
-		Ad.findByIdAndUpdate(req.params.id, { $set: ad }, { new: true }).then(function(ad) {
+		Ad.findByIdAndUpdate(req.params.id, {
+			$set: ad
+		}, {
+			new: true
+		}).then(function(ad) {
 			return res.status(ad ? 200 : 404).json(ad)
 		}).catch(function(err) {
 			return next(err)
@@ -92,7 +100,7 @@ router.put('/:id', function (req, res, next) {
 
 })
 
-router.get('/:id', function (req, res, next) {
+router.get('/:id', function(req, res, next) {
 
 	req.checkParams('id').isObjectId()
 
@@ -103,7 +111,7 @@ router.get('/:id', function (req, res, next) {
 		}
 
 	}).then(function() {
-		
+
 		Ad.findById(req.params.id).then(function(ad) {
 			res.status(ad ? 200 : 404).json(ad)
 		}).catch(function(err) {

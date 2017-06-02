@@ -1,8 +1,8 @@
-angular.module('app.user' , [
+angular.module('app.user', [
 	'ui.router',
 ])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider) {
 	$stateProvider.state('user', {
 		url: '/user/:id',
 		controller: 'userController',

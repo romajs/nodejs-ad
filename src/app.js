@@ -15,13 +15,7 @@ global.rootRequire = function(name) {
 }
 
 global.rootPath = function(name) {
-	return path.resolve(APP_DIR + '/' + name)
-}
-
-global.Enum = function (arr) {
-	var obj = {}
-	arr.forEach(function(e) { obj[e] = e })
-	return obj
+	return path.resolve(global.APP_DIR + '/' + name)
 }
 
 // config
@@ -43,18 +37,20 @@ app.use(express.static(path.join(__dirname, 'web')))
 
 // middleware
 app.use(compression())
-app.use(bodyParser.urlencoded({	extended: false }))
+app.use(bodyParser.urlencoded({
+	extended: false
+}))
 app.use(bodyParser.json())
 app.use(expressValidator({
- customValidators: {
-    isObjectId: function(id) {
-    		try {
-    			return mongoose.Types.ObjectId(id)
-    		} catch(err) {
-    			return false
-    		}
-    },
- }
+	customValidators: {
+		isObjectId: function(id) {
+			try {
+				return mongoose.Types.ObjectId(id)
+			} catch (err) {
+				return false
+			}
+		},
+	}
 }))
 app.use(expressWinston.logger(config.logger))
 
@@ -73,7 +69,7 @@ app.use('/domain', rootRequire('api/route/domainRoute'))
 app.use('/user', rootRequire('/api/route/userRoute'))
 
 // error handling
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res) {
 	logger.error(err)
 	return res.status(500).send({
 		status: 500,
@@ -91,7 +87,7 @@ var db = mongoose.connection
 db.on('error', logger.error)
 
 db.once('open', function() {
-  logger.info('MongoDB/mongoose connected successfully at: %s', config.mongodb.url())
+	logger.info('MongoDB/mongoose connected successfully at: %s', config.mongodb.url())
 })
 
 // server http/https?
@@ -99,17 +95,25 @@ var server = null
 
 function start() {
 	return new Promise(function(resolve, reject) {
-		server = app.listen(config.http.port, config.http.host, function () {
-			logger.info('App listening on:', server.address())
-			logger.info('APP_DIR="%s", process.env.NODE_ENV="%s"', APP_DIR, process.env.NODE_ENV)
-			resolve(server)
-		})
+		try {
+			server = app.listen(config.http.port, config.http.host, function() {
+				logger.info('App listening on:', server.address())
+				logger.info('APP_DIR="%s", process.env.NODE_ENV="%s"', global.APP_DIR, process.env.NODE_ENV)
+				resolve(server)
+			})
+		} catch (err) {
+			reject(err)
+		}
 	})
 }
 
 function close() {
 	return new Promise(function(resolve, reject) {
-		resolve(server.close())
+		try {
+			resolve(server.close())
+		} catch (err) {
+			reject(err)
+		}
 	})
 }
 

@@ -9,7 +9,7 @@ angular.module('app', [
 	'app.user',
 	'ui.bootstrap',
 	'ui.router',
-	])
+])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -34,5 +34,5 @@ angular.module('app', [
 	$rootScope.$back = function() {
 		$window.history.back()
 	}
-	
+
 })

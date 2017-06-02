@@ -1,6 +1,6 @@
-angular.module('app.uiCarousel' , [
+angular.module('app.uiCarousel', [
 	'ui.bootstrap',
-	])
+])
 
 .directive('uiCarousel', function() {
 	return {
@@ -17,13 +17,13 @@ angular.module('app.uiCarousel' , [
 
 	$scope.attachments = null
 
-	$scope.myInterval = 0;
-  $scope.noWrapSlides = false;
-  $scope.active = 0;
+	$scope.myInterval = 0
+	$scope.noWrapSlides = false
+	$scope.active = 0
 
 	$scope.$watch('attachment_ids', function(attachment_ids) {
 		$scope.attachments = []
-		attachment_ids.forEach(function(id, index) {
+		attachment_ids.forEach(function(id) {
 			attachmentViewService.get(id).then(function(res) {
 				var attachment = res.data
 				$scope.attachments.push(attachment)

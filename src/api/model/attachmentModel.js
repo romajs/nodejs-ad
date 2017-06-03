@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var Enum = rootRequire('api/misc/util').Enum
 
-var AttachmentStatus = Enum('TEMPORARY', 'STEADY')
+var AttachmentStatus = new Enum('TEMPORARY', 'STEADY')
 
 var AttachmentSchema = new Schema({
 	name: String,
@@ -12,7 +12,7 @@ var AttachmentSchema = new Schema({
 	hash_md5: String,
 	status: {
 		type: String,
-		enum: Object.keys(AttachmentStatus)
+		enum: AttachmentStatus.items(),
 	},
 	created_at: {
 		type: Date

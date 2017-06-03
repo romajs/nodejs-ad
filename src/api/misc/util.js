@@ -1,13 +1,14 @@
-function Enum(args) {
-	var obj = {}
-	for (var i in args) {
-		var arg = args[i]
-		obj[arg] = arg
+function Enum() {
+	var args = {}
+	for (var i in arguments) {
+		var arg = arguments[i]
+		this[arg] = args[arg] = arg
 	}
-	return obj
-
+	this.items = function() {
+		return Object.keys(args);
+	}
 }
 
-module.exports.Enum = function() {
-	return new Enum(arguments)
+module.exports = {
+	Enum,
 }

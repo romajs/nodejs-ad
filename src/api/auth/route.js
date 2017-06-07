@@ -1,4 +1,4 @@
-var User = rootRequire('api/model/userModel').User
+var User = rootRequire('api/user/model').User
 
 var config = rootRequire('config')
 var jwt = require('jsonwebtoken')

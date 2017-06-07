@@ -1,8 +1,8 @@
-var AdModel = rootRequire('api/model/adModel'),
+var AdModel = rootRequire('api/ad/model'),
 	Ad = AdModel.Ad,
 	AdStatus = AdModel.AdStatus
 
-var AttachmentModel = rootRequire('api/model/attachmentModel'),
+var AttachmentModel = rootRequire('api/attachment/model'),
 	Attachment = AttachmentModel.Attachment,
 	AttachmentStatus = AttachmentModel.AttachmentStatus
 

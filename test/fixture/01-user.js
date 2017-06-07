@@ -2,7 +2,7 @@ module.exports.load = function() {
 
 	return new Promise(function(resolve, reject) {
 
-		var User = rootRequire('api/model/userModel').User
+		var User = rootRequire('api/user/model').User
 
 		var admin = new User({
 			username : 'admin',

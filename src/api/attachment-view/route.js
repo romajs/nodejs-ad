@@ -1,4 +1,4 @@
-var Attachment = rootRequire('api/model/attachmentModel').Attachment
+var Attachment = rootRequire('api/attachment/model').Attachment
 
 var express = require('express')
 var router = express.Router()

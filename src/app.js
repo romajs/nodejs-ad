@@ -55,27 +55,27 @@ app.use(expressValidator({
 app.use(expressWinston.logger(config.logger))
 
 // non-authenticated routes
-app.use('/ads', rootRequire('api/route/adsRoute'))
-app.use('/auth', rootRequire('api/route/authRoute'))
-app.use('/attachment', rootRequire('api/route/attachmentViewRoute'))
+app.use('/ads', rootRequire('api/ad-search/route'))
+app.use('/attachment', rootRequire('api/attachment-view/route'))
+app.use('/auth', rootRequire('api/auth/route'))
 
 // auth
-app.use(rootRequire('api/middleware/authMiddleware'))
+app.use(rootRequire('api/auth/middleware'))
 
 // authenticated routes
-app.use('/ad', rootRequire('/api/route/adRoute'))
-app.use('/attachment', rootRequire('api/route/attachmentRoute'))
-app.use('/domain', rootRequire('api/route/domainRoute'))
-app.use('/user', rootRequire('/api/route/userRoute'))
+app.use('/ad', rootRequire('api/ad/route'))
+app.use('/attachment', rootRequire('api/attachment/route'))
+app.use('/domain', rootRequire('api/domain/route'))
+app.use('/user', rootRequire('api/user/route'))
 
 // error handling
-app.use(function(err, req, res) {
-	logger.error(err)
+app.use(function(err, req, res, next) {
+	logger.error(err.stack)
 	return res.status(500).send({
 		status: 500,
 		message: 'Internal error',
 		type: 'internal_error',
-	})
+	}) || next()
 })
 
 // mongo/db

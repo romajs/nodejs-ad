@@ -1,7 +1,7 @@
 var config = rootRequire('config')
 var jwt = require('jsonwebtoken')
 
-var User = rootRequire('api/model/userModel').User
+var User = rootRequire('api/user/model').User
 
 function AuthMiddleware(req, res, next) {
 

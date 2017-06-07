@@ -1,4 +1,4 @@
-var User = rootRequire('api/model/userModel').User
+var User = rootRequire('api/user/model').User
 
 var express = require('express')
 var router = express.Router()

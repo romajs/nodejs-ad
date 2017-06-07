@@ -5,7 +5,7 @@ function Enum() {
 		this[arg] = args[arg] = arg
 	}
 	this.items = function() {
-		return Object.keys(args);
+		return Object.keys(args)
 	}
 }
 

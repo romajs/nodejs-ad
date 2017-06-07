@@ -24,8 +24,10 @@ Express:
 - [x] body-parser (x-www-form-urlencoded and json)
 - [x] compression/gzip
 - [ ] cluster
+- [ ] csurf
 - [ ] express-validator
 - [x] helmet
+- [ ] limiter
 - [ ] multipart form/data
 - [ ] NODE_ENV
 
@@ -58,9 +60,8 @@ Logging:
 - [x] blocked
 
 Lint:
-- [x] ESLint
+- [x] ESLint (compatible w/ Standart)
 - [x] Code climate
-- [ ] Standart
 
 Automatic server restart:
 - [x] nodemon

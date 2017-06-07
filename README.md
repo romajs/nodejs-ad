@@ -25,6 +25,7 @@ Express:
 - [x] compression/gzip
 - [ ] cluster
 - [ ] express-validator
+- [x] helmet
 - [ ] multipart form/data
 - [ ] NODE_ENV
 

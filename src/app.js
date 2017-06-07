@@ -4,6 +4,7 @@ var compression = require('compression')
 var express = require('express')
 var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
+var helmet = require('helmet')
 var mongoose = require('mongoose')
 var path = require('path')
 
@@ -31,6 +32,9 @@ blocked(function(ms) {
 
 // app
 var app = express()
+
+// helmet
+app.use(helmet())
 
 // static
 app.use(express.static(path.join(__dirname, 'web')))

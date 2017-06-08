@@ -30,20 +30,18 @@ describe('/ads', function() {
 
 	describe('get w/ one result', function() {
 
-		var __v = null, _id = null
-
 		beforeEach(function() {
 			return request(test.app)
 				.post('/ad')
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1',
-					details : 'Details ad 1',
+					details: 'Details ad 1',
 					value: 1000.00,
 				})
 				.expect(function(res) {
-					assert.equal(0, __v = res.body.__v)
-					assert.notEqual(null, _id = res.body._id)
+					assert.equal(0, res.body.__v)
+					assert.notEqual(null, res.body._id)
 				})
 				.expect(200)
 		})
@@ -60,4 +58,4 @@ describe('/ads', function() {
 
 	})
 
- })
+})

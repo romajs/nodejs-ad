@@ -4,10 +4,10 @@ var App = require(process.cwd() + '/src/app')
 var request = require('supertest')
 
 var test = {
-	app : App.app,
-	config : App.config,
-	logger : App.logger,
-	db : App.db,
+	app: App.app,
+	config: App.config,
+	logger: App.logger,
+	db: App.db,
 	setUp,
 	auth,
 }
@@ -28,12 +28,13 @@ function setUp() {
 			App.close()
 		])
 	})
-	
+
 }
 
 function auth(username, password, status) {
 	return request(App.app).post('/auth').send({
-		username : username, password : password,
+		username: username,
+		password: password,
 	}).expect(status)
 }
 

@@ -5,15 +5,15 @@ module.exports.load = function() {
 		var User = rootRequire('api/user/model').User
 
 		var admin = new User({
-			username : 'admin',
-			password : 'MTIzbXVkYXIK',
+			username: 'admin',
+			password: 'MTIzbXVkYXIK',
 			admin: true,
 			name: 'admin',
 			created_at: new Date(),
 		})
 
-	  admin.save(function (err, user) {
-		  return err ? reject(err) : resolve(user)
+		admin.save(function(err, user) {
+			return err ? reject(err) : resolve(user)
 		})
 
 	})

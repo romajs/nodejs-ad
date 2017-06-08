@@ -17,7 +17,8 @@ describe('/ad', function() {
 
 	describe('get', function() {
 
-		var __v = null, _id = null
+		var __v = null,
+			_id = null
 
 		beforeEach(function() {
 			return request(test.app)
@@ -25,7 +26,7 @@ describe('/ad', function() {
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1',
-					details : 'Details ad 1',
+					details: 'Details ad 1',
 					value: 1000.00,
 				})
 				.expect(function(res) {
@@ -36,17 +37,19 @@ describe('/ad', function() {
 		})
 
 		it('400: invalid id', function() {
-			return request(test.app) 
+			return request(test.app)
 				.get('/ad/' + '1nv4l1d_1d')
 				.set(test.config.auth.header_name, token)
-				.expect([
-					{ param: 'id', msg: 'Invalid value', value: '1nv4l1d_1d' },
-				])
+				.expect([{
+					param: 'id',
+					msg: 'Invalid value',
+					value: '1nv4l1d_1d'
+				}, ])
 				.expect(400)
 		})
 
 		it('404: not found', function() {
-			return request(test.app) 
+			return request(test.app)
 				.get('/ad/' + ObjectId('n0t_f0und_1d'))
 				.set(test.config.auth.header_name, token)
 				.expect(404)
@@ -67,16 +70,16 @@ describe('/ad', function() {
 		})
 
 	})
-	
+
 	describe('/post', function() {
- 
+
 		it('200: success', function() {
 			return request(test.app)
 				.post('/ad')
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1',
-					details : 'Details ad 1',
+					details: 'Details ad 1',
 					value: 1000.00,
 				})
 				.expect(function(res) {
@@ -85,16 +88,21 @@ describe('/ad', function() {
 				})
 				.expect(200)
 		})
- 
+
 		it('400: invalid params', function() {
 			return request(test.app)
 				.post('/ad')
 				.set(test.config.auth.header_name, token)
-				.expect([
-					{ param: 'title', msg: 'required' },
-  				{ param: 'details', msg: 'required' },
-  				{ param: 'value', msg: 'required' },
-				])
+				.expect([{
+					param: 'title',
+					msg: 'required'
+				}, {
+					param: 'details',
+					msg: 'required'
+				}, {
+					param: 'value',
+					msg: 'required'
+				}, ])
 				.expect(400)
 		})
 
@@ -102,7 +110,8 @@ describe('/ad', function() {
 
 	describe('/put', function() {
 
-		var __v = null, _id = null
+		var __v = null,
+			_id = null
 
 		beforeEach(function() {
 			return request(test.app)
@@ -110,7 +119,7 @@ describe('/ad', function() {
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1',
-					details : 'Details ad 1',
+					details: 'Details ad 1',
 					value: 1000.00,
 				})
 				.expect(function(res) {
@@ -121,24 +130,30 @@ describe('/ad', function() {
 		})
 
 		it('400: invalid params', function() {
-			return request(test.app) 
+			return request(test.app)
 				.put('/ad/' + '1nv4l1d_1d')
 				.set(test.config.auth.header_name, token)
-				.expect([
-					{ param: 'id', msg: 'invalid', value: '1nv4l1d_1d' },
-					{ param: 'title', msg: 'required' },
-  				{ param: 'details', msg: 'required' },
-				])
+				.expect([{
+					param: 'id',
+					msg: 'invalid',
+					value: '1nv4l1d_1d'
+				}, {
+					param: 'title',
+					msg: 'required'
+				}, {
+					param: 'details',
+					msg: 'required'
+				}, ])
 				.expect(400)
 		})
 
 		it('404: not found', function() {
-			return request(test.app) 
+			return request(test.app)
 				.put('/ad/' + ObjectId('n0t_f0und_1d'))
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1 update',
-					details : 'Details ad 1 update',
+					details: 'Details ad 1 update',
 					value: 1000.00,
 				})
 				.expect(404)
@@ -150,7 +165,7 @@ describe('/ad', function() {
 				.set(test.config.auth.header_name, token)
 				.send({
 					title: 'Test ad 1 update',
-					details : 'Details ad 1 update',
+					details: 'Details ad 1 update',
 					value: 1000.00,
 				})
 				.expect(function(res) {
@@ -164,7 +179,7 @@ describe('/ad', function() {
 		})
 
 	})
- 
+
 	it('delete')
 
- })
+})

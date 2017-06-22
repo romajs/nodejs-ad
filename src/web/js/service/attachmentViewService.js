@@ -1,36 +1,32 @@
 angular.module('app')
 
-.service('attachmentViewService', function($http) {
+.service('attachmentViewService', function ($http) {
+  this.get = function (id) {
+    return $http.get('/attachment/' + id)
+  }
 
-	this.get = function(id) {
-		return $http.get('/attachment/' + id)
-	}
+  this.download = function (id) {
+    return new Promise(function (resolve, reject) {
+      window.open('/attachment/' + id + '/download') ? resolve() : reject(new Error('Failed to open new window'))
+    })
+  }
 
-	this.download = function(id) {
-		return new Promise(function(resolve, reject) {
-			window.open('/attachment/' + id + '/download') ? resolve() : reject()
-		})
-	}
+  this.downloadUrl = function (id) {
+    return '/attachment/' + id + '/download'
+  }
 
-	this.downloadUrl = function(id) {
-		return '/attachment/' + id + '/download'
-	}
-
-	this.hrSize = function(size) {
-		var i = Math.floor(Math.log(size) / Math.log(1024))
-		return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
-	}
-
+  this.hrSize = function (size) {
+    var i = Math.floor(Math.log(size) / Math.log(1024))
+    return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][i]
+  }
 })
 
-.run(function($rootScope, $window, attachmentViewService) {
+.run(function ($rootScope, $window, attachmentViewService) {
+  $rootScope.hrSize = function (size) {
+    return attachmentViewService.hrSize(size)
+  }
 
-	$rootScope.hrSize = function(size) {
-		return attachmentViewService.hrSize(size)
-	}
-
-	$rootScope.downloadUrl = function(id) {
-		return attachmentViewService.downloadUrl(id)
-	}
-
+  $rootScope.downloadUrl = function (id) {
+    return attachmentViewService.downloadUrl(id)
+  }
 })

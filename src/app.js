@@ -59,9 +59,11 @@ app.use(expressValidator({
 app.use(expressWinston.logger(config.logger))
 
 // non-authenticated routes
+app.use('/ad', rootRequire('api/ad-view/route'))
 app.use('/ads', rootRequire('api/ad-search/route'))
 app.use('/attachment', rootRequire('api/attachment-view/route'))
 app.use('/auth', rootRequire('api/auth/route'))
+app.use('/user-view', rootRequire('api/user-view/route'))
 
 // auth
 app.use(rootRequire('api/auth/middleware'))

@@ -13,12 +13,12 @@ angular.module('app.user', [
 	})
 })
 
-.controller('userController', function($scope, $stateParams, userService) {
+.controller('userController', function($scope, $stateParams, userViewService) {
 
 	$scope.user = null
 	$scope.attachments = []
 
-	userService.get($stateParams.id).then(function(res) {
+	userViewService.get($stateParams.id).then(function(res) {
 		$scope.user = res.data
 	})
 

@@ -13,7 +13,7 @@ angular.module('app.ads', [
 	})
 })
 
-.controller('adsController', function($scope, adsService, attachmentViewService, userService) {
+.controller('adsController', function($scope, adsService, attachmentViewService, userViewService) {
 
 	$scope.ads = null
 	$scope.bookmarks = []
@@ -34,7 +34,7 @@ angular.module('app.ads', [
 
 		$scope.ads.forEach(function(ad) {
 			if (!$scope.users[ad.user_id]) {
-				userService.get(ad.user_id).then(function(res) {
+				userViewService.get(ad.user_id).then(function(res) {
 					$scope.users[ad.user_id] = res.data
 				})
 			}

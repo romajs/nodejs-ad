@@ -5,6 +5,7 @@
 [![dependencies](https://david-dm.org/romajs/nodejs-ad.svg)](https://david-dm.org/romajs/nodejs-ad)
 [![devDependencies](https://david-dm.org/romajs/nodejs-ad/dev-status.svg)](https://david-dm.org/romajs/nodejs-ad?type=dev)
 
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 [![code climate](https://codeclimate.com/github/romajs/nodejs-ad.png)](https://codeclimate.com/github/romajs/nodejs-ad)
 [![issue count](https://codeclimate.com/github/romajs/nodejs-ad/badges/issue_count.svg)](https://codeclimate.com/github/romajs/nodejs-ad)
 

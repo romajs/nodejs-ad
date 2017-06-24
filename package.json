@@ -23,11 +23,9 @@
     "express-winston": "^2.3.0",
     "formidable": "^1.1.1",
     "helmet": "^3.6.1",
-    "install": "^0.8.8",
     "jsonwebtoken": "^7.3.0",
     "make-runnable": "^1.1.1",
     "mongoose": "^4.9.3",
-    "npm": "^4.4.4",
     "path": "^0.12.7",
     "winston": "^2.3.0"
   },

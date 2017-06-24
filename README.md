@@ -9,6 +9,9 @@
 [![code climate](https://codeclimate.com/github/romajs/nodejs-ad.png)](https://codeclimate.com/github/romajs/nodejs-ad)
 [![issue count](https://codeclimate.com/github/romajs/nodejs-ad/badges/issue_count.svg)](https://codeclimate.com/github/romajs/nodejs-ad)
 
+[![node](https://img.shields.io/badge/node-6.11.0-yellow.svg)](https://nodejs.org/en/blog/release/v6.11.0/)
+[![npm](https://img.shields.io/badge/npm-3.10.10-yellow.svg)](https://github.com/npm/npm/releases/tag/v3.10.10)
+
 ## Featuring
 
 ### Back-end
@@ -61,7 +64,8 @@ Logging:
 - [x] blocked
 
 Lint:
-- [x] ESLint (compatible w/ Standart)
+- [x] ESLint
+- [x] Standart
 - [x] Code climate
 
 Automatic server restart:

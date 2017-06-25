@@ -74,9 +74,15 @@ angular.module('app.adNew', [
           $timeout(function () {
             $log.info('successfully attachmented: file.name="%s"', res.config.data.file.name)
 
-            files.find(function (file) {
+            var file = files.find(function (file) {
               return file.name === res.config.data.file.name
-            }).attachment_id = res.data._id
+            })
+
+            file.attachment_id = res.data._id
+
+            $timeout(function () {
+              file.completed = true
+            }, 1000)
 
             $scope.attachments.push(res.data)
           })
@@ -84,7 +90,6 @@ angular.module('app.adNew', [
           var file = files.find(function (file) {
             return file.name === evt.config.data.file.name
           })
-
           file.progress = parseInt(100.0 * evt.loaded / evt.total)
           $log.info('attachmenting: file.name="%s", progress=%s%', file.name, file.progress)
         })

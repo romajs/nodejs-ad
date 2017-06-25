@@ -32,22 +32,29 @@ label.required:after {
 	animation: fadeout 2s;
 }
 
+.progress-bar-success {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-animation: fadeout 2s;
+	animation: fadeout 2s;
+}
+
 @keyframes fadein {
-	from { opacity:0; }
-	to { opacity:1; }
+	from { opacity:0; visibility: hidden; }
+	to { opacity:1; visibility: visible; }
 }
 @-webkit-keyframes fadein {
-	from { opacity:0; }
-	to { opacity:1; }
+	from { opacity:0; visibility: hidden; }
+	to { opacity:1; visibility: visible; }
 }
 
 @keyframes fadeout {
-	from { opacity:1; }
-	to { opacity:0; display: none; }
+	from { opacity:1; visibility: visible; }
+	to { opacity:0; visibility: hidden; }
 }
 @-webkit-keyframes fadeout {
-	from { opacity:1; }
-	to { opacity:0; display: none; }
+	from { opacity:1; visibility: visible; }
+	to { opacity:0; visibility: hidden; }
 }
 
 .ads .ad {

@@ -50,7 +50,7 @@ angular.module('app.adNew', [
         }
       },
       size: {
-        max: '1MB'
+        max: '2MB'
       }
     }
   }
@@ -67,13 +67,13 @@ angular.module('app.adNew', [
         if (file.$error) {
           $log.error(file.$error)
         } else {
-          $scope.attach(file)
+          $scope.attachFile(file)
         }
       })
     }
   })
 
-  $scope.attach = function (file) {
+  $scope.attachFile = function (file) {
     Upload.upload({
       url: attachmentService.uploadUrl(),
       data: {
@@ -81,16 +81,20 @@ angular.module('app.adNew', [
       }
     }).then(function (res) {
       $timeout(function () {
-        $log.debug('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
+        $log.info('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
         $scope.attachments.push(res.data)
         file.attachment_id = res.data._id
         $timeout(function () {
           file.completed = true
         }, 1000)
       })
-    }, null, function (evt) {
+    }, function (res) {
+      $log.error(res.config.statusText)
+      file.completed = true
+      file.errored = true
+    }, function (evt) {
       file.progress = parseInt(100.0 * evt.loaded / evt.total)
-      $log.debug('attachmenting: file.name="%s", progress="%s%"', evt.config.data.file.name, file.progress)
+      $log.info('attachmenting: file.name="%s", loaded="%s", total="%s", progress="%s%"', evt.config.data.file.name, evt.loaded, evt.total, file.progress)
     })
   }
 
@@ -109,6 +113,13 @@ angular.module('app.adNew', [
     attachmentService.delete(attachment._id)
 
     $log.info('removed: file.name="%s"', name)
+  }
+
+  $scope.retryFile = function (file) {
+    file.progress = 0
+    file.errored = false
+    file.completed = false
+    $scope.attachFile(file)
   }
 
   $scope.cancel = function () {

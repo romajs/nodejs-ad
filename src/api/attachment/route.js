@@ -21,6 +21,8 @@ router.post('/', function (req, res, next) {
   form.type = 'multipart'
   form.uploadDir = rootPath('attachments')
 
+  // throw new Error()
+
   form.on('progress', function (recv, total) {
     logger.info('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)
   })

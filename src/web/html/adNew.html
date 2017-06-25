@@ -113,8 +113,22 @@
 				<div ng-repeat="file in files" style="font:smaller">
 					<div class="row">
 						<div class="col-xs-12">
-							<a ng-href="{{downloadUrl(file.attachment_id)}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
-							<i class="btn btn-sm fa fa-times text-danger" ng-click="removeFile(file.name)" title="Clique para remover {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"></i>
+							<a ng-href="{{downloadUrl(file.attachment_id)}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
+							 ng-if="!file.errored">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
+							<span class="text-muted" title="Um erro ocorreu {{file.name}} ({{file.type}}) {{hrSize(file.size)}}" ng-if="file.errored">{{file.name}}</span>
+							<a class="text-info" ng-click="retryFile(file)" title="Clique para tentar novamente {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
+							 ng-if="file.errored">
+								<i class="btn btn-sm fa fa-undo"></i>
+								<span>Tentar novamente</span>
+							</a>
+							<a class="text-danger" ng-click="removeFile(file.name)" title="Clique para remover {{file.name}} ({{file.type}}) {{hrSize(file.size)}}">
+								<i class="btn btn-sm fa fa-times"></i>
+								<span>Remover</span>
+							</a>
+							<input type="hidden" ng-model="file.errored" false/>
+							<div class="form-group has-error" ng-if="file.errored">
+								<p class="help-block">Não foi possível realizar o upload do arquivo, tente novamente ou remova o arquivo</p>
+							</div>
 							<div class="progress" ng-hide="file.completed">
 								<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }" class="progress-bar"
 								 style="width: {{file.progress}}%;">{{file.name}} - {{file.progress}}%</div>
@@ -125,7 +139,7 @@
 				<p class="help-block">(Máximo de {{check.files.qtd.max}} imagens. {{check.files.qtd.left()}} imagens restando)</p>
 			</div>
 			<div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
-				<!--<p class="help-block" ng-if="adForm.$error">{{adForm.$error}}</p>-->
+				<!--<p class="help-block" ng-if="adForm.$error">Error: {{adForm.$error}}</p>-->
 				<p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
 				<p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
 			</div>

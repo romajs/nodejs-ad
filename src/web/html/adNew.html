@@ -93,9 +93,21 @@
 			</div>
 			<div class="form-group">
 				<label for="foto">Fotos</label>
-				<div ngf-drop ngf-select ng-model="files" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'" ngf-multiple="true"
-				 ngf-allow-dir="true" ngf-keep="'distinct'" ng-disabled="check.files.qtd.left() <= 0" accept="image/*" ngf-pattern="'image/*'">{{check.files.qtd.left() > 0 ? 'Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos' : 'Você
+				<div name="ngfFiles" ngf-drop ngf-select ng-model="ngfFiles" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'"
+				 ngf-multiple="true" ngf-allow-dir="true" ngf-keep="false" accept="image/*" ngf-pattern="'image/*'" ngf-max-size="{{check.files.size.max}}"
+				 ngf-max-files="10" ngf-ignore-invalid="'pattern maxSize maxFiles'" ng-disabled="check.files.qtd.left() <= 0">{{check.files.qtd.left() > 0 ? 'Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos' : 'Você
 					já atingiu o limite máximo de imagens para upload' }}</div>
+			</div>
+			<div class="form-group" ng-class="{ 'has-error' : adForm.ngfFiles.$invalid, 'has-success' : adForm.ngfFiles.$valid }">
+				<p class="help-block" ng-if="adForm.ngfFiles.$error.maxFiles">O número de arquivos ultrapassou o máximo de {{check.files.qtd.max}} arquivos permitidos
+					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
+				</p>
+				<p class="help-block" ng-if="adForm.ngfFiles.$error.maxSize">Existem arquivos que ultrapassaram o máximo de {{check.files.size.max}} permitido
+					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
+				</p>
+				<p class="help-block" ng-if="adForm.ngfFiles.$error.pattern">Existem arquivos com extensão e/ou tipo não permitido
+					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
+				</p>
 			</div>
 			<div class="form-group">
 				<div ng-repeat="file in files" style="font:smaller">
@@ -113,6 +125,7 @@
 				<p class="help-block">(Máximo de {{check.files.qtd.max}} imagens. {{check.files.qtd.left()}} imagens restando)</p>
 			</div>
 			<div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
+				<!--<p class="help-block" ng-if="adForm.$error">{{adForm.$error}}</p>-->
 				<p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
 				<p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
 			</div>

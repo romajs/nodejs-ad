@@ -48,52 +48,49 @@ angular.module('app.adNew', [
         left: function () {
           return this.max - ($scope.files || []).length
         }
+      },
+      size: {
+        max: '1MB'
       }
     }
   }
 
+  $scope.ngfFiles = []
   $scope.files = []
   $scope.attachments = []
 
-  $scope.$watch('files', function (newFiles) {
-    newFiles.splice($scope.check.files.qtd.max, newFiles.length)
-    $scope.attachment(newFiles)
+  $scope.$watch('ngfFiles', function (ngfFiles) {
+    if (ngfFiles && ngfFiles.length > 0) {
+      $log.info($scope.check.files.qtd.max, ngfFiles.length, $scope.files.length)
+      ngfFiles.slice(0, $scope.check.files.qtd.left()).forEach(function (file) {
+        $scope.files.push(file)
+        if (file.$error) {
+          $log.error(file.$error)
+        } else {
+          $scope.attach(file)
+        }
+      })
+    }
   })
 
-  $scope.attachment = function (files) {
-    files && files.forEach(function (file) {
-      if (file.$error) {
-        $log.error(file.$error)
-      } else {
-        Upload.upload({
-          url: attachmentService.uploadUrl(),
-          data: {
-            file: file
-          }
-        }).then(function (res) {
-          $timeout(function () {
-            $log.info('successfully attachmented: file.name="%s"', res.config.data.file.name)
-
-            var file = files.find(function (file) {
-              return file.name === res.config.data.file.name
-            })
-
-            file.attachment_id = res.data._id
-
-            $timeout(function () {
-              file.completed = true
-            }, 1000)
-
-            $scope.attachments.push(res.data)
-          })
-        }, null, function (evt) {
-          var file = files.find(function (file) {
-            return file.name === evt.config.data.file.name
-          })
-          file.progress = parseInt(100.0 * evt.loaded / evt.total)
-          $log.info('attachmenting: file.name="%s", progress=%s%', file.name, file.progress)
-        })
+  $scope.attach = function (file) {
+    Upload.upload({
+      url: attachmentService.uploadUrl(),
+      data: {
+        file: file
       }
+    }).then(function (res) {
+      $timeout(function () {
+        $log.debug('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
+        $scope.attachments.push(res.data)
+        file.attachment_id = res.data._id
+        $timeout(function () {
+          file.completed = true
+        }, 1000)
+      })
+    }, null, function (evt) {
+      file.progress = parseInt(100.0 * evt.loaded / evt.total)
+      $log.debug('attachmenting: file.name="%s", progress="%s%"', evt.config.data.file.name, file.progress)
     })
   }
 

@@ -42,10 +42,10 @@ function baseConfig () {
 var configs = {}
 
 config('dev', function (config) {
-  config.http.host = '127.0.0.1'
+  config.http.host = '0.0.0.0'
   config.http.port = 8000
   config.mongodb.dbname = 'nodejs-ad'
-  config.mongodb.host = 'localhost'
+  config.mongodb.host = 'mongodb'
   config.mongodb.port = 27017
 })
 

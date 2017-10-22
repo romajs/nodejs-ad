@@ -1,5 +1,14 @@
-mongodb_test:
-  image: mongo:3.0
-  container_name: mongodb_test
-  ports:
-    - "0.0.0.0:27017:27017"
+version: '2'
+services:
+    web:
+        build: .
+        container_name: nodejs-ad-web
+        ports:
+            - "8000:8000"
+        links:
+            - mongodb
+    mongodb:
+        image: mongo:3.0
+        container_name: mongodb
+        ports:
+            - "27017:27017"

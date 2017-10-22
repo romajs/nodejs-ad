@@ -1,11 +1,12 @@
 var winston = require('winston')
 
 function config (env, callback) {
-  callback(configs[env] = baseConfig())
+  callback(configs[env] = baseConfig(env))
 }
 
-function baseConfig () {
+function baseConfig (name) {
   return {
+    name: name || 'default',
     auth: {
       header_name: 'x-access-token',
       secret: 'JHVwM3JfJDNjcjM3Cg==',

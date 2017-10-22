@@ -104,7 +104,7 @@ function start () {
     try {
       server = app.listen(config.http.port, config.http.host, function () {
         logger.info('App listening on:', server.address())
-        logger.info('APP_DIR="%s", process.env.NODE_ENV="%s"', global.APP_DIR, process.env.NODE_ENV)
+        logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
         resolve(server)
       })
     } catch (err) {

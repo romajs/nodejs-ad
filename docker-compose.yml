@@ -4,7 +4,7 @@ services:
         build: .
         container_name: nodejs-ad-web
         volumes:
-            - .:/home/nodemon/code
+            - .:/code
         ports:
             - "8000:8000"
         links:

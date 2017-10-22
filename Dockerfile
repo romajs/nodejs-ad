@@ -14,15 +14,13 @@ ARG uid=1000
 ARG gid=1002
 
 RUN groupadd -g ${gid} nodemon
-RUN useradd -u ${uid} -g ${gid} nodemon
-
-WORKDIR /home/nodemon
+RUN useradd -u ${uid} -g ${gid} -M -s /bin/false nodemon
 
 USER nodemon
 
-ADD . code/
+WORKDIR /code
 
-WORKDIR /home/nodemon/code
+ADD . /code
 
 EXPOSE 8000
 

@@ -44,10 +44,12 @@ var configs = {}
 
 config('prod', function (config) {
   config.http.host = '0.0.0.0'
-  config.http.port = 8000
-  config.mongodb.dbname = 'heroku_zllb9zdl'
-  config.mongodb.host = 'heroku_zllb9zdl:agookbgu046qfsmn8kaeu83hkd@ds227565.mlab.com'
-  config.mongodb.port = 27565
+  config.http.port = process.env.PORT
+  config.mongodb = {
+    url: function() {
+      return process.env.MONGODB_URI
+    }
+  }
 })
 
 config('dev', function (config) {

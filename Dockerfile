@@ -15,7 +15,9 @@ WORKDIR /home/nodemon
 
 USER nodemon
 
-ADD . .
+ADD . code/
+
+WORKDIR /home/nodemon/code
 
 EXPOSE 8000
 

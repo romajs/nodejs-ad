@@ -42,7 +42,7 @@ function baseConfig (name) {
 
 var configs = {}
 
-config('prod', function (config) {
+config('heroku', function (config) {
   config.http.host = '0.0.0.0'
   config.http.port = process.env.PORT
   config.mongodb = {

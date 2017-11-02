@@ -19,6 +19,7 @@ router.get('/:id', function (req, res, next) {
   })
 })
 
+// FIXME
 router.get('/:id/download', function (req, res, next) {
   req.checkParams('id').isObjectId()
 

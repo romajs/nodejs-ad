@@ -2,15 +2,21 @@ version: '2'
 services:
     web:
         build: .
-        container_name: nodejs-ad-web
         volumes:
             - .:/code
         ports:
             - "8000:8000"
         links:
             - mongodb
+            - cloudinary
     mongodb:
         image: mongo:3.0
-        container_name: mongodb
         ports:
             - "27017:27017"
+    cloudinary:
+        build: cloudinary
+        volumes:
+            - ./cloudinary:/cloudinary
+        ports:
+            - "9080:9080"
+            - "9443:9443"

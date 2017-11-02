@@ -1,6 +1,6 @@
+**.log
 **.sublime-workspace
-attachments/**
-coverage/**
-node_modules/**
-npm-debug.log
-src/web/bower_components/**
+**/bower_components/**
+**/coverage/**
+**/node_modules/**
+cloudinary/attachment/**

@@ -1,3 +1,5 @@
+var config = rootRequire('config')
+
 var AttachmentModel = rootRequire('api/attachment/model')
 var Attachment = AttachmentModel.Attachment
 var AttachmentStatus = AttachmentModel.AttachmentStatus
@@ -9,7 +11,16 @@ var logger = rootRequire('logger')
 var express = require('express')
 var router = express.Router()
 
+var cloudinary = require('cloudinary')
+
+if(config.cloudinary.upload_prefix) {
+  cloudinary.config(config.cloudinary)
+} else {
+  cloudinary.config()
+}
+
 router.post('/', function (req, res, next) {
+  
   var form = new formidable.IncomingForm()
 
   form.encoding = 'utf-8'
@@ -19,12 +30,9 @@ router.post('/', function (req, res, next) {
   form.maxFieldsSize = 1024 * 1024 * 2 // 2 MB
   form.multiples = false
   form.type = 'multipart'
-  form.uploadDir = rootPath('attachments')
-
-  // throw new Error()
 
   form.on('progress', function (recv, total) {
-    logger.info('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)
+    logger.debug('received: %s % (%s / %s bytes)', Number(recv / total * 100).toFixed(2), recv, total)
   })
 
   form.on('error', function (err) {
@@ -37,33 +45,48 @@ router.post('/', function (req, res, next) {
   })
 
   form.parse(req, function (err, fields, files) {
+
     if (err) {
       return next(err)
     }
 
     var file = files.file
+    logger.debug('file: name="%s", path="%s", type="%s", size=%s bytes, hash="%s", lastModifiedDate="%s"',
+      file.name, file.path, file.type, file.size, file.hash, file.lastModifiedDate)
 
-    logger.info('file: name="%s", path="%s", type="%s", size=%s bytes', file.name, file.path, file.type, file.size)
+    return cloudinary.uploader.upload(file.path, function(cloudinary_result) {
 
-    var attachment = new Attachment({
-      name: file.name,
-      path: file.path,
-      type: file.type,
-      size: file.size,
-      hash_md5: file.hash,
-      status: AttachmentStatus.TEMPORARY,
-      created_at: new Date(),
-      user_id: req.auth.user._id
+      if(!cloudinary_result || cloudinary_result.error) {
+        return next(cloudinary_result.error)
+      }
+
+      logger.debug('cloudinary_result:', cloudinary_result)
+
+      var attachment = new Attachment({
+        name: file.name,
+        type: [cloudinary_result.resource_type, cloudinary_result.format].join('/'),
+        size: cloudinary_result.bytes,
+        hash_md5: file.hash,
+        status: AttachmentStatus.TEMPORARY,
+        created_at: new Date(),
+        user_id: req.auth.user._id,
+        url: cloudinary_result.url,
+        secure_url: cloudinary_result.secure_url,
+        cloudinary_id: cloudinary_result.public_id
+      })
+
+      attachment.save().then(function (attachment) {
+        return res.status(200).json(attachment)
+      }).catch(function (err) {
+        return next(err)
+      })
+
     })
 
-    attachment.save().then(function (attachment) {
-      return res.status(200).json(attachment)
-    }).catch(function (err) {
-      return next(err)
-    })
   })
 })
 
+// FIXME
 router.delete('/:id', function (req, res, next) {
   req.checkParams('id').isObjectId()
 

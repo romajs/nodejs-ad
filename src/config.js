@@ -12,6 +12,8 @@ function baseConfig (name) {
       secret: 'JHVwM3JfJDNjcjM3Cg==',
       expiresIn: 86400 // expires in 24 hours
     },
+    cloudinary: {
+    },
     http: {
       host: '127.0.0.1',
       port: 8000
@@ -23,7 +25,7 @@ function baseConfig (name) {
           timestamp: true
         })
       ],
-      level: 'info',
+      level: 'debug',
       exitOnError: false,
       expressFormat: true,
       colorize: true
@@ -58,6 +60,11 @@ config('dev', function (config) {
   config.mongodb.dbname = 'nodejs-ad'
   config.mongodb.host = 'mongodb'
   config.mongodb.port = 27017
+  config.cloudinary = {
+    upload_prefix: 'https://cloudinary:9443'
+  }
+  process.env.CLOUDINARY_URL = 'cloudinary://API_ID:API_KEY@CLOUDNAME'
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 })
 
 config('test', function (config) {

@@ -6,7 +6,6 @@ var AttachmentStatus = new Enum('TEMPORARY', 'STEADY')
 
 var AttachmentSchema = new Schema({
   name: String,
-  path: String,
   type: String,
   size: Number,
   hash_md5: String,
@@ -24,7 +23,10 @@ var AttachmentSchema = new Schema({
   user_id: {
     type: Schema.ObjectId,
     ref: 'User'
-  }
+  },
+  url: String,
+  secure_url: String,
+  cloudinary_id: String
 })
 
 var Attachment = mongoose.model('Attachment', AttachmentSchema)

@@ -57,7 +57,7 @@ var profiles = {
     config.cloudinary = {
       upload_prefix: 'https://cloudinary:9443'
     }
-    process.env.CLOUDINARY_URL = 'cloudinary://nodejs-ad:123@nodejs-ad'
+    process.env.CLOUDINARY_URL = 'cloudinary://nodejs-ad-id:123456-key@nodejs-ad'
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   },
   'test': function (config) {

@@ -19,7 +19,6 @@ router.get('/:id', function (req, res, next) {
   })
 })
 
-// FIXME
 router.get('/:id/download', function (req, res, next) {
   req.checkParams('id').isObjectId()
 
@@ -28,11 +27,11 @@ router.get('/:id/download', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    Attachment.findById(req.params.id).then(function (attachment) {
+    return Attachment.findById(req.params.id).then(function (attachment) {
       if (attachment) {
-        res.status(200).sendFile(attachment.path)
+        return res.redirect(attachment.url)
       } else {
-        res.status(404).end()
+        return res.status(404).end()
       }
     }).catch(function (err) {
       return next(err)

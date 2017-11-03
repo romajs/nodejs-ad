@@ -17,3 +17,5 @@ ENTRYPOINT ["npm"]
 CMD ["start"]
 
 VOLUME ["/upload"]
+
+VOLUME ["/public_id"]

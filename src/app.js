@@ -56,7 +56,9 @@ app.use(expressValidator({
     }
   }
 }))
-app.use(expressWinston.logger(config.logger))
+var expressWinstonLogger = config.logger
+expressWinstonLogger.level = 'info'
+app.use(expressWinston.logger(expressWinstonLogger))
 
 // non-authenticated routes
 app.use('/ad', rootRequire('api/ad-view/route'))

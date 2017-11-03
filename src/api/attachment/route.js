@@ -75,7 +75,7 @@ router.post('/', function (req, res, next) {
         cloudinary_id: cloudinary_result.public_id
       })
 
-      attachment.save().then(function (attachment) {
+      return attachment.save().then(function (attachment) {
         return res.status(200).json(attachment)
       }).catch(function (err) {
         return next(err)
@@ -88,6 +88,7 @@ router.post('/', function (req, res, next) {
 
 // FIXME
 router.delete('/:id', function (req, res, next) {
+
   req.checkParams('id').isObjectId()
 
   req.getValidationResult().then(function (result) {
@@ -95,18 +96,32 @@ router.delete('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    Attachment.findById(req.params.id).then(function (attachment) {
-      fs.unlink(attachment.path, function (err) {
-        if (err) return next(err)
 
-        attachment.remove().then(function () {
+    return Attachment.findById(req.params.id).then(function (attachment) {
+
+      var url = cloudinary.url(attachment.cloudinary_id)
+      logger.debug(url)
+
+      return cloudinary.api.delete_resources(attachment.cloudinary_id, function(cloudinary_result) {
+
+        if(!cloudinary_result || cloudinary_result.error) {
+          return next(cloudinary_result.error)
+        }
+
+        logger.debug('cloudinary_result:', cloudinary_result)
+
+        return attachment.remove().then(function () {
           return res.status(200).end()
         }).catch(function (err) {
           return next(err)
         })
+
       })
+
     })
+
   })
+
 })
 
 module.exports = router

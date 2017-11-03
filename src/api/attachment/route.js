@@ -14,11 +14,9 @@ var router = express.Router()
 var cloudinary = require('cloudinary')
 
 if(config.cloudinary.upload_prefix) {
-  process.env.CLOUDINARY_URL = 'cloudinary://API_ID:API_KEY@CLOUDNAME'
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-  logger.debug(cloudinary.config(config.cloudinary))
+  cloudinary.config(config.cloudinary)
 } else {
-  logger.debug(cloudinary.config())
+  cloudinary.config()
 }
 
 router.post('/', function (req, res, next) {

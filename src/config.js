@@ -1,9 +1,5 @@
 var winston = require('winston')
 
-function config (env, callback) {
-  callback(configs[env] = baseConfig(env))
-}
-
 function baseConfig (name) {
   return {
     name: name || 'default',
@@ -42,37 +38,40 @@ function baseConfig (name) {
   }
 }
 
-var configs = {}
-
-config('production', function (config) {
-  config.http.host = '0.0.0.0'
-  config.http.port = process.env.PORT
-  config.mongodb = {
-    url: function() {
-      return process.env.MONGODB_URI
+var profiles = {
+  'production': function (config) {
+    config.http.host = '0.0.0.0'
+    config.http.port = process.env.PORT
+    config.mongodb = {
+      url: function() {
+        return process.env.MONGODB_URI
+      }
     }
+  },
+  'dev': function (config) {
+    config.http.host = '0.0.0.0'
+    config.http.port = 8000
+    config.mongodb.dbname = 'nodejs-ad'
+    config.mongodb.host = 'mongodb'
+    config.mongodb.port = 27017
+    config.cloudinary = {
+      upload_prefix: 'https://cloudinary:9443'
+    }
+    process.env.CLOUDINARY_URL = 'cloudinary://nodejs-ad:123@nodejs-ad'
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+  },
+  'test': function (config) {
+    config.http.host = '127.0.0.1'
+    config.http.port = 8001
+    config.mongodb.dbname = 'nodejs-ad-test'
+    config.mongodb.host = 'localhost'
+    config.mongodb.port = 27017
   }
-})
-
-config('dev', function (config) {
-  config.http.host = '0.0.0.0'
-  config.http.port = 8000
-  config.mongodb.dbname = 'nodejs-ad'
-  config.mongodb.host = 'mongodb'
-  config.mongodb.port = 27017
-  config.cloudinary = {
-    upload_prefix: 'https://cloudinary:9443'
-  }
-})
-
-config('test', function (config) {
-  config.http.host = '127.0.0.1'
-  config.http.port = 8001
-  config.mongodb.dbname = 'nodejs-ad-test'
-  config.mongodb.host = 'localhost'
-  config.mongodb.port = 27017
-})
+}
 
 var env = process.env.NODE_ENV || 'dev'
 
-module.exports = configs[env]
+var config = baseConfig(env)
+profiles[env](config)
+
+module.exports = config

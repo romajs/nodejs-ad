@@ -63,8 +63,6 @@ config('dev', function (config) {
   config.cloudinary = {
     upload_prefix: 'https://cloudinary:9443'
   }
-  process.env.CLOUDINARY_URL = 'cloudinary://API_ID:API_KEY@CLOUDNAME'
-  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 })
 
 config('test', function (config) {

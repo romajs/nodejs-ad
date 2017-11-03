@@ -19,7 +19,6 @@
     "https": "^1.0.0",
     "image-size": "^0.6.1",
     "make-runnable": "^1.1.1",
-    "path": "^0.12.7",
     "randomstring": "^1.1.5",
     "winston": "^2.3.0"
   },

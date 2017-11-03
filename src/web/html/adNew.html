@@ -113,7 +113,7 @@
 				<div ng-repeat="file in files" style="font:smaller">
 					<div class="row">
 						<div class="col-xs-12">
-							<a ng-href="{{downloadUrl(file.attachment_id)}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
+							<a ng-href="{{file.url}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
 							 ng-if="!file.errored">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
 							<span class="text-muted" title="Um erro ocorreu {{file.name}} ({{file.type}}) {{hrSize(file.size)}}" ng-if="file.errored">{{file.name}}</span>
 							<a class="text-info" ng-click="retryFile(file)" title="Clique para tentar novamente {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"

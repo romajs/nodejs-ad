@@ -84,6 +84,7 @@ angular.module('app.adNew', [
         $log.info('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
         $scope.attachments.push(res.data)
         file.attachment_id = res.data._id
+        file.url = res.data.url
         $timeout(function () {
           file.completed = true
         }, 1000)

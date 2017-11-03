@@ -14,9 +14,9 @@ var router = express.Router()
 var cloudinary = require('cloudinary')
 
 if(config.cloudinary.upload_prefix) {
-  cloudinary.config(config.cloudinary)
+  logger.debug(cloudinary.config(config.cloudinary))
 } else {
-  cloudinary.config()
+  logger.debug(cloudinary.config())
 }
 
 router.post('/', function (req, res, next) {

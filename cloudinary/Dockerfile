@@ -5,7 +5,7 @@ WORKDIR /ssl
 RUN openssl req -x509 -newkey rsa:2048 -keyout keytmp.pem -out cert.pem -days 365 -nodes -batch
 RUN openssl rsa -in keytmp.pem -out key.pem
 
-WORKDIR /cloudinary
+WORKDIR /src
 
 RUN npm install
 

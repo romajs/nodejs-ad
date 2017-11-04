@@ -1,22 +1,28 @@
 version: '2'
 services:
-    web:
-        build: .
+    api:
+        build: ./api
         volumes:
-            - .:/code
+            - ./api/src:/src
         ports:
             - "8000:8000"
         links:
             - mongodb
             - cloudinary
+    web:
+        build: ./web
+        volumes:
+            - ./web/src:/src
+        ports:
+            - "8080:8080"
+    cloudinary:
+        build: ./cloudinary
+        volumes:
+            - ./cloudinary/src:/src
+        ports:
+            - "9080:9080"
+            - "9443:9443"
     mongodb:
         image: mongo:3.0
         ports:
             - "27017:27017"
-    cloudinary:
-        build: cloudinary
-        volumes:
-            - ./cloudinary:/cloudinary
-        ports:
-            - "9080:9080"
-            - "9443:9443"

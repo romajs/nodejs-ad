@@ -1,5 +1,0 @@
-iname="couchdb"
-cname="couchdb"
-couchdb_user="admin"
-couchdb_password="123mudar"
-couchdb_port="5984"

@@ -1,1 +1,0 @@
-FROM couchdb:1.6

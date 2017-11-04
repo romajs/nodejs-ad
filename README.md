@@ -26,5 +26,5 @@ docker-compose up
 Deploy to heroku: `https://nodejs-ad.herokuapp.com`
 
 ```
-./deploy.sh
+./deploy-to-heroku.sh
 ```

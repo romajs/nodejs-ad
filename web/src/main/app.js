@@ -13,7 +13,7 @@ angular.module('app', [
 
 .value('$config', {
   api : {
-    origin: 'http://localhost:8000' // FIXME
+    origin: 'http://0.0.0.0:8000/api' // FIXME
     // origin: https://nodejs-ad.herokuapp.com // FIXME
   }
 })

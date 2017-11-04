@@ -1,3 +1,0 @@
-FROM nodejsad_api
-
-ADD src /src

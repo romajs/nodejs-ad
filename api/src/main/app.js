@@ -69,20 +69,20 @@ expressWinstonLogger.level = 'info'
 app.use(expressWinston.logger(expressWinstonLogger))
 
 // unauthenticated routes
-app.use('/ad', rootRequire('ad-view/route'))
-app.use('/ads', rootRequire('ad-search/route'))
-app.use('/attachment', rootRequire('attachment-view/route'))
-app.use('/auth', rootRequire('auth/route'))
-app.use('/user-view', rootRequire('user-view/route'))
+app.use('/api/ad', rootRequire('ad-view/route'))
+app.use('/api/ads', rootRequire('ad-search/route'))
+app.use('/api/attachment', rootRequire('attachment-view/route'))
+app.use('/api/auth', rootRequire('auth/route'))
+app.use('/api/user-view', rootRequire('user-view/route'))
 
 // auth
 app.use(rootRequire('auth/middleware'))
 
 // authenticated routes
-app.use('/ad', rootRequire('ad/route'))
-app.use('/attachment', rootRequire('attachment/route'))
-app.use('/domain', rootRequire('domain/route'))
-app.use('/user', rootRequire('user/route'))
+app.use('/api/ad', rootRequire('ad/route'))
+app.use('/api/attachment', rootRequire('attachment/route'))
+app.use('/api/domain', rootRequire('domain/route'))
+app.use('/api/user', rootRequire('user/route'))
 
 // error handling
 app.use(function (err, req, res, next) {

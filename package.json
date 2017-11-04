@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-ad",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "./run-at-heroku.sh"
+  },
+  "author": "@romajs",
+  "dependencies": {
+    "http-server": "^0.10.0"
+  }
+}

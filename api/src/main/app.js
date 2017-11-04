@@ -34,14 +34,16 @@ blocked(function (ms) {
 // app
 var app = express()
 
+// static
+var staticDirPath = path.join('/app/web/src/main');
+logger.debug('staticDirPath:', staticDirPath)
+app.use(express.static(staticDirPath))
+
 // cors
 app.use(cors())
 
 // helmet
 app.use(helmet())
-
-// static
-app.use(express.static(path.join(__dirname, 'web')))
 
 // middleware
 app.use(compression())

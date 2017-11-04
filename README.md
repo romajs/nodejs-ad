@@ -12,18 +12,19 @@
 [![node](https://img.shields.io/badge/node-6.11.0-yellow.svg)](https://nodejs.org/en/blog/release/v6.11.0/)
 [![npm](https://img.shields.io/badge/npm-3.10.10-yellow.svg)](https://github.com/npm/npm/releases/tag/v3.10.10)
 
-### Commands
+# Development
 
-Install dependencies: `npm install`
+## Usage
 
-Run tests: `npm test`
+```
+docker-compose build
+docker-compose up
+```
 
-Run coverage: `npm run coverage`
+# Deployment
 
-Run lint: `npm run lint`
+Deploy to heroku: `https://nodejs-ad.herokuapp.com`
 
-Run app server (express): `npm start`
-
-Build docker image for MongoDB: `./script/docker/mongodb/build.sh`
-
-Run docker container for MongoDB: `./script/docker/mongodb/run.sh`
+```
+./deploy.sh
+```

@@ -2,4 +2,4 @@
 
 set -x
 
-git push heroku master
+git push heroku master $@

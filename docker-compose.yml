@@ -16,9 +16,7 @@ services:
         ports:
             - "8080:8080"
     cloudinary:
-        build: ./cloudinary
-        volumes:
-            - ./cloudinary/src:/src
+        image: cloudinary-mock
         ports:
             - "9080:9080"
             - "9443:9443"

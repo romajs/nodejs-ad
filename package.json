@@ -5,8 +5,5 @@
   "scripts": {
     "start": "./run-at-heroku.sh"
   },
-  "author": "@romajs",
-  "dependencies": {
-    "http-server": "^0.10.0"
-  }
+  "author": "@romajs"
 }

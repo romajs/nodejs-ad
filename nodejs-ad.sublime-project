@@ -1,9 +1,14 @@
 {
-	"folders":
-	[
-		{
-			"path": ".",
-    	"folder_exclude_patterns": ["node_modules/**", "coverage/**", "bower_components/**"],
-		}
-	]
+    "folders":
+    [
+        {
+            "folder_exclude_patterns":
+            [
+                "node_modules/**",
+                "coverage/**",
+                "bower_components/**"
+            ],
+            "path": "."
+        }
+    ]
 }

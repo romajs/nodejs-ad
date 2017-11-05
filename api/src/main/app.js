@@ -6,7 +6,6 @@ var express = require('express')
 var expressValidator = require('express-validator')
 var expressWinston = require('express-winston')
 var helmet = require('helmet')
-var mongoose = require('mongoose')
 var path = require('path')
 
 // globals
@@ -25,6 +24,12 @@ var config = rootRequire('config')
 
 // logger
 var logger = rootRequire('logger')
+
+// db
+var db = rootRequire('db')
+
+// rsmq
+var rsmq = rootRequire('rsmq')
 
 // blocked
 blocked(function (ms) {
@@ -56,13 +61,7 @@ app.use(bodyParser.json())
 
 app.use(expressValidator({
   customValidators: {
-    isObjectId: function (id) {
-      try {
-        return mongoose.Types.ObjectId(id)
-      } catch (err) {
-        return false
-      }
-    }
+    isObjectId: db.isObjectId
   }
 }))
 
@@ -96,19 +95,7 @@ app.use(function (err, req, res, next) {
   }) || next()
 })
 
-// mongo/db
-mongoose.connect(config.mongodb.url())
-mongoose.Promise = global.Promise
-
-var db = mongoose.connection
-
-db.on('error', logger.error)
-
-db.once('open', function () {
-  logger.info('MongoDB/mongoose connected successfully at: %s', config.mongodb.url())
-})
-
-// server http/https?
+// TODO: http & https
 var server = null
 
 function start () {
@@ -117,7 +104,7 @@ function start () {
       server = app.listen(config.http.port, config.http.host, function () {
         logger.info('App listening on:', server.address())
         logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
-        resolve(server)
+        // resolve(server) // FIXME make-runnable printOutput: false
       })
     } catch (err) {
       reject(err)
@@ -128,7 +115,6 @@ function start () {
 function close () {
   return new Promise(function (resolve, reject) {
     try {
-      // db close ??
       resolve(server.close())
     } catch (err) {
       reject(err)
@@ -136,14 +122,16 @@ function close () {
   })
 }
 
+// workers
+var adWorker = rootRequire('ad/worker')
+
 module.exports = {
   app,
   close,
-  config,
-  db,
-  logger,
   server,
   start
 }
 
-require('make-runnable')
+require('make-runnable/custom')({
+  printOutputFrame: false
+})

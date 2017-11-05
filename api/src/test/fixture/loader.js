@@ -1,6 +1,7 @@
 #!/usr/env node
 
-var App = require('../../src/app')
+var path = require('path')
+var App = require(path.resolve('main/app'))
 
 var fixture = process.argv[2]
 

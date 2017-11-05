@@ -1,5 +1,5 @@
 var logger = rootRequire('logger')
-var rsmq = rootRequire('rsmq')
+// var rsmq = rootRequire('rsmq')
 
 var AdModel = rootRequire('ad/model')
 var Ad = AdModel.Ad
@@ -67,4 +67,4 @@ function deleteMessage(qname, id) {
   })
 }
 
-setInterval(checkMessage, 5000)
+// setInterval(checkMessage, 5000)

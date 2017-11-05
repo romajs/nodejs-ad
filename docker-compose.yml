@@ -9,7 +9,7 @@ services:
         links:
             - cloudinary
             - mongodb
-            - redis
+            # - redis
     web:
         build: ./web
         volumes:
@@ -21,10 +21,10 @@ services:
         ports:
             - "9080:9080"
             - "9443:9443"
-    redis:
-        image: redis:4.0
-        ports:
-            - "6379:6379"
+    # redis:
+    #     image: redis:4.0
+    #     ports:
+    #         - "6379:6379"
     mongodb:
         image: mongo:3.0
         ports:

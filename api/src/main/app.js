@@ -28,8 +28,8 @@ var logger = rootRequire('logger')
 // db
 var db = rootRequire('db')
 
-// rsmq
-var rsmq = rootRequire('rsmq')
+// // rsmq
+// var rsmq = rootRequire('rsmq')
 
 // blocked
 blocked(function (ms) {

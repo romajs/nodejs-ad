@@ -10,7 +10,7 @@ var express = require('express')
 var router = express.Router()
 
 var logger = rootRequire('logger')
-var rsmq = rootRequire('rsmq')
+// var rsmq = rootRequire('rsmq')
 
 router.post('/', function (req, res, next) {
   req.checkBody('title', 'required').notEmpty()
@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
       title: req.body.title,
       details: req.body.details,
       value: req.body.value,
-      status: AdStatus.PENDING, // FIXME: AdStatus.PENDING
+      status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
       created_at: new Date(),
       user_id: req.auth.user._id,
       attachment_ids: req.body.attachment_ids
@@ -35,18 +35,18 @@ router.post('/', function (req, res, next) {
     ad.save().then(function (ad) {
       var attachmentPromises = []
 
-      var message = {
-        qname: 'ad-new',
-        message: JSON.stringify({
-          ad_id: ad.id
-        })
-      }
+      // var message = {
+      //   qname: 'ad-new',
+      //   message: JSON.stringify({
+      //     ad_id: ad.id
+      //   })
+      // }
 
-      rsmq.sendMessage(message, function (err, messageId) {
-        if (messageId) {
-          logger.debug('Sent to queue, messageId: "%s", message:', messageId, message);
-        }
-      })
+      // rsmq.sendMessage(message, function (err, messageId) {
+      //   if (messageId) {
+      //     logger.debug('Sent to queue, messageId: "%s", message:', messageId, message);
+      //   }
+      // })
 
       ad.attachment_ids.forEach(function (attachmentId) {
         var attachment = {

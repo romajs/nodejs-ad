@@ -74,6 +74,8 @@ var profiles = {
 var env = process.env.NODE_ENV || 'dev'
 
 var config = baseConfig(env)
-profiles[env](config)
+var profile = profiles[env]
+
+profile(config)
 
 module.exports = config

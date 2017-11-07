@@ -4,9 +4,9 @@
         {
             "folder_exclude_patterns":
             [
-                "node_modules/**",
+                "bower_components/**",
                 "coverage/**",
-                "bower_components/**"
+                "node_modules/**"
             ],
             "path": "."
         }

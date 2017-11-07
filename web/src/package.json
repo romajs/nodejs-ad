@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "postinstall": "cd ./main/ && bower install",
+    "postinstall": "bower install ./main",
     "start": "http-server ./main"
   },
   "author": "@romajs",

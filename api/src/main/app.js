@@ -50,15 +50,18 @@ app.use(cors())
 // helmet
 app.use(helmet())
 
-// middleware
+// compression
 app.use(compression())
 
+// body parser / x-www-form-urlencoded
 app.use(bodyParser.urlencoded({
   extended: false
 }))
 
+// body parse / json
 app.use(bodyParser.json())
 
+// custom express validatos
 app.use(expressValidator({
   customValidators: {
     isObjectId: db.isObjectId
@@ -95,16 +98,15 @@ app.use(function (err, req, res, next) {
   }) || next()
 })
 
-// TODO: http & https
-var server = null
+var httpServer = null
 
 function start () {
   return new Promise(function (resolve, reject) {
     try {
-      server = app.listen(config.http.port, config.http.host, function () {
-        logger.info('App listening on:', server.address())
+      httpServer = app.listen(config.http.port, config.http.host, function () {
+        logger.info('App listening on:', httpServer.address())
         logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
-        // resolve(server) // FIXME make-runnable printOutput: false
+        // resolve(httpServer) // FIXME make-runnable printOutput: false
       })
     } catch (err) {
       reject(err)
@@ -115,7 +117,7 @@ function start () {
 function close () {
   return new Promise(function (resolve, reject) {
     try {
-      resolve(server.close())
+      resolve(httpServer.close())
     } catch (err) {
       reject(err)
     }
@@ -123,12 +125,12 @@ function close () {
 }
 
 // workers
-var adWorker = rootRequire('ad/worker')
+// var adWorker = rootRequire('ad/worker')
 
 module.exports = {
   app,
   close,
-  server,
+  httpServer,
   start
 }
 

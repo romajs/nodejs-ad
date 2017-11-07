@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "./run-at-heroku.sh"
+    "heroku-postbuild": "",
+    "heroku-prebuild": "",
+    "postinstall": "bower install ./web/src/main",
+    "start": "node ./api/src/main/app start"
   },
-  "author": "@romajs"
+  "author": "@romajs",
+  "dependencies": {
+    "nodejs-ad-api": "file:./api/src",
+    "nodejs-ad-web": "file:./web/src"
+  }
 }

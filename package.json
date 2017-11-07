@@ -12,5 +12,6 @@
   "dependencies": {
     "nodejs-ad-api": "file:./api/src",
     "nodejs-ad-web": "file:./web/src"
-  }
+  },
+  "cacheDirectories": ["./node_modules", "./web/src/main/bower_components"]
 }

@@ -9,6 +9,8 @@ machine:
 #     - sudo pip install --upgrade docker-compose==1.6.0
 
 dependencies:
+  cache_directories:
+    - ~/web/src/main/bower_components
   override:
     - cd ./api/src && npm install
     - npm install

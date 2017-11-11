@@ -1,44 +1,44 @@
 version: '2'
 services:
-    app:
-        build: .
-        links:
-            - cloudinary
-            - mongodb
-            # - redis
-        ports:
-            - "8000:8000"
-        volumes:
-            - ./api:/app/api
-            - ./web:/app/web
-            - ./node_modules:/app/node_modules
-            - ./package.json:/app/package.json
-    # api:
-    #     build: ./api
-    #     links:
-    #         - cloudinary
-    #         - mongodb
-    #         # - redis
-    #     ports:
-    #         - "8000:8000"
-    #     volumes:
-    #         - ./api/src:/src
-    # web:
-    #     build: ./web
-    #     ports:
-    #         - "8080:8080"
-    #     volumes:
-    #         - ./web/src:/src
-    cloudinary:
-        image: cloudinary-mock
-        ports:
-            - "9080:9080"
-            - "9443:9443"
-    # redis:
-    #     image: redis:4.0
-    #     ports:
-    #         - "6379:6379"
-    mongodb:
-        image: mongo:3.0
-        ports:
-            - "27017:27017"
+  app:
+    build: .
+    links:
+      - cloudinary
+      - mongodb
+      # - redis
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api:/app/api
+      - ./web:/app/web
+      - ./node_modules:/app/node_modules
+      - ./package.json:/app/package.json
+  # api:
+  #   build: ./api
+  #   links:
+  #     - cloudinary
+  #     - mongodb
+  #     # - redis
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./api/src:/src
+  # web:
+  #   build: ./web
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - ./web/src:/src
+  cloudinary:
+    image: cloudinary-mock
+    ports:
+      - "9080:9080"
+      - "9443:9443"
+  # redis:
+  #   image: redis:4.0
+  #   ports:
+  #     - "6379:6379"
+  mongodb:
+    image: mongo:3.0
+    ports:
+      - "27017:27017"

@@ -7,7 +7,7 @@
     "codecov": "cd ./api/src && npm run codecov",
     "heroku-postbuild": "",
     "heroku-prebuild": "",
-    "lint": "eslint ./api/src/ --ignore-path .gitignore",
+    "lint": "cd ./api/src && npm run lint",
     "postinstall": "bower install ./web/src/main",
     "start": "node ./api/src/server start",
     "start-dev": "nodemon ./api/src/server start",
@@ -21,13 +21,5 @@
   "cacheDirectories": [
     "./node_modules",
     "./web/src/main/bower_components"
-  ],
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.3.0",
-    "eslint-plugin-node": "^5.0.0",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1"
-  }
+  ]
 }

@@ -13,10 +13,9 @@ dependencies:
     - npm install
 test:
   pre:
-    # - npm run lint
-    - cd ./api/src
+    # - cd ./api/src && npm run lint
   override:
-    - npm test
+    - cd ./api/src && npm test
   post:
-    - npm run coverage
-    - npm run codecov
+    - cd ./api/src && npm run coverage
+    - cd ./api/src && npm run codecov

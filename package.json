@@ -3,16 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "coverage": "cd ./api/src && npm run coverage",
+    "codecov": "cd ./api/src && npm run codecov",
     "heroku-postbuild": "",
     "heroku-prebuild": "",
     "postinstall": "bower install ./web/src/main",
     "start": "node ./api/src/server start",
-    "start-dev": "nodemon ./api/src/server start"
+    "start-dev": "nodemon ./api/src/server start",
+    "test": "cd ./api/src && npm test"
   },
   "author": "@romajs",
   "dependencies": {
     "nodejs-ad-api": "file:./api/src",
     "nodejs-ad-web": "file:./web/src"
   },
-  "cacheDirectories": ["./node_modules", "./web/src/main/bower_components"]
+  "cacheDirectories": [
+    "./node_modules",
+    "./web/src/main/bower_components"
+  ],
+  "devDependencies": {
+    "istanbul": "^0.4.5"
+  }
 }

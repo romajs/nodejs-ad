@@ -10,15 +10,14 @@ machine:
 
 dependencies:
   cache_directories:
+    - ~/api/src/node_modules
+    - ~/web/src/node_modules
     - ~/web/src/main/bower_components
   override:
-    - cd ./api/src && npm install
+    # - cd ./api/src && npm install
     - npm install
 test:
-  pre:
-    # - cd ./api/src && npm run lint
   override:
-    - cd ./api/src && npm test
+    - npm run coverage
   post:
-    - cd ./api/src && npm run coverage
-    - cd ./api/src && npm run codecov
+    - npm run codecov

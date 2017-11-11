@@ -43,7 +43,7 @@ var profiles = {
     config.http.host = '0.0.0.0'
     config.http.port = process.env.PORT
     config.mongodb = {
-      url: function() {
+      url: function () {
         return process.env.MONGODB_URI
       }
     }
@@ -55,9 +55,9 @@ var profiles = {
     config.mongodb.host = 'mongodb'
     config.mongodb.port = 27017
     config.cloudinary = {
-      cloud_name : 'na',
-      api_key : 'na',
-      api_secret : 'na',
+      cloud_name: 'na',
+      api_key: 'na',
+      api_secret: 'na',
       upload_prefix: 'https://cloudinary:9443'
     }
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'

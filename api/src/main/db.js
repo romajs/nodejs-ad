@@ -4,7 +4,7 @@ var logger = rootRequire('logger')
 
 mongoose.Promise = global.Promise
 
-function start() {
+function start () {
   mongoose.connect(config.mongodb.url())
   mongoose.connection.on('error', logger.error)
   mongoose.connection.once('open', function () {

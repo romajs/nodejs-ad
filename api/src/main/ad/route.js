@@ -9,7 +9,7 @@ var AttachmentStatus = AttachmentModel.AttachmentStatus
 var express = require('express')
 var router = express.Router()
 
-var logger = rootRequire('logger')
+// var logger = rootRequire('logger')
 // var rsmq = rootRequire('rsmq')
 
 router.post('/', function (req, res, next) {
@@ -64,7 +64,6 @@ router.post('/', function (req, res, next) {
       return Promise.all(attachmentPromises).then(function () {
         return res.status(200).json(ad)
       })
-
     }).catch(function (err) {
       return next(err)
     })

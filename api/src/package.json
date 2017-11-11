@@ -9,7 +9,7 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint . --ignore-path .gitignore",
-    "fixme-posttest": "npm run lint",
+    "posttest": "npm run lint",
     "start": "nodemon server start",
     "test": "mocha"
   },

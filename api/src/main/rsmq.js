@@ -1,4 +1,3 @@
-var config = rootRequire('config')
 var logger = rootRequire('logger')
 var redis = require('redis')
 var RedisSMQ = require('rsmq')

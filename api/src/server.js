@@ -25,7 +25,7 @@ var db = rootRequire('db')
 
 var httpServer = null
 
-function startHttpServer() {
+function startHttpServer () {
   return new Promise(function (resolve, reject) {
     try {
       httpServer = app.listen(config.http.port, config.http.host, function () {

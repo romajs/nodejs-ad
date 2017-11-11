@@ -29,8 +29,8 @@ blocked(function (ms) {
 var app = express()
 
 // static
-app.use(express.static(function() {
-  var staticDirPath = path.join('/app/web/src/main');
+app.use(express.static(function () {
+  var staticDirPath = path.join('/app/web/src/main')
   logger.debug('staticDirPath:', staticDirPath)
   return staticDirPath
 }()))
@@ -60,7 +60,7 @@ app.use(expressValidator({
 }))
 
 // express winston logger
-app.use(expressWinston.logger(function() {
+app.use(expressWinston.logger(function () {
   // always info, otherwise it wont work
   var configLogger = config.logger
   configLogger.level = 'info'

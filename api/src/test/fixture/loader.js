@@ -15,8 +15,8 @@ console.log('loading fixture: "%s"', fixture)
 
 fixture = require(process.cwd() + '/' + fixture)
 
-fixture.load().then(function() {
-    App.db.close()
-}, function(err) {
-    console.error(err)
+fixture.load().then(function () {
+  App.db.close()
+}, function (err) {
+  console.error(err)
 })

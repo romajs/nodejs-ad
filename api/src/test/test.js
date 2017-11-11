@@ -23,7 +23,7 @@ function setUp () {
       server.start(),
       db.connection.dropDatabase(),
       require('./fixture/00-init.js').load(),
-      require('./fixture/01-user.js').load(),
+      require('./fixture/01-user.js').load()
     ])
   })
 

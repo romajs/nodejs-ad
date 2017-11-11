@@ -10,9 +10,9 @@ machine:
 
 dependencies:
   cache_directories:
-    - ~/api/src/node_modules
-    - ~/web/src/node_modules
-    - ~/web/src/main/bower_components
+    - ./api/src/node_modules
+    - ./web/src/node_modules
+    - ./web/src/main/bower_components
   override:
     - cd ./api/src && npm install
     - cd ./web/src && npm install

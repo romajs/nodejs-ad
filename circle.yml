@@ -14,7 +14,8 @@ dependencies:
     - ~/web/src/node_modules
     - ~/web/src/main/bower_components
   override:
-    # - cd ./api/src && npm install
+    - cd ./api/src && npm install
+    - cd ./web/src && npm install
     - npm install
 test:
   override:

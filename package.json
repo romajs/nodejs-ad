@@ -20,8 +20,5 @@
   "cacheDirectories": [
     "./node_modules",
     "./web/src/main/bower_components"
-  ],
-  "devDependencies": {
-    "istanbul": "^0.4.5"
-  }
+  ]
 }

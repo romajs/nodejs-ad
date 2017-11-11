@@ -8,17 +8,6 @@ var expressWinston = require('express-winston')
 var helmet = require('helmet')
 var path = require('path')
 
-// globals
-global.APP_DIR = process.cwd()
-
-global.rootRequire = function (name) {
-  return require(path.dirname(__filename) + '/' + name)
-}
-
-global.rootPath = function (name) {
-  return path.resolve(global.APP_DIR + '/' + name)
-}
-
 // config
 var config = rootRequire('config')
 
@@ -40,9 +29,11 @@ blocked(function (ms) {
 var app = express()
 
 // static
-var staticDirPath = path.join('/app/web/src/main');
-logger.debug('staticDirPath:', staticDirPath)
-app.use(express.static(staticDirPath))
+app.use(express.static(function() {
+  var staticDirPath = path.join('/app/web/src/main');
+  logger.debug('staticDirPath:', staticDirPath)
+  return staticDirPath
+}()))
 
 // cors
 app.use(cors())
@@ -68,9 +59,13 @@ app.use(expressValidator({
   }
 }))
 
-var expressWinstonLogger = config.logger
-expressWinstonLogger.level = 'info'
-app.use(expressWinston.logger(expressWinstonLogger))
+// express winston logger
+app.use(expressWinston.logger(function() {
+  // always info, otherwise it wont work
+  var configLogger = config.logger
+  configLogger.level = 'info'
+  return configLogger
+}()))
 
 // unauthenticated routes
 app.use('/api/ad', rootRequire('ad-view/route'))
@@ -98,42 +93,4 @@ app.use(function (err, req, res, next) {
   }) || next()
 })
 
-var httpServer = null
-
-function start () {
-  return new Promise(function (resolve, reject) {
-    try {
-      httpServer = app.listen(config.http.port, config.http.host, function () {
-        logger.info('App listening on:', httpServer.address())
-        logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
-        // resolve(httpServer) // FIXME make-runnable printOutput: false
-      })
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
-
-function close () {
-  return new Promise(function (resolve, reject) {
-    try {
-      resolve(httpServer.close())
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
-
-// workers
-// var adWorker = rootRequire('ad/worker')
-
-module.exports = {
-  app,
-  close,
-  httpServer,
-  start
-}
-
-require('make-runnable/custom')({
-  printOutputFrame: false
-})
+module.exports = app

@@ -10,7 +10,7 @@
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint . --ignore-path .gitignore",
     "posttest": "npm run lint",
-    "start": "nodemon ./main/app.js start",
+    "start": "nodemon server start",
     "test": "mocha"
   },
   "author": "@romajs",

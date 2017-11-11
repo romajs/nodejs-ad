@@ -18,7 +18,7 @@
 
 ```
 docker-compose build
-docker-compose up api web
+docker-compose up [app]
 ```
 
 # Deployment

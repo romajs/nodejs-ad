@@ -6,7 +6,8 @@
     "heroku-postbuild": "",
     "heroku-prebuild": "",
     "postinstall": "bower install ./web/src/main",
-    "start": "node ./api/src/main/app start"
+    "start": "node ./api/src/server start",
+    "start-dev": "nodemon ./api/src/server start"
   },
   "author": "@romajs",
   "dependencies": {

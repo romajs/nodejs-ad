@@ -2,18 +2,12 @@ var config = rootRequire('config')
 var mongoose = require('mongoose')
 var logger = rootRequire('logger')
 
-var connection
-
 mongoose.Promise = global.Promise
 
 function start() {
   mongoose.connect(config.mongodb.url())
-
-  connection = mongoose.connection
-
-  connection.on('error', logger.error)
-
-  connection.once('open', function () {
+  mongoose.connection.on('error', logger.error)
+  mongoose.connection.once('open', function () {
     logger.info('MongoDB/mongoose connected successfully at: %s', config.mongodb.url())
   })
 }
@@ -27,7 +21,7 @@ function isObjectId (id) {
 }
 
 module.exports = {
-  connection,
+  connection: mongoose.connection,
   isObjectId,
   start
 }

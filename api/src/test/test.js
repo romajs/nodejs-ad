@@ -1,13 +1,18 @@
 process.env.NODE_ENV = 'test'
 
-var App = require(process.cwd() + '/src/app')
+var server = require('../server')
+var config = rootRequire('config')
+var logger = rootRequire('logger')
+var app = rootRequire('app')
+var db = rootRequire('db')
+
 var request = require('supertest')
 
 var test = {
-  app: App.app,
-  config: App.config,
-  logger: App.logger,
-  db: App.db,
+  app,
+  config,
+  logger,
+  db,
   setUp,
   auth
 }
@@ -15,22 +20,22 @@ var test = {
 function setUp () {
   beforeEach('test.setUp.beforeEach', function () {
     return Promise.all([
-      App.db.dropDatabase(),
+      server.start(),
+      db.connection.dropDatabase(),
       require('./fixture/00-init.js').load(),
       require('./fixture/01-user.js').load(),
-      App.start()
     ])
   })
 
   afterEach('test.setUp.afterEach', function () {
     return Promise.all([
-      App.close()
+      server.close()
     ])
   })
 }
 
 function auth (username, password, status) {
-  return request(App.app).post('/auth').send({
+  return request(app).post('/api/auth').send({
     username: username,
     password: password
   }).expect(status)

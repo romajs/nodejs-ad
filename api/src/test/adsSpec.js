@@ -2,7 +2,7 @@ var assert = require('assert')
 var request = require('supertest')
 var test = require('./test')
 
-describe('/ads', function () {
+describe('/api/ads', function () {
   test.setUp()
 
   var token = null
@@ -16,7 +16,7 @@ describe('/ads', function () {
   describe('get no result', function () {
     it('200: success', function () {
       return request(test.app)
-        .get('/ads')
+        .get('/api/ads')
         .set(test.config.auth.header_name, token)
         .expect(function (res) {
           assert.equal(0, res.body.length)
@@ -28,7 +28,7 @@ describe('/ads', function () {
   describe('get w/ one result', function () {
     beforeEach(function () {
       return request(test.app)
-        .post('/ad')
+        .post('/api/ad')
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1',
@@ -44,7 +44,7 @@ describe('/ads', function () {
 
     it('200: success', function () {
       return request(test.app)
-        .get('/ads')
+        .get('/api/ads')
         .set(test.config.auth.header_name, token)
         .expect(function (res) {
           assert.equal(1, res.body.length)

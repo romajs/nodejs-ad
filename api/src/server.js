@@ -31,7 +31,7 @@ function startHttpServer() {
       httpServer = app.listen(config.http.port, config.http.host, function () {
         logger.info('App listening on:', httpServer.address())
         logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
-        // resolve(httpServer) // FIXME make-runnable printOutput: false
+        resolve(httpServer) // FIXME make-runnable printOutput: false
       })
     } catch (err) {
       reject(err)

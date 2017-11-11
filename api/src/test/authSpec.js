@@ -2,13 +2,13 @@ var assert = require('assert')
 var request = require('supertest')
 var test = require('./test')
 
-describe('/auth', function () {
+describe('/api/auth', function () {
   test.setUp()
 
-  describe('/post', function () {
+  describe('/api/post', function () {
     it('200: success', function () {
       return request(test.app)
-        .post('/auth')
+        .post('/api/auth')
         .send({
           username: 'admin',
           password: 'MTIzbXVkYXIK'
@@ -23,7 +23,7 @@ describe('/auth', function () {
 
     it('400: invalid params', function () {
       return request(test.app)
-        .post('/auth')
+        .post('/api/auth')
         .expect([{
           param: 'username',
           msg: 'required'
@@ -36,7 +36,7 @@ describe('/auth', function () {
 
     it('403: wrong password', function () {
       return request(test.app)
-        .post('/auth')
+        .post('/api/auth')
         .send({
           username: 'admin',
           password: 'Wr0nG_p4$$w0d'
@@ -50,7 +50,7 @@ describe('/auth', function () {
 
     it('404: not found', function () {
       return request(test.app)
-        .post('/auth')
+        .post('/api/auth')
         .send({
           username: 'Wr0nG_u$rn4m3',
           password: 'Wr0nG_p4$$w0d'
@@ -73,7 +73,7 @@ describe('/auth', function () {
 
       it('200: body token', function () {
         return request(test.app)
-          .get('/domain')
+          .get('/api/domain')
           .send({
             token: token
           })
@@ -82,7 +82,7 @@ describe('/auth', function () {
 
       it('200: param token', function () {
         return request(test.app)
-          .get('/domain')
+          .get('/api/domain')
           .query({
             token: token
           })
@@ -91,20 +91,20 @@ describe('/auth', function () {
 
       it('200: header token', function () {
         return request(test.app)
-          .get('/domain')
+          .get('/api/domain')
           .set(test.config.auth.header_name, token)
           .expect(200)
       })
 
       it('400: no token', function () {
         return request(test.app)
-          .get('/domain')
+          .get('/api/domain')
           .expect(400)
       })
 
       it('403: invalid token', function () {
         return request(test.app)
-          .get('/domain')
+          .get('/api/domain')
           .send({
             token: '1nv4l1d_t0k3n'
           })

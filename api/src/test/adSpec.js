@@ -3,7 +3,7 @@ var request = require('supertest')
 var test = require('./test')
 var ObjectId = require('mongoose').Types.ObjectId
 
-describe('/ad', function () {
+describe('/api/ad', function () {
   test.setUp()
 
   var token = null
@@ -20,7 +20,7 @@ describe('/ad', function () {
 
     beforeEach(function () {
       return request(test.app)
-        .post('/ad')
+        .post('/api/ad')
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1',
@@ -36,7 +36,7 @@ describe('/ad', function () {
 
     it('400: invalid id', function () {
       return request(test.app)
-        .get('/ad/' + '1nv4l1d_1d')
+        .get('/api/ad/' + '1nv4l1d_1d')
         .set(test.config.auth.header_name, token)
         .expect([{
           param: 'id',
@@ -48,14 +48,14 @@ describe('/ad', function () {
 
     it('404: not found', function () {
       return request(test.app)
-        .get('/ad/' + ObjectId('n0t_f0und_1d'))
+        .get('/api/ad/' + ObjectId('n0t_f0und_1d'))
         .set(test.config.auth.header_name, token)
         .expect(404)
     })
 
     it('200: success', function () {
       return request(test.app)
-        .get('/ad/' + _id)
+        .get('/api/ad/' + _id)
         .set(test.config.auth.header_name, token)
         .expect(function (res) {
           assert.equal(__v, res.body.__v)
@@ -68,10 +68,10 @@ describe('/ad', function () {
     })
   })
 
-  describe('/post', function () {
+  describe('/api/post', function () {
     it('200: success', function () {
       return request(test.app)
-        .post('/ad')
+        .post('/api/ad')
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1',
@@ -87,7 +87,7 @@ describe('/ad', function () {
 
     it('400: invalid params', function () {
       return request(test.app)
-        .post('/ad')
+        .post('/api/ad')
         .set(test.config.auth.header_name, token)
         .expect([{
           param: 'title',
@@ -103,13 +103,13 @@ describe('/ad', function () {
     })
   })
 
-  describe('/put', function () {
+  describe('/api/put', function () {
     var __v = null
     var _id = null
 
     beforeEach(function () {
       return request(test.app)
-        .post('/ad')
+        .post('/api/ad')
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1',
@@ -125,7 +125,7 @@ describe('/ad', function () {
 
     it('400: invalid params', function () {
       return request(test.app)
-        .put('/ad/' + '1nv4l1d_1d')
+        .put('/api/ad/' + '1nv4l1d_1d')
         .set(test.config.auth.header_name, token)
         .expect([{
           param: 'id',
@@ -143,7 +143,7 @@ describe('/ad', function () {
 
     it('404: not found', function () {
       return request(test.app)
-        .put('/ad/' + ObjectId('n0t_f0und_1d'))
+        .put('/api/ad/' + ObjectId('n0t_f0und_1d'))
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1 update',
@@ -155,7 +155,7 @@ describe('/ad', function () {
 
     it('200: success', function () {
       return request(test.app)
-        .put('/ad/' + _id)
+        .put('/api/ad/' + _id)
         .set(test.config.auth.header_name, token)
         .send({
           title: 'Test ad 1 update',

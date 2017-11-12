@@ -9,8 +9,8 @@
     "heroku-prebuild": "",
     "lint": "cd ./api/src && npm run lint",
     "postinstall": "bower install ./web/src/main",
-    "start": "node ./api/src/server start",
-    "start-dev": "nodemon ./api/src/server start",
+    "start": "node ./api/src/index start-server",
+    "start-dev": "nodemon ./api/src/index start-server",
     "test": "cd ./api/src && npm test"
   },
   "author": "@romajs",

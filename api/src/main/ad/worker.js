@@ -1,7 +1,7 @@
-var logger = rootRequire('logger')
-var rsmq = rootRequire('rsmq')
+var logger = rootRequire('main/logger')
+var rsmq = rootRequire('main/rsmq')
 
-var AdModel = rootRequire('ad/model')
+var AdModel = rootRequire('main/ad/model')
 var Ad = AdModel.Ad
 var AdStatus = AdModel.AdStatus
 

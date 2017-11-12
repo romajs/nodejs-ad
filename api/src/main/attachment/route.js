@@ -11,12 +11,7 @@ var express = require('express')
 var router = express.Router()
 
 var cloudinary = require('cloudinary')
-
-if (config.cloudinary.upload_prefix) {
-  cloudinary.config(config.cloudinary)
-} else {
-  cloudinary.config()
-}
+cloudinary.config(config.cloudinary || {})
 
 router.post('/', function (req, res, next) {
   var form = new formidable.IncomingForm()
@@ -49,6 +44,12 @@ router.post('/', function (req, res, next) {
     }
 
     var file = files.file
+
+    if (!file) {
+      logger.debug('No file attached.')
+      return res.status(400).end()
+    }
+
     logger.debug('file: name="%s", path="%s", type="%s", size=%s bytes, hash="%s", lastModifiedDate="%s"',
       file.name, file.path, file.type, file.size, file.hash, file.lastModifiedDate)
 
@@ -90,6 +91,10 @@ router.delete('/:id', function (req, res, next) {
     }
   }).then(function () {
     return Attachment.findById(req.params.id).then(function (attachment) {
+      if (!attachment) {
+        return res.status(404).end()
+      }
+
       var url = cloudinary.url(attachment.cloudinary_id)
       logger.debug(url)
 

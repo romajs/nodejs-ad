@@ -3,10 +3,11 @@ machine:
     version: 6.1.0
   services:
     - docker
-
-# dependencies:
-#   override:
-#     - sudo pip install --upgrade docker-compose==1.6.0
+  timezone:
+    America/Sao_Paulo
+  pre:
+    - sudo pip install --upgrade docker-compose==1.6.0
+    - docker-compose build
 
 dependencies:
   cache_directories:
@@ -17,8 +18,12 @@ dependencies:
     - cd ./api/src && npm install
     - cd ./web/src && npm install
     - npm install
+
 test:
+  pre:
+    - docker-compose up cloudinary
   override:
     - npm run coverage
   post:
     - npm run codecov
+    - docker-compose down cloudinary

@@ -8,4 +8,8 @@ angular.module('app')
   this.get = function (id) {
     return $http.get($config.api.origin + '/ad/' + id)
   }
+
+  this.delete = function (id) {
+    return $http.delete($config.api.origin + '/ad/' + id)
+  }
 })

@@ -79,6 +79,7 @@ app.use(rootRequire('auth/middleware'))
 
 // authenticated routes
 app.use('/api/ad', rootRequire('ad/route'))
+app.use('/api/ads/user', rootRequire('ads-user/route'))
 app.use('/api/attachment', rootRequire('attachment/route'))
 app.use('/api/domain', rootRequire('domain/route'))
 app.use('/api/user', rootRequire('user/route'))

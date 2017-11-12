@@ -11,7 +11,9 @@
     "postinstall": "bower install ./web/src/main",
     "start": "node ./api/src/index start-server",
     "start-dev": "nodemon ./api/src/index start-server",
-    "test": "cd ./api/src && npm test"
+    "test": "cd ./api/src && npm test",
+    "foo": "echo \"fooo\" && exit 0",
+    "bar": "echo \"bar\" && exit 1"
   },
   "author": "@romajs",
   "dependencies": {
@@ -24,6 +26,11 @@
   ],
   "devDependencies": {
     "jwt-decode": "^2.2.0",
-    "nodemon": "^1.12.1"
-  }
+    "nodemon": "^1.12.1",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "lint",
+    "coverage"
+  ]
 }

@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test'
 
-require('../index.js')
+require('../index')
 
 var server = rootRequire('main/server')
 var config = rootRequire('main/config')
@@ -33,8 +33,7 @@ function setUp () {
 
   afterEach('test.setUp.afterEach', function () {
     return Promise.all([
-      db.disconnect(),
-      server.close()
+      server.stop()
     ])
   })
 }

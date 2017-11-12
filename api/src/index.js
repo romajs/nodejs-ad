@@ -9,10 +9,6 @@ global.rootRequire = function (name) {
   return require(path.dirname(__filename) + '/' + name)
 }
 
-global.rootPath = function (name) {
-  return path.resolve(global.INDEX_DIR + '/' + name)
-}
-
 function startServer () {
   var server = rootRequire('main/server')
   return server.start().then(function (servers) {
@@ -20,13 +16,25 @@ function startServer () {
   })
 }
 
+function stopServer () {
+  var server = rootRequire('main/server')
+  return server.stop().then(function (servers) {
+    return 'Server stoped successfully @ ' + servers[0]._connectionKey
+  })
+}
+
 function loadFixture (fixtureName) {
-  process.env.NODE_ENV = 'fixture'
+  process.env.NODE_ENV = process.env.NODE_ENV || 'fixture'
+  console.log('process.env.NODE_ENV: %s', process.env.NODE_ENV)
 
-  console.log('Loading fixture %s', fixtureName)
-
-  var fixture = rootRequire('fixture/' + fixtureName)
   var db = rootRequire('main/db')
+
+  try {
+    console.log('Loading fixture: %s', fixtureName)
+    var fixture = rootRequire('fixture/' + fixtureName)
+  } catch (err) {
+    return Promise.reject(err)
+  }
 
   return db.start().then(fixture.load).then(function (res) {
     db.connection.close()
@@ -39,7 +47,8 @@ function loadFixture (fixtureName) {
 
 module.exports = {
   'load-fixture': loadFixture,
-  'start-server': startServer
+  'start-server': startServer,
+  'stop-server': stopServer
 }
 
 require('make-runnable/custom')({

@@ -33,14 +33,11 @@ function start () {
   ])
 }
 
-function close () {
-  return new Promise(function (resolve, reject) {
-    try {
-      resolve(httpServer.close())
-    } catch (err) {
-      reject(err)
-    }
-  })
+function stop () {
+  return Promise.all([
+    httpServer.close(),
+    db.disconnect()
+  ])
 }
 
 // workers
@@ -48,7 +45,7 @@ function close () {
 
 module.exports = {
   app,
-  close,
   httpServer,
-  start
+  start,
+  stop
 }

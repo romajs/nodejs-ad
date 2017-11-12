@@ -11,8 +11,8 @@ router.get('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    User.findById(req.params.id).then(function (ad) {
-      res.status(ad ? 200 : 404).json(ad)
+    User.findById(req.params.id).then(function (user) {
+      res.status(user ? 200 : 404).json(user)
     }).catch(function (err) {
       return next(err)
     })

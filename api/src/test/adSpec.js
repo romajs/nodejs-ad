@@ -173,5 +173,57 @@ describe('/api/ad', function () {
     })
   })
 
-  it('delete')
+  describe('/api/delete', function () {
+    var __v = null
+    var _id = null
+
+    beforeEach(function () {
+      return request(test.app)
+        .post('/api/ad')
+        .set(test.config.auth.header_name, token)
+        .send({
+          title: 'Test ad 1',
+          details: 'Details ad 1',
+          value: 1000.00
+        })
+        .expect(function (res) {
+          assert.equal(__v = res.body.__v, 0)
+          assert.notEqual(_id = res.body._id, null)
+        })
+        .expect(200)
+    })
+
+    it('400: invalid params', function () {
+      return request(test.app)
+        .delete('/api/ad/' + '1nv4l1d_1d')
+        .set(test.config.auth.header_name, token)
+        .expect([{
+          param: 'id',
+          msg: 'invalid',
+          value: '1nv4l1d_1d'
+        }])
+        .expect(400)
+    })
+
+    it('404: not found', function () {
+      return request(test.app)
+        .delete('/api/ad/' + ObjectId('n0t_f0und_1d'))
+        .set(test.config.auth.header_name, token)
+        .send()
+        .expect(404)
+    })
+
+    it('200: success', function () {
+      return request(test.app)
+        .delete('/api/ad/' + _id)
+        .set(test.config.auth.header_name, token)
+        .send()
+        .expect(function (res) {
+          assert.equal(res.body.__v, __v)
+          assert.equal(res.body._id, _id)
+          assert.equal(res.body.status, 'REMOVED')
+        })
+        .expect(200)
+    })
+  })
 })

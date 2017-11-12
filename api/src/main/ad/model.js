@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var Enum = rootRequire('misc/util').Enum
 
-var AdStatus = new Enum('PENDING', 'APPROVED', 'REPROVED', 'BANNED', 'EXPIRED')
+var AdStatus = new Enum('PENDING', 'APPROVED', 'REPROVED', 'BANNED', 'EXPIRED', 'REMOVED')
 
 var AdSchema = new Schema({
   title: String,

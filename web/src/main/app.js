@@ -2,17 +2,18 @@ angular.module('app', [
   'app.ad',
   'app.adNew',
   'app.ads',
+  'app.adsUser',
   'app.auth',
   'app.imageGallery',
-  'app.uiCarousel',
   'app.login',
+  'app.uiCarousel',
   'app.user',
   'ui.bootstrap',
   'ui.router'
 ])
 
 .value('$config', {
-  api : {
+  api: {
     origin: (location.hostname === 'localhost' ? 'http://0.0.0.0:8000' : location.origin) + '/api'
   }
 })

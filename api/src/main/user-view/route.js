@@ -12,10 +12,14 @@ router.get('/:id', function (req, res, next) {
     }
   }).then(function () {
     User.findById(req.params.id).then(function (user) {
-      res.status(user ? 200 : 404).json({
-        id: user.id,
-        name: user.name
-      })
+      if (user) {
+        res.status(200).json({
+          id: user.id,
+          name: user.name
+        })
+      } else {
+        res.status(404).end()
+      }
     }).catch(function (err) {
       return next(err)
     })

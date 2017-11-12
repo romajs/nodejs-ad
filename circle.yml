@@ -6,7 +6,7 @@ machine:
   timezone:
     America/Sao_Paulo
   pre:
-    - sudo pip install --upgrade docker-compose==1.6.0
+    # - sudo pip install --upgrade docker-compose==1.6.0
     - docker-compose build
 
 dependencies:

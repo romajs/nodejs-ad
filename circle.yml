@@ -27,7 +27,7 @@ test:
   pre:
     - docker-compose up -d cloudinary
   override:
-    - npm run coverage
+    - npm run coverage && cp -r ./api/src/coverage $CIRCLE_ARTIFACTS
   post:
     - npm run codecov
     - docker-compose down

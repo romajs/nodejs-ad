@@ -18,10 +18,11 @@ describe('/api/ads', function () {
       return request(test.app)
         .get('/api/ads')
         .set(test.config.auth.header_name, token)
-        .expect(function (res) {
-          assert.equal(0, res.body.length)
-        })
         .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect(function (res) {
+          assert.equal(res.body.length, 0)
+        })
     })
   })
 
@@ -35,21 +36,22 @@ describe('/api/ads', function () {
           details: 'Details ad 1',
           value: 1000.00
         })
-        .expect(function (res) {
-          assert.equal(0, res.body.__v)
-          assert.notEqual(null, res.body._id)
-        })
         .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect(function (res) {
+          assert.equal(res.body.__v, 0)
+          assert.notEqual(res.body._id, null)
+        })
     })
 
     it('200: success', function () {
       return request(test.app)
         .get('/api/ads')
         .set(test.config.auth.header_name, token)
-        .expect(function (res) {
-          assert.equal(1, res.body.length)
-        })
         .expect(200)
+        .expect(function (res) {
+          assert.equal(res.body.length, 1)
+        })
     })
   })
 })

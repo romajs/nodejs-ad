@@ -3,10 +3,12 @@ machine:
     version: 6.1.0
   services:
     - docker
-
-# dependencies:
-#   override:
-#     - sudo pip install --upgrade docker-compose==1.6.0
+  timezone:
+    America/Sao_Paulo
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    - pip install --upgrade docker-compose==1.8.0
+  post:
 
 dependencies:
   cache_directories:
@@ -17,8 +19,15 @@ dependencies:
     - cd ./api/src && npm install
     - cd ./web/src && npm install
     - npm install
+  post:
+    - docker-compose pull cloudinary
+    - docker-compose build cloudinary
+
 test:
+  pre:
+    - docker-compose up -d cloudinary
   override:
     - npm run coverage
   post:
     - npm run codecov
+    - docker-compose down

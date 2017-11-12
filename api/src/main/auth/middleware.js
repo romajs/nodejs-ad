@@ -1,7 +1,7 @@
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 var jwt = require('jsonwebtoken')
 
-var User = rootRequire('user/model').User
+var User = rootRequire('main/user/model').User
 
 function AuthMiddleware (req, res, next) {
   // TODO: validade w/ express validator?

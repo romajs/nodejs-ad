@@ -1,11 +1,11 @@
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 
-var AttachmentModel = rootRequire('attachment/model')
+var AttachmentModel = rootRequire('main/attachment/model')
 var Attachment = AttachmentModel.Attachment
 var AttachmentStatus = AttachmentModel.AttachmentStatus
 
 var formidable = require('formidable')
-var logger = rootRequire('logger')
+var logger = rootRequire('main/logger')
 
 var express = require('express')
 var router = express.Router()

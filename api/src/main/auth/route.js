@@ -1,6 +1,6 @@
-var User = rootRequire('user/model').User
+var User = rootRequire('main/user/model').User
 
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 var jwt = require('jsonwebtoken')
 
 var express = require('express')

@@ -1,27 +1,14 @@
-var path = require('path')
-
-// globals
-global.APP_DIR = process.cwd()
-
-global.rootRequire = function (name) {
-  return require(path.dirname(__filename) + '/main/' + name)
-}
-
-global.rootPath = function (name) {
-  return path.resolve(global.APP_DIR + '/main/' + name)
-}
-
 // config
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 
 // logger
-var logger = rootRequire('logger')
+var logger = rootRequire('main/logger')
 
 // config
-var app = rootRequire('app')
+var app = rootRequire('main/app')
 
 // db
-var db = rootRequire('db')
+var db = rootRequire('main/db')
 
 var httpServer = null
 
@@ -30,8 +17,8 @@ function startHttpServer () {
     try {
       httpServer = app.listen(config.http.port, config.http.host, function () {
         logger.info('App listening on:', httpServer.address())
-        logger.info('APP_DIR="%s", env="%s"', global.APP_DIR, config.name)
-        resolve(httpServer) // FIXME make-runnable printOutput: false
+        logger.info('INDEX_DIR="%s", env="%s"', global.INDEX_DIR, config.name)
+        resolve(httpServer)
       })
     } catch (err) {
       reject(err)
@@ -57,7 +44,7 @@ function close () {
 }
 
 // workers
-// var adWorker = rootRequire('ad/worker')
+// var adWorker = rootRequire('main/ad/worker')
 
 module.exports = {
   app,
@@ -65,7 +52,3 @@ module.exports = {
   httpServer,
   start
 }
-
-require('make-runnable/custom')({
-  printOutputFrame: false
-})

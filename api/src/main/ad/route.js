@@ -1,16 +1,16 @@
-var AdModel = rootRequire('ad/model')
+var AdModel = rootRequire('main/ad/model')
 var Ad = AdModel.Ad
 var AdStatus = AdModel.AdStatus
 
-var AttachmentModel = rootRequire('attachment/model')
+var AttachmentModel = rootRequire('main/attachment/model')
 var Attachment = AttachmentModel.Attachment
 var AttachmentStatus = AttachmentModel.AttachmentStatus
 
 var express = require('express')
 var router = express.Router()
 
-// var logger = rootRequire('logger')
-// var rsmq = rootRequire('rsmq')
+// var logger = rootRequire('main/logger')
+// var rsmq = rootRequire('main/rsmq')
 
 router.post('/', function (req, res, next) {
   req.checkBody('title', 'required').notEmpty()

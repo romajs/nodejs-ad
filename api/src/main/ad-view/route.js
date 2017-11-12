@@ -1,4 +1,4 @@
-var Ad = rootRequire('ad/model').Ad
+var Ad = rootRequire('main/ad/model').Ad
 
 var express = require('express')
 var router = express.Router()

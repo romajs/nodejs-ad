@@ -55,7 +55,7 @@ var profiles = {
     config.mongodb.host = 'mongodb'
     config.mongodb.port = 27017
     config.cloudinary = {
-      cloud_name: 'na',
+      cloud_name: 'nodejs-ad',
       api_key: 'na',
       api_secret: 'na',
       upload_prefix: 'https://cloudinary:9443'
@@ -66,8 +66,15 @@ var profiles = {
     config.http.host = '127.0.0.1'
     config.http.port = 8001
     config.mongodb.dbname = 'nodejs-ad-test'
-    config.mongodb.host = 'localhost'
+    config.mongodb.host = '127.0.0.1'
     config.mongodb.port = 27017
+    config.cloudinary = {
+      cloud_name: 'nodejs-ad-test',
+      api_key: 'na',
+      api_secret: 'na',
+      upload_prefix: 'https://127.0.0.1:9443'
+    }
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   }
 }
 

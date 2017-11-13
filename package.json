@@ -25,7 +25,6 @@
     "./web/src/main/bower_components"
   ],
   "devDependencies": {
-    "jwt-decode": "^2.2.0",
     "nodemon": "^1.12.1",
     "pre-commit": "^1.2.2"
   },

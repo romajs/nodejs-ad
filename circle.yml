@@ -31,3 +31,9 @@ test:
   post:
     - npm run codecov
     - docker-compose down
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: nodejs-ad

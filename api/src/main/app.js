@@ -9,16 +9,16 @@ var helmet = require('helmet')
 var path = require('path')
 
 // config
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 
 // logger
-var logger = rootRequire('logger')
+var logger = rootRequire('main/logger')
 
 // db
-var db = rootRequire('db')
+var db = rootRequire('main/db')
 
 // // rsmq
-// var rsmq = rootRequire('rsmq')
+// var rsmq = rootRequire('main/rsmq')
 
 // blocked
 blocked(function (ms) {
@@ -68,21 +68,21 @@ app.use(expressWinston.logger(function () {
 }()))
 
 // unauthenticated routes
-app.use('/api/ad', rootRequire('ad-view/route'))
-app.use('/api/ads', rootRequire('ad-search/route'))
-app.use('/api/attachment', rootRequire('attachment-view/route'))
-app.use('/api/auth', rootRequire('auth/route'))
-app.use('/api/user-view', rootRequire('user-view/route'))
+app.use('/api/ad', rootRequire('main/ad-view/route'))
+app.use('/api/ads', rootRequire('main/ad-search/route'))
+app.use('/api/attachment', rootRequire('main/attachment-view/route'))
+app.use('/api/auth', rootRequire('main/auth/route'))
+app.use('/api/user-view', rootRequire('main/user-view/route'))
 
 // auth
-app.use(rootRequire('auth/middleware'))
+app.use(rootRequire('main/auth/middleware'))
 
 // authenticated routes
-app.use('/api/ad', rootRequire('ad/route'))
-app.use('/api/ads/user', rootRequire('ads-user/route'))
-app.use('/api/attachment', rootRequire('attachment/route'))
-app.use('/api/domain', rootRequire('domain/route'))
-app.use('/api/user', rootRequire('user/route'))
+app.use('/api/ad', rootRequire('main/ad/route'))
+app.use('/api/ads/user', rootRequire('main/ads-user/route'))
+app.use('/api/attachment', rootRequire('main/attachment/route'))
+app.use('/api/domain', rootRequire('main/domain/route'))
+app.use('/api/user', rootRequire('main/user/route'))
 
 // error handling
 app.use(function (err, req, res, next) {

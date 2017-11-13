@@ -1,4 +1,4 @@
-var AdModel = rootRequire('ad/model')
+var AdModel = rootRequire('main/ad/model')
 var Ad = AdModel.Ad
 var AdStatus = AdModel.AdStatus
 

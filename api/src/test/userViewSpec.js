@@ -18,16 +18,29 @@ describe('/api/user-view', function () {
   })
 
   describe('get', function () {
+    it('200: success', function () {
+      return request(test.app)
+        .get('/api/user-view/' + admin._id)
+        .set(test.config.auth.header_name, token)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect(function (res) {
+          assert.equal(res.body.id, admin._id)
+          assert.equal(res.body.name, 'admin')
+        })
+    })
+
     it('400: invalid id', function () {
       return request(test.app)
         .get('/api/user-view/' + '1nv4l1d_1d')
         .set(test.config.auth.header_name, token)
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
         .expect([{
           param: 'id',
           msg: 'Invalid value',
           value: '1nv4l1d_1d'
         } ])
-        .expect(400)
     })
 
     it('404: not found', function () {
@@ -35,17 +48,6 @@ describe('/api/user-view', function () {
         .get('/api/user-view/' + ObjectId('n0t_f0und_1d'))
         .set(test.config.auth.header_name, token)
         .expect(404)
-    })
-
-    it('200: success', function () {
-      return request(test.app)
-        .get('/api/user-view/' + admin._id)
-        .set(test.config.auth.header_name, token)
-        .expect(function (res) {
-          assert.equal(admin._id, res.body.id)
-          assert.equal('admin', res.body.name)
-        })
-        .expect(200)
     })
   })
 })

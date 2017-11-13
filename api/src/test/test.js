@@ -1,10 +1,12 @@
 process.env.NODE_ENV = 'test'
 
-var server = require('../server')
-var config = rootRequire('config')
-var logger = rootRequire('logger')
-var app = rootRequire('app')
-var db = rootRequire('db')
+require('../index')
+
+var server = rootRequire('main/server')
+var config = rootRequire('main/config')
+var logger = rootRequire('main/logger')
+var app = rootRequire('main/app')
+var db = rootRequire('main/db')
 
 var request = require('supertest')
 
@@ -19,17 +21,19 @@ var test = {
 
 function setUp () {
   beforeEach('test.setUp.beforeEach', function () {
-    return Promise.all([
-      server.start(),
-      db.connection.dropDatabase(),
-      require('./fixture/00-init.js').load(),
-      require('./fixture/01-user.js').load()
-    ])
+    return server.start().then(function () {
+      return db.connection.dropDatabase().then(function () {
+        return Promise.all([
+          rootRequire('fixture/00-init.js').load(),
+          rootRequire('fixture/01-user.js').load()
+        ])
+      })
+    })
   })
 
   afterEach('test.setUp.afterEach', function () {
     return Promise.all([
-      server.close()
+      server.stop()
     ])
   })
 }

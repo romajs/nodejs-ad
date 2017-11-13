@@ -1,4 +1,4 @@
-var config = rootRequire('config')
+var config = rootRequire('main/config')
 var winston = require('winston')
 
 var logger = new (winston.Logger)(config.logger)

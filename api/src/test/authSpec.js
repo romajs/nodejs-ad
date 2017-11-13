@@ -13,17 +13,20 @@ describe('/api/auth', function () {
           username: 'admin',
           password: 'MTIzbXVkYXIK'
         })
-        .expect(function (res) {
-          assert.equal(true, res.body.success)
-          assert.equal('Authentication granted successfully', res.body.message)
-          assert.notEqual(null, res.body.token)
-        })
         .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect(function (res) {
+          assert.equal(res.body.success, true)
+          assert.equal(res.body.message, 'Authentication granted successfully')
+          assert.notEqual(res.body.token, null)
+        })
     })
 
     it('400: invalid params', function () {
       return request(test.app)
         .post('/api/auth')
+        .expect(400)
+        .expect('Content-Type', /application\/json/)
         .expect([{
           param: 'username',
           msg: 'required'
@@ -31,7 +34,6 @@ describe('/api/auth', function () {
           param: 'password',
           msg: 'required'
         } ])
-        .expect(400)
     })
 
     it('403: wrong password', function () {
@@ -41,11 +43,12 @@ describe('/api/auth', function () {
           username: 'admin',
           password: 'Wr0nG_p4$$w0d'
         })
+        .expect(401)
+        .expect('Content-Type', /application\/json/)
         .expect({
           success: false,
           message: 'Authentication failed. Wrong password'
         })
-        .expect(401)
     })
 
     it('404: not found', function () {
@@ -55,11 +58,12 @@ describe('/api/auth', function () {
           username: 'Wr0nG_u$rn4m3',
           password: 'Wr0nG_p4$$w0d'
         })
+        .expect(404)
+        .expect('Content-Type', /application\/json/)
         .expect({
           success: false,
           message: 'Authentication failed. User not found'
         })
-        .expect(404)
     })
 
     describe('authMiddleware', function () {

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-var Enum = rootRequire('misc/util').Enum
+var Enum = rootRequire('main/misc/util').Enum
 
 var AttachmentStatus = new Enum('TEMPORARY', 'STEADY')
 

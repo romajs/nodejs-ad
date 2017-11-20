@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-br" id="ng-app" ng-app="app">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>NodeJS - Ad</title>
+  <title>NodeJS - Ad</title>
 
-	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
-	<!-- <link rel="stylesheet" type="text/css" href="//cdn.quilljs.com/1.1.5/quill.snow.css"> -->
-	<link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="//cdn.quilljs.com/1.1.5/quill.snow.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
 
   <!-- jquery -->
-	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 
   <!-- bootstrap -->
-	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
   <!-- angular -->
-	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 
   <!-- angular / external modules -->
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -29,39 +29,39 @@
   <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
   <script type="text/javascript" src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
-	<!-- <script type="text/javascript" src="//cdn.quilljs.com/1.1.5/quill.js"></script> -->
-	<!-- <script type="text/javascript" src="bower_components/ngQuill/dist/ng-quill.min.js"></script> -->
-	<!-- <script type="text/javascript" src="bower_components/angular-quill/angular-quill.js"></script> -->
+  <!-- <script type="text/javascript" src="//cdn.quilljs.com/1.1.5/quill.js"></script> -->
+  <!-- <script type="text/javascript" src="bower_components/ngQuill/dist/ng-quill.min.js"></script> -->
+  <!-- <script type="text/javascript" src="bower_components/angular-quill/angular-quill.js"></script> -->
 
-	<script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="app.js"></script>
 
-	<script type="text/javascript" src="js/directive/false.js"></script>
+  <script type="text/javascript" src="js/directive/false.js"></script>
 
-	<!-- angular / modules -->
-	<script type="text/javascript" src="js/module/adModule.js"></script>
-	<script type="text/javascript" src="js/module/adNewModule.js"></script>
-	<script type="text/javascript" src="js/module/adsModule.js"></script>
-	<script type="text/javascript" src="js/module/adsUserModule.js"></script>
-	<script type="text/javascript" src="js/module/authModule.js"></script>
-	<script type="text/javascript" src="js/module/imageGalleryModule.js"></script>
-	<script type="text/javascript" src="js/module/loginModule.js"></script>
-	<script type="text/javascript" src="js/module/uiCarouselModule.js"></script>
-	<script type="text/javascript" src="js/module/userModule.js"></script>
+  <!-- angular / modules -->
+  <script type="text/javascript" src="js/module/adModule.js"></script>
+  <script type="text/javascript" src="js/module/adNewModule.js"></script>
+  <script type="text/javascript" src="js/module/adsModule.js"></script>
+  <script type="text/javascript" src="js/module/adsUserModule.js"></script>
+  <script type="text/javascript" src="js/module/authModule.js"></script>
+  <script type="text/javascript" src="js/module/imageGalleryModule.js"></script>
+  <script type="text/javascript" src="js/module/loginModule.js"></script>
+  <script type="text/javascript" src="js/module/uiCarouselModule.js"></script>
+  <script type="text/javascript" src="js/module/userModule.js"></script>
 
-	<!-- angular / services -->
-	<script type="text/javascript" src="js/service/adService.js"></script>
-	<script type="text/javascript" src="js/service/adsService.js"></script>
-	<script type="text/javascript" src="js/service/adsUserService.js"></script>
-	<script type="text/javascript" src="js/service/attachmentService.js"></script>
-	<script type="text/javascript" src="js/service/attachmentViewService.js"></script>
-	<script type="text/javascript" src="js/service/authService.js"></script>
-	<script type="text/javascript" src="js/service/sessionService.js"></script>
-	<script type="text/javascript" src="js/service/userService.js"></script>
-	<script type="text/javascript" src="js/service/userViewService.js"></script>
+  <!-- angular / services -->
+  <script type="text/javascript" src="js/service/adService.js"></script>
+  <script type="text/javascript" src="js/service/adsService.js"></script>
+  <script type="text/javascript" src="js/service/adsUserService.js"></script>
+  <script type="text/javascript" src="js/service/attachmentService.js"></script>
+  <script type="text/javascript" src="js/service/attachmentViewService.js"></script>
+  <script type="text/javascript" src="js/service/authService.js"></script>
+  <script type="text/javascript" src="js/service/sessionService.js"></script>
+  <script type="text/javascript" src="js/service/userService.js"></script>
+  <script type="text/javascript" src="js/service/userViewService.js"></script>
 
 </head>
 <body>
-	<ng-include src="'/html/menu.html'"></ng-include>
-	<main ui-view></main>
+  <ng-include src="'/html/menu.html'"></ng-include>
+  <main ui-view></main>
 </body>
 </html>

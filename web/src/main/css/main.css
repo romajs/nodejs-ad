@@ -333,3 +333,15 @@ label.required:after {
 .carousel-control .glyphicon-chevron-left {
 	margin-left: -40px;
 }
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

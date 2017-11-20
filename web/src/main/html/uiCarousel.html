@@ -1,10 +1,10 @@
 <!-- <div style="display: inline;"> -->
-	<div uib-carousel class="ui-carousel" active="active" interval="myInterval" no-wrap="noWrapSlides">
-		<div uib-slide ng-repeat="attachment in attachments track by $index" index="$index">
-			<img ng-src="{{attachment.secure_url}}" style="margin:auto; height: 400px;">
-			<div class="carousel-caption">
-				<p>{{attachment.name}} - {{hrSize(attachment.size)}}</p>
-			</div>
-		</div>
-	</div>
+  <div uib-carousel class="ui-carousel" active="active" interval="myInterval" no-wrap="noWrapSlides">
+    <div uib-slide ng-repeat="attachment in attachments track by $index" index="$index">
+      <img ng-src="{{attachment.secure_url}}" style="margin:auto; height: 400px;">
+      <div class="carousel-caption">
+        <p>{{attachment.name}} - {{hrSize(attachment.size)}}</p>
+      </div>
+    </div>
+  </div>
 <!-- </div> -->

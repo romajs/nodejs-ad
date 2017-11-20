@@ -44,6 +44,12 @@ angular.module('app', [
   }).otherwise('notFound')
 })
 
+.run(function ($rootScope, $translate) {
+  $rootScope.translate = function (translateId) {
+    return $translate.instant(translateId)
+  }
+})
+
 .run(function ($rootScope, $window) {
   $rootScope.$back = function () {
     $window.history.back()

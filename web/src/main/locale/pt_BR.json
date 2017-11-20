@@ -1,7 +1,40 @@
 {
-  "PAGE": {
-    "ADS": {
-      "TITLE" : "Anúncios"
-    }
-  }
+  "ad.type.SELL": "Venda",
+  "ad.type.SELL.info": "Anúncio de Venda",
+  "at": "às",
+  "by": "por",
+  "form.cancel": "Cancelar",
+  "form.field.required": "O preenchimento deste campo é obrigatório",
+  "form.invalid": "Existem erros no preenchindo do formulário. Corrija-os para continuar",
+  "form.valid": "Todos os campos foram preenchidos corretamente",
+  "history.back": "Voltar",
+  "imageGallery.fullscreen.title": "Clique para visualizar em tela cheia",
+  "imageGallery.next.title": "Clique para visualizar a próxima imagem",
+  "imageGallery.previous.title": "Clique para visualizar a imagem anterior",
+  "imageGallery.view.title": "Clique para visualizar esta imagem",
+  "in": "em",
+  "menu.ad": "Ad",
+  "menu.ads": "Anúncios",
+  "menu.advertise": "Anunciar",
+  "menu.exit": "Sair",
+  "menu.login": "Login",
+  "menu.myAccount": "Minha conta",
+  "menu.myAds": "Meu Anúncios",
+  "page.ads.bookmark": "Clique para marcar este anúncio como favorito",
+  "page.ads.bookmark.undo": "Clique para desmarcar este anúncio como favorito",
+  "page.ads.evaluate": "Clique para avaliar este anúncio",
+  "page.ads.noImageAvailable" : "Anúncio sem imagem disponível",
+  "page.ads.noneFound": "Nenhum anúncio encontrado",
+  "page.ads.title": "Anúncios",
+  "page.ads.viewAdUserDetails": "Clique para ver mais detalhes deste usuário",
+  "page.ads.viewDetails": "Clique para ver mais detalhes do anúncio",
+  "page.login.createNewAccount": "Criar nova conta",
+  "page.login.password": "Senha",
+  "page.login.submit": "Login",
+  "page.login.title": "Login",
+  "page.login.username": "Usuário",
+  "page.notFound.description" : "Página não encontrada",
+  "page.user.memberSince": "Membro desde",
+  "page.user.name": "Nome",
+  "": ""
 }

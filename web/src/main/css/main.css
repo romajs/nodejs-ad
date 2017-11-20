@@ -83,6 +83,15 @@ label.required:after {
   position: relative;
 }
 
+.ad-status-approved {
+  background-color: #eefded;
+}
+
+.ad-status-removed {
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
 .ad .ad-title {
   font-size: 20px;
 }

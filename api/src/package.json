@@ -9,6 +9,10 @@
     "codecov": "codecov",
     "coverage": "istanbul cover _mocha -- -R spec",
     "lint": "eslint . --ignore-path .gitignore",
+    "postcoverage": "npm run posttest",
+    "posttest": "docker-compose stop cloudinary_test mongodb_test",
+    "precoverage": "npm run pretest",
+    "pretest": "docker-compose up -d cloudinary_test mongodb_test",
     "start": "nodemon index start-server",
     "test": "mocha"
   },
@@ -42,6 +46,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
+    "jwt-decode": "^2.2.0",
     "mocha": "^3.2.0",
     "node-debug": "^0.1.0",
     "nodemon": "^1.11.0",

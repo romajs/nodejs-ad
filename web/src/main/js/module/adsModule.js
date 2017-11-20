@@ -9,6 +9,11 @@ angular.module('app.ads', [
     templateUrl: '/html/ads.html',
     data: {
       requireAuthentication: false
+    },
+    resolve: {
+      translateReady: ['$translate', function ($translate) {
+        return $translate.onReady()
+      }]
     }
   })
 })

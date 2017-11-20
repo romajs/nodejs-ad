@@ -64,7 +64,7 @@ var profiles = {
   },
   'fixture': function (config) {
     config.http.host = '0.0.0.0'
-    config.http.port = 8001
+    config.http.port = 8000
     config.mongodb.dbname = 'nodejs-ad'
     config.mongodb.host = '0.0.0.0'
     config.mongodb.port = 27017
@@ -81,12 +81,12 @@ var profiles = {
     config.http.port = 8001
     config.mongodb.dbname = 'nodejs-ad-test'
     config.mongodb.host = '127.0.0.1'
-    config.mongodb.port = 27017
+    config.mongodb.port = 27018
     config.cloudinary = {
       cloud_name: 'nodejs-ad-test',
       api_key: 'na',
       api_secret: 'na',
-      upload_prefix: 'https://127.0.0.1:9443'
+      upload_prefix: 'https://127.0.0.1:9444'
     }
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   }

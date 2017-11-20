@@ -18,7 +18,7 @@
 
 ```
 docker-compose build
-docker-compose up [app]
+docker-compose up app
 ```
 
 # Deployment
@@ -28,3 +28,5 @@ Deploy to heroku: `https://nodejs-ad.herokuapp.com`
 ```
 ./deploy-to-heroku.sh
 ```
+
+*Push at master will auto deploy do Heroku*

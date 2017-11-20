@@ -1,4 +1,6 @@
 machine:
+  environment:
+    CONTAINER_NAMES: cloudinary_test mongodb_test
   node:
     version: 6.1.0
   services:
@@ -8,7 +10,6 @@ machine:
   pre:
     - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
     - pip install --upgrade docker-compose==1.8.0
-  post:
 
 dependencies:
   cache_directories:
@@ -20,17 +21,13 @@ dependencies:
     - cd ./web/src && npm install
     - npm install
   post:
-    - docker-compose pull cloudinary
-    - docker-compose build cloudinary
+    - docker-compose pull $CONTAINER_NAMES && docker-compose build $CONTAINER_NAMES
 
 test:
-  pre:
-    - docker-compose up -d cloudinary
   override:
     - npm run coverage && cp -r ./api/src/coverage $CIRCLE_ARTIFACTS
   post:
     - npm run codecov
-    - docker-compose down
 
 deployment:
   production:

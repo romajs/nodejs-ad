@@ -34,11 +34,20 @@ services:
     ports:
       - "9080:9080"
       - "9443:9443"
-  # redis:
-  #   image: redis:4.0
-  #   ports:
-  #     - "6379:6379"
   mongodb:
     image: mongo:3.0
     ports:
       - "27017:27017"
+  # redis:
+  #   image: redis:4.0
+  #   ports:
+  #     - "6379:6379"
+  cloudinary_test:
+    image: romajs/cloudinary-mock
+    ports:
+      - "9081:9080"
+      - "9444:9443"
+  mongodb_test:
+    image: mongo:3.0
+    ports:
+      - "27018:27017"

@@ -12,6 +12,11 @@ angular.module('app.adNew', [
     templateUrl: '/html/adNew.html',
     data: {
       requireAuthentication: false
+    },
+    resolve: {
+      translateReady: ['$translate', function ($translate) {
+        return $translate.onReady()
+      }]
     }
   })
 })

@@ -8,6 +8,7 @@ angular.module('app', [
   'app.login',
   'app.uiCarousel',
   'app.user',
+  'pascalprecht.translate',
   'ui.bootstrap',
   'ui.router'
 ])
@@ -16,6 +17,15 @@ angular.module('app', [
   api: {
     origin: (location.hostname === 'localhost' ? 'http://0.0.0.0:8000' : location.origin) + '/api'
   }
+})
+
+.config(function ($translateProvider, $stateProvider) {
+  $translateProvider.useLoaderCache(true)
+  $translateProvider.useStaticFilesLoader({
+    prefix: '/locale/',
+    suffix: '.json'
+  })
+  $translateProvider.preferredLanguage('pt_BR')
 })
 
 .config(function ($stateProvider, $urlRouterProvider) {

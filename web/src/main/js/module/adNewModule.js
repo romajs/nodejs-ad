@@ -12,6 +12,11 @@ angular.module('app.adNew', [
     templateUrl: '/html/adNew.html',
     data: {
       requireAuthentication: false
+    },
+    resolve: {
+      translateReady: ['$translate', function ($translate) {
+        return $translate.onReady()
+      }]
     }
   })
 })
@@ -74,6 +79,7 @@ angular.module('app.adNew', [
   })
 
   $scope.attachFile = function (file) {
+    file.hrSize = $scope.hrSize(file.size)
     Upload.upload({
       url: attachmentService.uploadUrl(),
       data: {

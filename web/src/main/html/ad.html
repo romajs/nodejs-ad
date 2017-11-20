@@ -1,21 +1,21 @@
 <div class="container">
 
   <div class="jumbotron" ng-if="ad.status == 'PENDING'">
-    <h1>Seu anúncio esta sendo criado</h1>
-    <p>Fique tranquilo, estamos providenciando tudo para você ;)</p>
-    <p>Dentro de instantes seu anúncio estará disponível em nossas páginas de pesquisa</p>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser">Ver meus anúncios</a></p>
+    <h1 translate>page.ad.pending.title</h1>
+    <p><span translate>page.ad.pending.beCool</span> <span>;)</span></p>
+    <p translate>page.ad.pending.waitSoon</p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
   </div>
 
   <div class="jumbotron" ng-if="['REPROVED', 'BANNED', 'REMOVED'].indexOf(ad.status) > -1">
-    <h1>Este anúncio foi removido</h1>
-    <p>Lamentamos pelo inconveniente</p>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser">Ver meus anúncios</a></p>
+    <h1 translate>page.ad.removed.title</h1>
+    <p><span translate>page.ad.removed.sorry</span> <span>:(</span></p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
   </div>
 
   <div class="jumbotron" ng-if="ad.status == 'EXPIRED'">
-    <h1>Este anúncio expirou</h1>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser">Ver meus anúncios</a></p>
+    <h1 translate>page.ad.expired.title</h1>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
   </div>
 
   <div class="row ad" ng-if="ad.status == 'APPROVED'">
@@ -34,10 +34,10 @@
     </div>
     <div class="row-fluid">
       <div class="col-sm-8">
-        <span class="ad-creation-info">Em {{ad.updated_at|date:'dd/MM/yyyy'}} às {{ad.updated_at|date:'hh:mm'}} por <a ui-sref="user({ id: user._id})" title="Clique para ver mais detalhes deste usuário" ng-click="$event.stopPropagation();">{{user.name}}</a></span>
+        <span class="ad-creation-info capitalize">{{'in'|translate}} {{ad.updated_at|date:'dd/MM/yyyy'}} {{'at'|translate}}  {{ad.updated_at|date:'hh:mm'}} por <a ui-sref="user({ id: user._id})" title="{{'page.ads.viewAdUserDetails'|translate}}" ng-click="$event.stopPropagation();">{{user.name}}</a></span>
       </div>
       <div class="col-xs-4 ad-value-info ad-value-selling" title="Anúncio de venda">
-        <span class="ad-value-type">VENDA</span>
+        <span class="ad-value-type uppercase" translate>ad.type.SELL</span>
         <!-- <i class="fa fa-money"></i> -->
         <span class="ad-value">R$ {{ad.value|number:2}}</span>
       </div>
@@ -58,18 +58,18 @@
         <div class="form-group">
           <div class="row-fluid">
             <div class="col-xs-12">
-              <h4>Localização</h4>
+              <h4 translate>form.ad.location</h4>
             </div>
             <div class="col-xs-12">
-              <label for="estate">Cidade / Estado</label>
+              <label for="estate">{{'form.ad.city'|translate}} / {{'form.ad.state'|translate}}</label>
               <p class="form-control-static">{{ad.address.state}} / {{ad.address.city}}</p>
             </div>
             <div class="col-xs-12">
-              <label for="city">Endereço</label>
+              <label for="city" translate>form.ad.address</label>
               <p class="form-control-static">{{ad.address.street}}, {{ad.address.street_number}}, {{ad.address.neighborhood}}, {{ad.address.complement}}</p>
             </div>
             <div class="col-xs-12">
-              <label for="zip_code">Cep</label>
+              <label for="zip_code" translate>form.ad.zipCode</label>
               <p class="form-control-static">{{ad.address.zip_code}}</p>
             </div>
           </div>
@@ -79,18 +79,18 @@
         <div class="form-group">
           <div class="row-fluid">
             <div class="col-xs-12">
-              <h4>Contato</h4>
+              <h4 translate>form.ad.contact</h4>
             </div>
             <div class="col-xs-12">
-              <label for="estate">Email</label>
+              <label for="estate" translate>form.ad.email</label>
               <p class="form-control-static">{{ad.contact.email}}</p>
             </div>
             <div class="col-xs-12">
-              <label for="city">Telefone</label>
+              <label for="city" translate>form.ad.phone</label>
               <p class="form-control-static">{{ad.contact.phone}}</p>
             </div>
             <div class="col-xs-12">
-              <label for="zip_code">Celular</label>
+              <label for="zip_code" translate>form.ad.cellphone</label>
               <p class="form-control-static">{{ad.contact.cellphone}} <i class="fa fa-whatsapp"></i> <i class="fa fa-check-circle-o"></i> </p>
             </div>
           </div>
@@ -102,17 +102,8 @@
         <span>palavras chave key words keys word</span>
       </div>
     </div>
-    <!-- <div class="col-sm-3">
-      <span>Visualizações: 100.300</span>
-    </div> -->
-    <!-- <div class="col-sm-4">
-      <span>Reportar um problema <i class="fa fa-bug"></i></span>
-    </div>
     <div class="col-sm-4">
-      <span>Denunciar este anúncio <i class="fa fa-ban"></i></span>
-    </div> -->
-    <div class="col-sm-4">
-      <span>Compartilhar: <i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i> </span>
+      <span translate>page.ad.share</span><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i>
     </div>
   </div>
 </div>

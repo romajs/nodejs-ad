@@ -1,154 +1,154 @@
 <div class="container">
 
-	<div class="page-header">
-		<h1>Novo anúncio</h1>
-	</div>
+  <div class="page-header">
+    <h1 translate>page.adNew.title</h1>
+  </div>
 
-	<div class="jumbotron" ng-if="!isAuthenticated()">
-		<h2>Para anunciar é necessário estar logado</h2>
-		<br/>
-		<p>Caso já tenha uma conta, clique <a ui-sref="login({redirect: 'ad-new'})">aqui</a> para acessá-la.</p>
-		<br/>
-		<p>Não tem uma conta ainda?</p>
-		<p>Cadastra-se agora mesmo clicando <a ui-sref="login({redirect: 'ad-new'})">aqui</a>. É grátis.</p>
-	</div>
+  <div class="jumbotron" ng-if="!isAuthenticated()">
+    <h2 translate>page.adNew.loginRequiredText.part1</h2>
+    <br/>
+    <p>
+      <span translate>page.adNew.loginRequiredText.part2</span>
+      <a ui-sref="login({redirect: 'ad-new'})" translate>here</a>
+      <span translate>page.adNew.loginRequiredText.part3</span>
+    </p>
+    <br/>
+    <p translate>page.adNew.loginRequiredText.part4</p>
+    <p>
+      <span translate>page.adNew.loginRequiredText.part5</span>
+      <a ui-sref="login({redirect: 'ad-new'})" translate>here</a>
+    </p>
+  </div>
 
-	<div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
-		<form class="" name="adForm" novalidate>
-			<div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
-				<div class="row">
-					<div class="col-xs-9">
-						<label for="title" class="required">Título</label>
-						<input type="text" class="form-control" id="title" name="title" placeholder="Título" ng-model="ad.title" required maxlength="{{check.title.length.max}}">
-						<p class="help-block" ng-if="adForm.title.$valid">(Máximo de {{check.title.length.max}} caracteres, restando {{check.title.length.left()}})</p>
-						<p class="help-block" ng-if="adForm.title.$error.required">O preenchimento deste campo é obrigatório</p>
-					</div>
-					<div class="col-xs-3">
-						<label for="value" class="required">Valor</label>
-						<input type="text" class="form-control" id="value" name="value" placeholder="Valor" ng-model="ad.value" required>
-						<p class="help-block" ng-if="adForm.value.$error.required">O preenchimento deste campo é obrigatório</p>
-					</div>
-				</div>
-			</div>
-			<div class="form-group" ng-class="{ 'has-error' : adForm.details.$invalid }">
-				<label for="details" class="required">Detalhes</label>
-				<!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
-				<!-- <div ng-model="article" quill></div> -->
-				<textarea class="form-control" id="details" name="details" placeholder="Detalhes" rows="7" ng-model="ad.details" required
-				 maxlength="{{check.details.length.max}}"></textarea>
-				<p class="help-block" ng-if="adForm.details.$valid">(Máximo de {{check.details.length.max}} caracteres, restando {{check.details.length.left()}})</p>
-				<p class="help-block" ng-if="adForm.details.$error.required">O preenchimento deste campo é obrigatório</p>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-5">
-						<label for="estate">Estado</label>
-						<input type="text" class="form-control" id="estate" placeholder="Estado" ng-model="ad.address.state">
-					</div>
-					<div class="col-xs-4">
-						<label for="city">Cidade</label>
-						<input type="text" class="form-control" id="city" placeholder="Cidade" ng-model="ad.address.city">
-					</div>
-					<div class="col-xs-3">
-						<label for="zip_code">Cep</label>
-						<input type="text" class="form-control" id="zip_code" placeholder="Cep" ng-model="ad.address.zip_code">
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-5">
-						<label for="street">Rua</label>
-						<input type="text" class="form-control" id="street" placeholder="Rua" ng-model="ad.address.street">
-					</div>
-					<div class="col-xs-5">
-						<label for="neighborhood">Bairro</label>
-						<input type="text" class="form-control" id="neighborhood" placeholder="Bairro" ng-model="ad.address.neighborhood">
-					</div>
-					<div class="col-xs-2">
-						<label for="street_number">Número</label>
-						<input type="text" class="form-control" id="street_number" placeholder="Número" ng-model="ad.address.street_number">
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-12">
-						<label for="complement">Complemento</label>
-						<input type="text" class="form-control" id="complement" placeholder="Complemento" ng-model="ad.address.complement">
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-xs-4">
-						<label for="estate">Email</label>
-						<input type="text" class="form-control" id="estate" placeholder="Email" ng-model="ad.contact.email">
-					</div>
-					<div class="col-xs-4">
-						<label for="city">Telefone</label>
-						<input type="text" class="form-control" id="city" placeholder="Telefone" ng-model="ad.contact.phone">
-					</div>
-					<div class="col-xs-4">
-						<label for="zip_code">Celular</label>
-						<input type="text" class="form-control" id="zip_code" placeholder="Celular" ng-model="ad.contact.cellphone">
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="foto">Fotos</label>
-				<div name="ngfFiles" ngf-drop ngf-select ng-model="ngfFiles" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'"
-				 ngf-multiple="true" ngf-allow-dir="true" ngf-keep="false" accept="image/*" ngf-pattern="'image/*'" ngf-max-size="{{check.files.size.max}}"
-				 ngf-max-files="10" ngf-ignore-invalid="'pattern maxSize maxFiles'" ng-disabled="check.files.qtd.left() <= 0">{{check.files.qtd.left() > 0 ? 'Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos' : 'Você
-					já atingiu o limite máximo de imagens para upload' }}</div>
-			</div>
-			<div class="form-group" ng-class="{ 'has-error' : adForm.ngfFiles.$invalid, 'has-success' : adForm.ngfFiles.$valid }">
-				<p class="help-block" ng-if="adForm.ngfFiles.$error.maxFiles">O número de arquivos ultrapassou o máximo de {{check.files.qtd.max}} arquivos permitidos
-					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
-				</p>
-				<p class="help-block" ng-if="adForm.ngfFiles.$error.maxSize">Existem arquivos que ultrapassaram o máximo de {{check.files.size.max}} permitido
-					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
-				</p>
-				<p class="help-block" ng-if="adForm.ngfFiles.$error.pattern">Existem arquivos com extensão e/ou tipo não permitido
-					<!--<i class="btn btn-sm fa fa-times text-danger" ng-click="fixNgfFilesErrors(file.name)" title="Clique para limpar os erros de upload de arquivos"></i>-->
-				</p>
-			</div>
-			<div class="form-group">
-				<div ng-repeat="file in files" style="font:smaller">
-					<div class="row">
-						<div class="col-xs-12">
-							<a ng-href="{{file.url}}" target="_blank" title="Clique para visualizar {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
-							 ng-if="!file.errored">{{file.name}} ({{file.type}}) {{hrSize(file.size)}}</a>
-							<span class="text-muted" title="Um erro ocorreu {{file.name}} ({{file.type}}) {{hrSize(file.size)}}" ng-if="file.errored">{{file.name}}</span>
-							<a class="text-info" ng-click="retryFile(file)" title="Clique para tentar novamente {{file.name}} ({{file.type}}) {{hrSize(file.size)}}"
-							 ng-if="file.errored">
-								<i class="btn btn-sm fa fa-undo"></i>
-								<span>Tentar novamente</span>
-							</a>
-							<a class="text-danger" ng-click="removeFile(file.name)" title="Clique para remover {{file.name}} ({{file.type}}) {{hrSize(file.size)}}">
-								<i class="btn btn-sm fa fa-times"></i>
-								<span>Remover</span>
-							</a>
-							<input type="hidden" ng-model="file.errored" false/>
-							<div class="form-group has-error" ng-if="file.errored">
-								<p class="help-block">Não foi possível realizar o upload do arquivo, tente novamente ou remova o arquivo</p>
-							</div>
-							<div class="progress" ng-hide="file.completed">
-								<div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }" class="progress-bar"
-								 style="width: {{file.progress}}%;">{{file.name}} - {{file.progress}}%</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<p class="help-block">(Máximo de {{check.files.qtd.max}} imagens. {{check.files.qtd.left()}} imagens restando)</p>
-			</div>
-			<div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
-				<!--<p class="help-block" ng-if="adForm.$error">Error: {{adForm.$error}}</p>-->
-				<p class="help-block" ng-if="adForm.$valid">Todos os campos foram preenchidos corretamente.</p>
-				<p class="help-block" ng-if="adForm.$invalid">Existem erros no preenchindo do formulário. Corrija-os para continuar</p>
-			</div>
-			<!-- <button type="button" class="btn btn-secondary" ng-click="cancel()">Cancelar</button> -->
-			<button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid">Criar anúncio</button>
-		</form>
-	</div>
+  <div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
+    <form class="" name="adForm" novalidate>
+      <div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
+        <div class="row">
+          <div class="col-xs-9">
+            <label for="title" class="required" translate>form.ad.title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="{{'form.ad.title'|translate}}" ng-model="ad.title" required maxlength="{{check.title.length.max}}">
+        <p class="help-block" ng-if="adForm.details.$valid">{{'form.maxCharactersLeft'|translate:check.title.length}}</p>
+            <p class="help-block" ng-if="adForm.title.$error.required" translate>form.field.required</p>
+          </div>
+          <div class="col-xs-3">
+            <label for="value" class="required" translate>form.ad.value</label>
+            <input type="text" class="form-control" id="value" name="value" placeholder="{{'form.ad.value'|translate}}" ng-model="ad.value" required>
+            <p class="help-block" ng-if="adForm.value.$error.required" translate>form.field.required</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : adForm.details.$invalid }">
+        <label for="details" class="required" translate>form.ad.details</label>
+        <!-- <ng-quill-editor ng-model="message"></ng-quill-editor> -->
+        <!-- <div ng-model="article" quill></div> -->
+        <textarea class="form-control" id="details" name="details" placeholder="{{'form.ad.details'|translate}}" rows="7" ng-model="ad.details" required
+         maxlength="{{check.details.length.max}}"></textarea>
+        <p class="help-block" ng-if="adForm.details.$valid">{{'form.maxCharactersLeft'|translate:check.details.length}}</p>
+        <p class="help-block" ng-if="adForm.details.$error.required" translate>form.field.required</p>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-5">
+            <label for="estate" translate>form.ad.state</label>
+            <input type="text" class="form-control" id="estate" placeholder="{{'form.ad.state'|translate}}" ng-model="ad.address.state">
+          </div>
+          <div class="col-xs-4">
+            <label for="city" translate>form.ad.city</label>
+            <input type="text" class="form-control" id="city" placeholder="{{'form.ad.city'|translate}}" ng-model="ad.address.city">
+          </div>
+          <div class="col-xs-3">
+            <label for="zip_code" translate>form.ad.zipCode</label>
+            <input type="text" class="form-control" id="zip_code" placeholder="{{'form.ad.zipCode'|translate}}" ng-model="ad.address.zip_code">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-5">
+            <label for="street" translate>form.ad.street</label>
+            <input type="text" class="form-control" id="street" placeholder="{{'form.ad.street'|translate}}" ng-model="ad.address.street">
+          </div>
+          <div class="col-xs-5">
+            <label for="neighborhood" translate>form.ad.neighborhood</label>
+            <input type="text" class="form-control" id="neighborhood" placeholder="{{'form.ad.neighborhood'|translate}}" ng-model="ad.address.neighborhood">
+          </div>
+          <div class="col-xs-2">
+            <label for="street_number" translate>form.ad.streetNumber</label>
+            <input type="text" class="form-control" id="street_number" placeholder="{{'form.ad.streetNumber'|translate}}" ng-model="ad.address.street_number">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-12">
+            <label for="complement" translate>form.ad.complement</label>
+            <input type="text" class="form-control" id="complement" placeholder="{{'form.ad.complement'|translate}}" ng-model="ad.address.complement">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-xs-4">
+            <label for="email" translate>form.ad.email</label>
+            <input type="text" class="form-control" id="email" placeholder="{{'form.ad.email'|translate}}" ng-model="ad.contact.email">
+          </div>
+          <div class="col-xs-4">
+            <label for="phone" translate>form.ad.phone</label>
+            <input type="text" class="form-control" id="phone" placeholder="{{'form.ad.phone'|translate}}" ng-model="ad.contact.phone">
+          </div>
+          <div class="col-xs-4">
+            <label for="cellphone" translate>form.ad.cellphone</label>
+            <input type="text" class="form-control" id="cellphone" placeholder="{{'form.ad.cellphone'|translate}}" ng-model="ad.contact.cellphone">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="foto">Fotos</label>
+        <div name="ngfFiles" ngf-drop ngf-select ng-model="ngfFiles" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'"
+         ngf-multiple="true" ngf-allow-dir="true" ngf-keep="false" accept="image/*" ngf-pattern="'image/*'" ngf-max-size="{{check.files.size.max}}"
+         ngf-max-files="10" ngf-ignore-invalid="'pattern maxSize maxFiles'" ng-disabled="check.files.qtd.left() <= 0">{{check.files.qtd.left() > 0 ? translate('form.attachment.dragAndDropDescription') : translate('form.attachment.maxFilesLimitAlreadyRecheaded') }}</div>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : adForm.ngfFiles.$invalid, 'has-success' : adForm.ngfFiles.$valid }">
+        <p class="help-block" ng-if="adForm.ngfFiles.$error.maxFiles">{{'form.attachment.maxFilesLimitRecheaded'|translate:check.files.qtd}}</p>
+        <p class="help-block" ng-if="adForm.ngfFiles.$error.maxSize">{{'form.attachment.maxFilesLimitExceeded'|translate:check.files.size}}</p>
+        <p class="help-block" ng-if="adForm.ngfFiles.$error.pattern" translate>form.attachment.filesWithInvalidExtensionOrNotAllowed</p>
+      </div>
+      <div class="form-group">
+        <div ng-repeat="file in files" style="font:smaller">
+          <div class="row">
+            <div class="col-xs-12">
+              <a ng-href="{{file.url}}" target="_blank" title="{{'form.attachment.file.view'|translate:file}}"
+               ng-if="!file.errored">{{file.name}} ({{file.type}}) {{file.hrSize}}</a>
+              <span class="text-muted" title="{{'form.attachment.file.error'|translate:file}}" ng-if="file.errored">{{file.name}}</span>
+              <a class="text-info" ng-click="retryFile(file)" title="{{'form.attachment.file.tryAgain'|translate:file}}"
+               ng-if="file.errored">
+                <i class="btn btn-sm fa fa-undo"></i>
+                <span translate>tryAgain</span>
+              </a>
+              <a class="text-danger" ng-click="removeFile(file.name)" title="{{'form.attachment.file.remove'|translate:file}}">
+                <i class="btn btn-sm fa fa-times"></i>
+                <span translate>remove</span>
+              </a>
+              <input type="hidden" ng-model="file.errored" false/>
+              <div class="form-group has-error" ng-if="file.errored">
+                <p class="help-block" translate>form.attachment.file.uploadError</p>
+              </div>
+              <div class="progress" ng-hide="file.completed">
+                <div ng-class="{ 'progress-bar-striped active' : file.progress < 100, 'progress-bar-success': file.progress == 100 }" class="progress-bar"
+                 style="width: {{file.progress}}%;">{{file.name}} - {{file.progress}}%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="help-block">{{'form.attachment.maxFilesLimitLeft'|translate:check.files.qtd}}</p>
+      </div>
+      <div class="form-group" ng-class="{ 'has-error' : adForm.$invalid, 'has-success' : adForm.$valid }">
+        <!--<p class="help-block" ng-if="adForm.$error">Error: {{adForm.$error}}</p>-->
+        <p class="help-block" ng-if="adForm.$valid" translate>form.valid</p>
+        <p class="help-block" ng-if="adForm.$invalid" translate>form.invalid</p>
+      </div>
+      <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()" translate>form.cancel</button> -->
+      <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid" translate>form.adNew.submit</button>
+    </form>
+  </div>
 </div>

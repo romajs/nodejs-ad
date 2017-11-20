@@ -79,6 +79,7 @@ angular.module('app.adNew', [
   })
 
   $scope.attachFile = function (file) {
+    file.hrSize = $scope.hrSize(file.size)
     Upload.upload({
       url: attachmentService.uploadUrl(),
       data: {

@@ -13,12 +13,12 @@ angular.module('app.ad', [
   })
 })
 
-.controller('adController', function ($scope, $log, $stateParams, adService) {
+.controller('adController', function ($scope, $log, $stateParams, adService, userViewService) {
   $scope.ad = null
+  $scope.user = null
 
   adService.get($stateParams.id).then(function (res) {
     $scope.ad = res.data
-    $log.info($scope.ad)
     $scope.ad.address = {
       state: 'São Paulo',
       city: 'Campinas',
@@ -33,5 +33,10 @@ angular.module('app.ad', [
       phone: '(10) 1234-5678',
       cellphone: '(10) 98765-4321'
     }
+    $log.info('$scope.ad:', $scope.ad)
+    userViewService.get($scope.ad.user_id).then(function (res) {
+      $scope.user = res.data
+      $log.info('$scope.user:', $scope.user)
+    })
   })
 })

@@ -1,21 +1,22 @@
 <div class="container">
 
   <div class="page-header">
-    <h1 translate>page.adNew.title</h1>
+    <h1 ng-if="!ad._id" translate>page.ad.title</h1>
+    <h1 ng-if="ad._id">{{'page.ad.edit.title'|translate}}: {{ad._id}}</h1>
   </div>
 
   <div class="jumbotron" ng-if="!isAuthenticated()">
-    <h2 translate>page.adNew.loginRequiredText.part1</h2>
+    <h2 translate>page.ad.loginRequiredText.part1</h2>
     <br/>
     <p>
-      <span translate>page.adNew.loginRequiredText.part2</span>
+      <span translate>page.ad.loginRequiredText.part2</span>
       <a ui-sref="login({redirect: 'ad'})" translate>here</a>
-      <span translate>page.adNew.loginRequiredText.part3</span>
+      <span translate>page.ad.loginRequiredText.part3</span>
     </p>
     <br/>
-    <p translate>page.adNew.loginRequiredText.part4</p>
+    <p translate>page.ad.loginRequiredText.part4</p>
     <p>
-      <span translate>page.adNew.loginRequiredText.part5</span>
+      <span translate>page.ad.loginRequiredText.part5</span>
       <a ui-sref="login({redirect: 'ad'})" translate>here</a>
     </p>
   </div>
@@ -148,7 +149,8 @@
         <p class="help-block" ng-if="adForm.$invalid" translate>form.invalid</p>
       </div>
       <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()" translate>form.cancel</button> -->
-      <button type="submit" class="btn btn-primary" ng-click="confirm()" ng-disabled="adForm.$invalid" translate>page.adNew.submit</button>
+      <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="adForm.$invalid" ng-if="!ad._id" translate>page.ad.new.submit</button>
+      <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="adForm.$invalid" ng-if="ad._id" translate>page.ad.edit.submit</button>
     </form>
   </div>
 </div>

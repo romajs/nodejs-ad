@@ -18,7 +18,7 @@ angular.module('app.adsUser', [
   })
 })
 
-.controller('adsUserController', function ($scope, $log, adService, adsUserService, attachmentViewService) {
+.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService) {
   $scope.ads = null
   $scope.bookmarks = []
   $scope.first_attachments = {}
@@ -49,6 +49,11 @@ angular.module('app.adsUser', [
     adService.delete(ad._id).then(function (res) {
       ad.status = res.data.status
     })
+  }
+
+  $scope.edit = function(ad, $index) {
+    $log.debug('editing: ', ad._id, ', $index:', $index)
+    $state.go('ad', { id: ad._id})
   }
 
   $scope.openImageGallery = function () {

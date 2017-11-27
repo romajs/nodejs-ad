@@ -1,21 +1,21 @@
 <div class="container">
 
   <div class="jumbotron" ng-if="ad.status == 'PENDING'">
-    <h1 translate>page.ad.pending.title</h1>
-    <p><span translate>page.ad.pending.beCool</span> <span>;)</span></p>
-    <p translate>page.ad.pending.waitSoon</p>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
+    <h1 translate>page.adView.pending.title</h1>
+    <p><span translate>page.adView.pending.beCool</span> <span>;)</span></p>
+    <p translate>page.adView.pending.waitSoon</p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
   </div>
 
   <div class="jumbotron" ng-if="['REPROVED', 'BANNED', 'REMOVED'].indexOf(ad.status) > -1">
-    <h1 translate>page.ad.removed.title</h1>
-    <p><span translate>page.ad.removed.sorry</span> <span>:(</span></p>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
+    <h1 translate>page.adView.removed.title</h1>
+    <p><span translate>page.adView.removed.sorry</span> <span>:(</span></p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
   </div>
 
   <div class="jumbotron" ng-if="ad.status == 'EXPIRED'">
-    <h1 translate>page.ad.expired.title</h1>
-    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.ad.viewMyAds</a></p>
+    <h1 translate>page.adView.expired.title</h1>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
   </div>
 
   <div class="row ad" ng-if="ad.status == 'APPROVED'">
@@ -39,13 +39,13 @@
           <span>{{ad.updated_at|date:'dd/MM/yyyy'}}</span>
           <span>{{'at'|translate}} {{ad.updated_at|date:'hh:mm'}}</span>
           <span>{{'by'|translate}}</span>
-          <a ui-sref="user({ id: user._id})" title="{{'page.ads.viewAdUserDetails'|translate}}" ng-click="$event.stopPropagation();">{{user.name}}</a>
+          <a ui-sref="user({ id: user._id})" title="{{'page.adViews.viewAdUserDetails'|translate}}" ng-click="$event.stopPropagation();">{{user.name}}</a>
         </div>
         <div class="pull-right ad-value-info ad-value-selling" title="{{'ad.type.SELL.info'|translate}}">
           <span class="ad-value-type uppercase" translate>ad.type.SELL</span>
           <!-- <i class="fa fa-money"></i> -->
           <span class="ad-value">R$ {{ad.value|number:2}}</span>
-          <!-- <div class="ad-evaluation" ng-click="$event.stopPropagation();" title="{{'page.ads.evaluate'|translate}}">
+          <!-- <div class="ad-evaluation" ng-click="$event.stopPropagation();" title="{{'page.adViews.evaluate'|translate}}">
           <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
         </div> -->
         </div>
@@ -112,7 +112,7 @@
       </div>
     </div>
     <div class="col-sm-4">
-      <span translate>page.ad.share</span><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i>
+      <span translate>page.adView.share</span><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i>
     </div>
   </div>
 </div>

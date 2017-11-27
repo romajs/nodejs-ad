@@ -7,13 +7,19 @@ angular.module('app.adNew', [
 
 .config(function ($stateProvider) {
   $stateProvider.state('ad', {
-    url: '/ad',
+    url: '/ad/:id',
     controller: 'adController',
     templateUrl: '/html/ad.html',
     data: {
       requireAuthentication: false
     },
     resolve: {
+      adResponse: ['$stateParams', 'adService', function($stateParams, adService) {
+        console.info($stateParams)
+        if($stateParams.id) {
+          return adService.get($stateParams.id)
+        }
+      }],
       translateReady: ['$translate', function ($translate) {
         return $translate.onReady()
       }]
@@ -21,14 +27,14 @@ angular.module('app.adNew', [
   })
 })
 
-.controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService) {
-  $scope.ad = {
-    title: 'Teste',
-    details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    value: 1000,
-    address: {},
-    contact: {}
-  }
+.controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService, attachmentViewService, adResponse) {
+  
+  $log.info('$adResponse:', adResponse)
+
+  $scope.ad = {}
+  $scope.ngfFiles = []
+  $scope.files = []
+  $scope.attachments = []
 
   $scope.check = {
     title: {
@@ -60,11 +66,46 @@ angular.module('app.adNew', [
     }
   }
 
-  $scope.ngfFiles = []
-  $scope.files = []
-  $scope.attachments = []
+  function adSample() {
+    return {
+      title: 'Teste',
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      value: 1000,
+      address: {},
+      contact: {}
+    }
+  }
+
+  if(!adResponse) {
+    $scope.ad = adSample()
+  } else {
+    if(adResponse.status == 200) {
+      $scope.ad = adResponse.data
+      adResponse.data.attachment_ids.forEach(function(attachmentId) {
+        attachmentViewService.get(attachmentId).then(function(res) {
+          var attachment = res.data
+          $log.info('attachment:', attachment)
+          $scope.attachments.push(attachment)
+          var file = {
+            url: attachment.url,
+            name: attachment.name,
+            type: attachment.type,
+            size: attachment.size,
+            hrSize: $scope.hrSize(attachment.size),
+            progress: 100,
+            completed: true
+          }
+          $log.info('file:', file)
+          $scope.files.push(file)
+        })
+      })
+    } else {
+      // TODO: handler errors
+    }
+  }
 
   $scope.$watch('ngfFiles', function (ngfFiles) {
+    $log.info('ngfFiles:', ngfFiles)
     if (ngfFiles && ngfFiles.length > 0) {
       $log.info($scope.check.files.qtd.max, ngfFiles.length, $scope.files.length)
       ngfFiles.slice(0, $scope.check.files.qtd.left()).forEach(function (file) {
@@ -89,7 +130,6 @@ angular.module('app.adNew', [
       $timeout(function () {
         $log.info('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
         $scope.attachments.push(res.data)
-        file.attachment_id = res.data._id
         file.url = res.data.url
         $timeout(function () {
           file.completed = true
@@ -133,16 +173,16 @@ angular.module('app.adNew', [
     // $state.go('ads')
   }
 
-  $scope.confirm = function () {
+  $scope.submit = function () {
     var ad = angular.copy($scope.ad)
     ad.attachment_ids = $scope.attachments.map(function (attachment) {
       return attachment._id
     })
 
-    $log.info($scope.adForm.$valid, ad)
+    $log.info('submiting form, valid:', $scope.adForm.$valid, 'ad:', ad)
 
     if ($scope.adForm.$valid) {
-      adService.create(ad).then(function (res) {
+      adService.save(ad).then(function (res) {
         if (res.status === 200 && res.data) {
           $state.go('adView', {
             id: res.data._id

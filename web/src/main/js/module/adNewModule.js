@@ -144,7 +144,7 @@ angular.module('app.adNew', [
     if ($scope.adForm.$valid) {
       adService.create(ad).then(function (res) {
         if (res.status === 200 && res.data) {
-          $state.go('ad', {
+          $state.go('adView', {
             id: res.data._id
           })
         }

@@ -1,12 +1,12 @@
-angular.module('app.ad', [
+angular.module('app.adView', [
   'ui.router'
 ])
 
 .config(function ($stateProvider) {
-  $stateProvider.state('ad', {
-    url: '/ad/:id',
-    controller: 'adController',
-    templateUrl: '/html/ad.html',
+  $stateProvider.state('adView', {
+    url: '/ad/:id/view',
+    controller: 'adViewController',
+    templateUrl: '/html/adView.html',
     data: {
       requireAuthentication: false
     },
@@ -18,7 +18,7 @@ angular.module('app.ad', [
   })
 })
 
-.controller('adController', function ($scope, $log, $stateParams, adService, userViewService) {
+.controller('adViewController', function ($scope, $log, $stateParams, adService, userViewService) {
   $scope.ad = null
   $scope.user = null
 

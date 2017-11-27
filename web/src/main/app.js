@@ -1,8 +1,8 @@
 angular.module('app', [
-  'app.ad',
   'app.adNew',
   'app.ads',
   'app.adsUser',
+  'app.adView',
   'app.auth',
   'app.imageGallery',
   'app.login',

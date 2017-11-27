@@ -1,13 +1,13 @@
 <div class="container">
 
   <div class="page-header">
-    <h1 translate>page.adsUser.title</h1>
+    <h1 translate>page.adViewsUser.title</h1>
   </div>
 
   <div class="jumbotron" ng-if="ads.length === 0">
     <h1>Ooops...</h1>
     <br/>
-    <p translate>page.ads.noneFound</p>
+    <p translate>page.adViews.noneFound</p>
     <p>:(</p>
     <br/>
     <p><a class="btn btn-primary btn-lg" ng-click="$back()" translate>history.back</a></p>
@@ -15,11 +15,11 @@
 
   <div class="ads" ng-repeat="ad in ads | orderBy : ['status', 'title']">
     <!-- {{ad|json}} -->
-    <div class="row ad ad-status-{{ad.status.toLowerCase()}}" ui-sref="ad({ id: ad._id})" title="{{'page.ads.viewDetails'|translate}}">
+    <div class="row ad ad-status-{{ad.status.toLowerCase()}}" ui-sref="ad({ id: ad._id})" title="{{'page.adViews.viewDetails'|translate}}">
       <div class="col-sm-3">
         {{ first_attachment = first_attachments[ad._id]; "" }}
         <div class="thumbnail">
-          <img ng-src="{{ first_attachment ? first_attachment.secure_url : '/image/no-ad-image.png' }}" width="100%" height="100%" title="{{ first_attachment ? first_attachment.name + ' (' + first_attachment.type + ') ' + hrSize(first_attachment.size) : translate('page.ads.noImageAvailable') }}"/>
+          <img ng-src="{{ first_attachment ? first_attachment.secure_url : '/image/no-ad-image.png' }}" width="100%" height="100%" title="{{ first_attachment ? first_attachment.name + ' (' + first_attachment.type + ') ' + hrSize(first_attachment.size) : translate('page.adViews.noImageAvailable') }}"/>
         </div>
       </div>
       <div class="col-sm-9">
@@ -29,8 +29,11 @@
           </div>
           <div class="col-xs-4" style="text-align: right;" ng-click="$event.stopPropagation();">
             <span>{{'ad.status.'+ad.status|translate}}</span>
-            <a ng-click="remove(ad, $index)" title="{{'page.adsUser.remove'|translate}}">
+            <a ng-click="remove(ad, $index)" title="{{'page.adViewsUser.remove.title'|translate}}">
               <i class="fa fa-trash text-danger"></i>
+            </a>
+            <a ng-click="edit(ad, $index)" title="{{'page.adViewsUser.edit.title'|translate}}">
+              <i class="fa fa-pencil text-info"></i>
             </a>
           </div>
         </div>

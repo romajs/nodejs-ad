@@ -85,7 +85,8 @@ router.put('/:id', function (req, res, next) {
       details: req.body.details,
       status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
       created_at: new Date(),
-      user_id: req.auth.user._id
+      user_id: req.auth.user._id,
+      attachment_ids: req.body.attachment_ids || []
     }
 
     Ad.findByIdAndUpdate(req.params.id, {
@@ -93,7 +94,27 @@ router.put('/:id', function (req, res, next) {
     }, {
       new: true
     }).then(function (ad) {
-      return res.status(ad ? 200 : 404).json(ad)
+      if (!ad) {
+        return res.status(404).end()
+      }
+      var attachmentPromises = []
+
+      ad.attachment_ids.forEach(function (attachmentId) {
+        var attachment = {
+          status: AttachmentStatus.STEADY
+        }
+
+        var attachmentPromise = Attachment.findByIdAndUpdate(attachmentId, {
+          $set: attachment
+        }, {
+          new: true
+        })
+        attachmentPromises.push(attachmentPromise)
+      })
+
+      return Promise.all(attachmentPromises).then(function () {
+        return res.status(200).json(ad)
+      })
     }).catch(function (err) {
       return next(err)
     })

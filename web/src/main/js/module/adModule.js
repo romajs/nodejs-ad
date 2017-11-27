@@ -1,5 +1,8 @@
-angular.module('app.ad', [
-  'ui.router'
+angular.module('app.adNew', [
+  'ui.router',
+  'ngFileUpload'
+  // 'ngQuill'
+  // 'angular-quill',
 ])
 
 .config(function ($stateProvider) {
@@ -11,6 +14,12 @@ angular.module('app.ad', [
       requireAuthentication: false
     },
     resolve: {
+      adResponse: ['$stateParams', 'adService', function($stateParams, adService) {
+        console.info($stateParams)
+        if($stateParams.id) {
+          return adService.get($stateParams.id)
+        }
+      }],
       translateReady: ['$translate', function ($translate) {
         return $translate.onReady()
       }]
@@ -18,30 +27,168 @@ angular.module('app.ad', [
   })
 })
 
-.controller('adController', function ($scope, $log, $stateParams, adService, userViewService) {
-  $scope.ad = null
-  $scope.user = null
+.controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService, attachmentViewService, adResponse) {
+  
+  $log.info('$adResponse:', adResponse)
 
-  adService.get($stateParams.id).then(function (res) {
-    $scope.ad = res.data
-    $scope.ad.address = {
-      state: 'São Paulo',
-      city: 'Campinas',
-      zip_code: '10100-100',
-      street: 'Rua Roxo Moreira',
-      neighborhood: 'Barão Geraldo',
-      street_number: '100',
-      complement: 'Casa'
+  $scope.ad = {}
+  $scope.ngfFiles = []
+  $scope.files = []
+  $scope.attachments = []
+
+  $scope.check = {
+    title: {
+      length: {
+        max: 85,
+        left: function () {
+          return this.max - ($scope.ad.title || '').length
+        }
+      }
+    },
+    details: {
+      length: {
+        max: 1000,
+        left: function () {
+          return this.max - ($scope.ad.details || '').length
+        }
+      }
+    },
+    files: {
+      qtd: {
+        max: 10,
+        left: function () {
+          return this.max - ($scope.files || []).length
+        }
+      },
+      size: {
+        max: '2MB'
+      }
     }
-    $scope.ad.contact = {
-      email: 'teste@nodejs.com',
-      phone: '(10) 1234-5678',
-      cellphone: '(10) 98765-4321'
+  }
+
+  function adSample() {
+    return {
+      title: 'Teste',
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      value: 1000,
+      address: {},
+      contact: {}
     }
-    $log.info('$scope.ad:', $scope.ad)
-    userViewService.get($scope.ad.user_id).then(function (res) {
-      $scope.user = res.data
-      $log.info('$scope.user:', $scope.user)
-    })
+  }
+
+  if(!adResponse) {
+    $scope.ad = adSample()
+  } else {
+    if(adResponse.status == 200) {
+      $scope.ad = adResponse.data
+      adResponse.data.attachment_ids.forEach(function(attachmentId) {
+        attachmentViewService.get(attachmentId).then(function(res) {
+          var attachment = res.data
+          $log.info('attachment:', attachment)
+          $scope.attachments.push(attachment)
+          var file = {
+            url: attachment.url,
+            name: attachment.name,
+            type: attachment.type,
+            size: attachment.size,
+            hrSize: $scope.hrSize(attachment.size),
+            progress: 100,
+            completed: true
+          }
+          $log.info('file:', file)
+          $scope.files.push(file)
+        })
+      })
+    } else {
+      // TODO: handler errors
+    }
+  }
+
+  $scope.$watch('ngfFiles', function (ngfFiles) {
+    $log.info('ngfFiles:', ngfFiles)
+    if (ngfFiles && ngfFiles.length > 0) {
+      $log.info($scope.check.files.qtd.max, ngfFiles.length, $scope.files.length)
+      ngfFiles.slice(0, $scope.check.files.qtd.left()).forEach(function (file) {
+        $scope.files.push(file)
+        if (file.$error) {
+          $log.error(file.$error)
+        } else {
+          $scope.attachFile(file)
+        }
+      })
+    }
   })
+
+  $scope.attachFile = function (file) {
+    file.hrSize = $scope.hrSize(file.size)
+    Upload.upload({
+      url: attachmentService.uploadUrl(),
+      data: {
+        file: file
+      }
+    }).then(function (res) {
+      $timeout(function () {
+        $log.info('successfully attachmented: file.name="%s", id="%s"', res.config.data.file.name, res.data._id)
+        $scope.attachments.push(res.data)
+        file.url = res.data.url
+        $timeout(function () {
+          file.completed = true
+        }, 1000)
+      })
+    }, function (res) {
+      $log.error(res.config.statusText)
+      file.completed = true
+      file.errored = true
+    }, function (evt) {
+      file.progress = parseInt(100.0 * evt.loaded / evt.total)
+      $log.info('attachmenting: file.name="%s", loaded="%s", total="%s", progress="%s%"', evt.config.data.file.name, evt.loaded, evt.total, file.progress)
+    })
+  }
+
+  $scope.removeFile = function (name) {
+    var fileIndex = $scope.files.findIndex(function (file) {
+      return file.name === name
+    })
+
+    $scope.files.splice(fileIndex, 1)
+
+    var attachmentIndex = $scope.attachments.findIndex(function (attachment) {
+      return attachment.name === name
+    })
+
+    var attachment = $scope.attachments.splice(attachmentIndex, 1)[0]
+    attachmentService.delete(attachment._id)
+
+    $log.info('removed: file.name="%s"', name)
+  }
+
+  $scope.retryFile = function (file) {
+    file.progress = 0
+    file.errored = false
+    file.completed = false
+    $scope.attachFile(file)
+  }
+
+  $scope.cancel = function () {
+    // $state.go('ads')
+  }
+
+  $scope.submit = function () {
+    var ad = angular.copy($scope.ad)
+    ad.attachment_ids = $scope.attachments.map(function (attachment) {
+      return attachment._id
+    })
+
+    $log.info('submiting form, valid:', $scope.adForm.$valid, 'ad:', ad)
+
+    if ($scope.adForm.$valid) {
+      adService.save(ad).then(function (res) {
+        if (res.status === 200 && res.data) {
+          $state.go('adView', {
+            id: res.data._id
+          })
+        }
+      })
+    }
+  }
 })

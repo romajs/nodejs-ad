@@ -1,0 +1,118 @@
+<div class="container">
+
+  <div class="jumbotron" ng-if="ad.status == 'PENDING'">
+    <h1 translate>page.adView.pending.title</h1>
+    <p><span translate>page.adView.pending.beCool</span> <span>;)</span></p>
+    <p translate>page.adView.pending.waitSoon</p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
+  </div>
+
+  <div class="jumbotron" ng-if="['REPROVED', 'BANNED', 'REMOVED'].indexOf(ad.status) > -1">
+    <h1 translate>page.adView.removed.title</h1>
+    <p><span translate>page.adView.removed.sorry</span> <span>:(</span></p>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
+  </div>
+
+  <div class="jumbotron" ng-if="ad.status == 'EXPIRED'">
+    <h1 translate>page.adView.expired.title</h1>
+    <p><a class="btn btn-primary btn-lg" ui-sref="adsUser" translate>page.adView.viewMyAds</a></p>
+  </div>
+
+  <div class="row ad" ng-if="ad.status == 'APPROVED'">
+    <div class="row-fluid ad-title">
+      <div class="col-sm-8">
+        <a>{{ad.title}}</a>
+      </div>
+      <div class="col-sm-4" style="text-align: right;">
+        <!-- <b>Tipo de anúncio: <i class="fa fa-shopping-basket"></i> Compra - <i class="fa fa-money"></i> Venda - <i class="fa fa-balance-scale"></i> Aceita Troca</b> -->
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-sm-12 ad-detail">
+        <span class="">{{ad.details}}</span>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-xs-12">
+        <div class="ad-creation-info pull-left">
+          <span class="capitalize">{{'in'|translate}}</span>
+          <span>{{ad.updated_at|date:'dd/MM/yyyy'}}</span>
+          <span>{{'at'|translate}} {{ad.updated_at|date:'hh:mm'}}</span>
+          <span>{{'by'|translate}}</span>
+          <a ui-sref="user({ id: user._id})" title="{{'page.adViews.viewAdUserDetails'|translate}}" ng-click="$event.stopPropagation();">{{user.name}}</a>
+        </div>
+        <div class="pull-right ad-value-info ad-value-selling" title="{{'ad.type.SELL.info'|translate}}">
+          <span class="ad-value-type uppercase" translate>ad.type.SELL</span>
+          <!-- <i class="fa fa-money"></i> -->
+          <span class="ad-value">R$ {{ad.value|number:2}}</span>
+          <!-- <div class="ad-evaluation" ng-click="$event.stopPropagation();" title="{{'page.adViews.evaluate'|translate}}">
+          <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i>
+        </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-sm-12">
+        &nbsp;
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-sm-12">
+        <!-- <image-gallery attachment-ids="ad.attachment_ids"></image-gallery> -->
+        <ui-carousel attachment-ids="ad.attachment_ids"></ui-carousel>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <div class="form-group">
+          <div class="row-fluid">
+            <div class="col-xs-12">
+              <h4 translate>form.ad.location</h4>
+            </div>
+            <div class="col-xs-12">
+              <label for="estate">{{'form.ad.city'|translate}} / {{'form.ad.state'|translate}}</label>
+              <p class="form-control-static">{{ad.address.state}} / {{ad.address.city}}</p>
+            </div>
+            <div class="col-xs-12">
+              <label for="city" translate>form.ad.address</label>
+              <p class="form-control-static">{{ad.address.street}}, {{ad.address.street_number}}, {{ad.address.neighborhood}}, {{ad.address.complement}}</p>
+            </div>
+            <div class="col-xs-12">
+              <label for="zip_code" translate>form.ad.zipCode</label>
+              <p class="form-control-static">{{ad.address.zip_code}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6" style="text-align: right;">
+        <div class="form-group">
+          <div class="row-fluid">
+            <div class="col-xs-12">
+              <h4 translate>form.ad.contact</h4>
+            </div>
+            <div class="col-xs-12">
+              <label for="estate" translate>form.ad.email</label>
+              <p class="form-control-static">{{ad.contact.email}}</p>
+            </div>
+            <div class="col-xs-12">
+              <label for="city" translate>form.ad.phone</label>
+              <p class="form-control-static">{{ad.contact.phone}}</p>
+            </div>
+            <div class="col-xs-12">
+              <label for="zip_code" translate>form.ad.cellphone</label>
+              <p class="form-control-static">{{ad.contact.cellphone}} <i class="fa fa-whatsapp"></i> <i class="fa fa-check-circle-o"></i> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="col-xs-12">
+        <span>palavras chave key words keys word</span>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <span translate>page.adView.share</span><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i> <i class="fa fa-google-plus"></i>
+    </div>
+  </div>
+</div>

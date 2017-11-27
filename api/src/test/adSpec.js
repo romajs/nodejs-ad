@@ -178,7 +178,6 @@ describe('/api/ad', function () {
           value: 1000.00
         })
         .expect(404)
-        .expect('Content-Type', /application\/json/)
     })
   })
 

@@ -7,7 +7,7 @@ angular.module('app.adNew', [
 
 .config(function ($stateProvider) {
   $stateProvider.state('ad', {
-    url: '/ad/:id',
+    url: '/ad',
     controller: 'adController',
     templateUrl: '/html/ad.html',
     data: {
@@ -24,6 +24,12 @@ angular.module('app.adNew', [
         return $translate.onReady()
       }]
     }
+  }).state('adNew', {
+    parent: 'ad',
+    url: '/new'
+  }).state('adEdit', {
+    parent: 'ad',
+    url: '/:id/edit'
   })
 })
 

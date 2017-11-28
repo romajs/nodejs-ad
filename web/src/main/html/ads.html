@@ -15,7 +15,7 @@
 
   <div class="ads" ng-repeat="ad in ads">
     <!-- {{ad|json}} -->
-    <div class="row ad" ui-sref="adView({ id: ad._id})" title="{{'page.adViews.viewDetails'|translate}}">
+    <div class="row ad vertical-center" ui-sref="adView({ id: ad._id})" title="{{'page.adViews.viewDetails'|translate}}">
       <div class="col-sm-3">
         {{ first_attachment = first_attachments[ad._id]; "" }}
         <div class="thumbnail">

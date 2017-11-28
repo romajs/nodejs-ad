@@ -53,7 +53,7 @@ angular.module('app.adsUser', [
 
   $scope.edit = function(ad, $index) {
     $log.debug('editing: ', ad._id, ', $index:', $index)
-    $state.go('ad', { id: ad._id})
+    $state.go('adEdit', { id: ad._id})
   }
 
   $scope.openImageGallery = function () {

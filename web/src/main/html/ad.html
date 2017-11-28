@@ -1,8 +1,8 @@
 <div class="container">
 
   <div class="page-header">
-    <h1 ng-if="!ad._id" translate>page.ad.title</h1>
-    <h1 ng-if="ad._id">{{'page.ad.edit.title'|translate}}: {{ad._id}}</h1>
+    <h1 ng-if="!ad._id" translate>page.ad.new.title</h1>
+    <h1 ng-if="ad._id">{{'page.ad.edit.title'|translate}}</h1>
   </div>
 
   <div class="jumbotron" ng-if="!isAuthenticated()">

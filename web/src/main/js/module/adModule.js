@@ -6,8 +6,23 @@ angular.module('app.adNew', [
 ])
 
 .config(function ($stateProvider) {
-  $stateProvider.state('ad', {
-    url: '/ad',
+  $stateProvider.state('adNew', {
+    url: '/ad/new',
+    controller: 'adController',
+    templateUrl: '/html/ad.html',
+    data: {
+      requireAuthentication: false
+    },
+    resolve: {
+      adResponse: [function() {
+        return null
+      }],
+      translateReady: ['$translate', function ($translate) {
+        return $translate.onReady()
+      }]
+    }
+  }).state('adEdit', {
+    url: '/ad/:id/edit',
     controller: 'adController',
     templateUrl: '/html/ad.html',
     data: {
@@ -15,27 +30,16 @@ angular.module('app.adNew', [
     },
     resolve: {
       adResponse: ['$stateParams', 'adService', function($stateParams, adService) {
-        console.info($stateParams)
-        if($stateParams.id) {
-          return adService.get($stateParams.id)
-        }
+        return adService.get($stateParams.id)
       }],
       translateReady: ['$translate', function ($translate) {
         return $translate.onReady()
       }]
     }
-  }).state('adNew', {
-    parent: 'ad',
-    url: '/new'
-  }).state('adEdit', {
-    parent: 'ad',
-    url: '/:id/edit'
   })
 })
 
 .controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService, attachmentViewService, adResponse) {
-  
-  $log.info('$adResponse:', adResponse)
 
   $scope.ad = {}
   $scope.ngfFiles = []
@@ -70,21 +74,11 @@ angular.module('app.adNew', [
         max: '2MB'
       }
     }
-  }
+  } 
 
-  function adSample() {
-    return {
-      title: 'Teste',
-      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      value: 1000,
-      address: {},
-      contact: {}
-    }
-  }
+  $log.info('$adResponse:', adResponse)
 
-  if(!adResponse) {
-    $scope.ad = adSample()
-  } else {
+  if(adResponse) {
     if(adResponse.status == 200) {
       $scope.ad = adResponse.data
       adResponse.data.attachment_ids.forEach(function(attachmentId) {
@@ -177,6 +171,23 @@ angular.module('app.adNew', [
 
   $scope.cancel = function () {
     // $state.go('ads')
+  }
+
+  $scope.clearFields = function() {
+    $scope.ad = {}
+    $scope.ngfFiles = []
+    $scope.files = []
+    $scope.attachments = []
+  }
+
+  $scope.loadSample = function() {
+    $scope.ad = {
+      title: 'Teste',
+      details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      value: 1000,
+      address: {},
+      contact: {}
+    }
   }
 
   $scope.submit = function () {

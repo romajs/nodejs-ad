@@ -47,7 +47,7 @@
         <p class="help-block" ng-if="adForm.details.$valid">{{'form.maxCharactersLeft'|translate:check.details.length}}</p>
         <p class="help-block" ng-if="adForm.details.$error.required" translate>form.field.required</p>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <div class="row">
           <div class="col-xs-5">
             <label for="estate" translate>form.ad.state</label>
@@ -102,7 +102,7 @@
             <input type="text" class="form-control" id="cellphone" placeholder="{{'form.ad.cellphone'|translate}}" ng-model="ad.contact.cellphone">
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="form-group">
         <label for="foto">Fotos</label>
         <div name="ngfFiles" ngf-drop ngf-select ng-model="ngfFiles" class="file-upload-drop-box" ngf-drag-over-class="'file-upload-dragover'"
@@ -149,6 +149,8 @@
         <p class="help-block" ng-if="adForm.$invalid" translate>form.invalid</p>
       </div>
       <!-- <button type="button" class="btn btn-secondary" ng-click="cancel()" translate>form.cancel</button> -->
+      <button type="button" class="btn btn-secondary" ng-click="clearFields()" translate>form.clearFields</button>
+      <button type="button" class="btn btn-info" ng-click="loadSample()" translate>form.loadSample</button>
       <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="adForm.$invalid" ng-if="!ad._id" translate>page.ad.new.submit</button>
       <button type="submit" class="btn btn-primary" ng-click="submit()" ng-disabled="adForm.$invalid" ng-if="ad._id" translate>page.ad.edit.submit</button>
     </form>

@@ -48,21 +48,20 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2 text-center well" ng-click="$event.stopPropagation();">
+      <div class="col-sm-2 text-center" ng-click="$event.stopPropagation();">
         <p>
           <a class="{{ad.status|adStatus:'colorClass'}}" disabled>
             <i class="fa {{ad.status|adStatus:'iconClass'}}"></i>
             <span>{{'ad.status.'+ad.status|translate}}</span>
           </a>
         </p>
-        <hr/>
-        <p>
+        <p ng-if="ad.status|adStatus:'canEdit'">
           <a class="text-primary" ng-click="edit(ad, $index)" title="{{'page.adViewsUser.edit.title'|translate}}">
             <i class="fa fa-pencil"></i>
             <span translate>page.adViewsUser.edit</span>
           </a>
         </p>
-        <p>
+        <p ng-if="ad.status|adStatus:'canRemove'">
           <a class="text-danger" ng-click="remove(ad, $index)" title="{{'page.adViewsUser.remove.title'|translate}}">
             <i class="fa fa-trash"></i>
             <span translate>page.adViewsUser.remove</span>

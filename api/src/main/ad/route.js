@@ -84,7 +84,7 @@ router.put('/:id', function (req, res, next) {
       title: req.body.title,
       details: req.body.details,
       status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
-      created_at: new Date(),
+      updated_at: new Date(),
       user_id: req.auth.user._id,
       attachment_ids: req.body.attachment_ids || []
     }
@@ -131,7 +131,8 @@ router.delete('/:id', function (req, res, next) {
   }).then(function () {
     // TODO: can remove only APPROVED & PENDING ads
     var ad = {
-      status: AdStatus.REMOVED
+      status: AdStatus.REMOVED,
+      updated_at: new Date()
     }
     Ad.findByIdAndUpdate(req.params.id, {
       $set: ad

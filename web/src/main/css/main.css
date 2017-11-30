@@ -350,7 +350,15 @@ label.required:after {
   text-transform: capitalize;
 }
 
+.capitalize-first-letter:first-letter {
+  text-transform: capitalize;
+}
+
 .vertical-center {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+}
+
+.inline-block {
+  display: inline-block;
 }

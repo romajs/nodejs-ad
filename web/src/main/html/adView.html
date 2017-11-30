@@ -35,9 +35,19 @@
     <div class="row-fluid">
       <div class="col-xs-12">
         <div class="ad-creation-info pull-left">
-          <span class="capitalize">{{'in'|translate}}</span>
-          <span>{{ad.updated_at|date:'dd/MM/yyyy'}}</span>
-          <span>{{'at'|translate}} {{ad.updated_at|date:'hh:mm'}}</span>
+          <div class="inline-block capitalize-first-letter" ng-if="ad.created_at">
+              <span translate>created_at</span>
+              <span>{{ad.created_at|date:'dd/MM/yyyy'}}</span>
+              <span translate>at</span>
+              <span>{{ad.created_at|date:'HH:mm'}}</span>
+            </div>
+            <span ng-if="ad.created_at && ad.updated_at">-</span>
+            <div class="inline-block capitalize-first-letter" ng-if="ad.updated_at">
+              <span translate>updated_at</span>
+              <span>{{ad.updated_at|date:'dd/MM/yyyy'}}</span>
+              <span translate>at</span>
+              <span>{{ad.updated_at|date:'HH:mm'}}</span>
+            </div>
           <span>{{'by'|translate}}</span>
           <a ui-sref="user({ id: user._id})" title="{{'page.adViews.viewAdUserDetails'|translate}}" ng-click="$event.stopPropagation();">{{user.name}}</a>
         </div>

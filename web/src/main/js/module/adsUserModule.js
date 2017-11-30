@@ -47,11 +47,11 @@ angular.module('app.adsUser', [
     // TODO: request user confirmation
     $log.debug('removing:', ad._id, ', $index:', $index)
     adService.delete(ad._id).then(function (res) {
-      ad.status = res.data.status
+      angular.merge(res.data, ad)
     })
   }
 
-  $scope.edit = function(ad, $index) {
+  $scope.edit = function (ad, $index) {
     $log.debug('editing: ', ad._id, ', $index:', $index)
     $state.go('adEdit', { id: ad._id})
   }

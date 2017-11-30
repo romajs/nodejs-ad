@@ -11,6 +11,8 @@
   "ad.type.SELL.info": "Anúncio de Venda",
   "at": "às",
   "by": "por",
+  "created_at": "criado em",
+  "updated_at": "atualizado em",
   "form.ad.address": "Endereço",
   "form.ad.cellphone": "Celular",
   "form.ad.city": "Cidade",

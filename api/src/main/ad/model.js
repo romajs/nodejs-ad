@@ -21,11 +21,11 @@ var AdSchema = new Schema({
     ref: 'Attachment'
   }],
   created_at: {
-    type: Date
-  },
-  updated_at: {
     type: Date,
     default: Date.now
+  },
+  updated_at: {
+    type: Date
   }
 })
 

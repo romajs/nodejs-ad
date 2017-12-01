@@ -85,8 +85,8 @@ router.put('/:id', function (req, res, next) {
         return res.status(404).end()
       } else if (!ad.user_id.equals(req.auth.user._id)) {
         return res.status(403).end()
-      } else {
-        // TODO: validate status
+      } else if (['BANNED', 'REMOVED'].indexOf(ad.status) > -1) {
+        return res.status(400).end()
       }
 
       ad.title = req.body.title
@@ -127,8 +127,8 @@ router.delete('/:id', function (req, res, next) {
         return res.status(404).end()
       } else if (!ad.user_id.equals(req.auth.user._id)) {
         return res.status(403).end()
-      } else {
-        // TODO: validate status
+      } else if (['BANNED', 'REMOVED'].indexOf(ad.status) > -1) {
+        return res.status(400).end()
       }
 
       ad.status = AdStatus.REMOVED

@@ -80,40 +80,33 @@ router.put('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    var ad = {
-      title: req.body.title,
-      details: req.body.details,
-      status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
-      updated_at: new Date(),
-      user_id: req.auth.user._id,
-      attachment_ids: req.body.attachment_ids || []
-    }
-
-    Ad.findByIdAndUpdate(req.params.id, {
-      $set: ad
-    }, {
-      new: true
-    }).then(function (ad) {
+    return Ad.findOne({ _id: req.params.id }).then(function (ad) {
       if (!ad) {
         return res.status(404).end()
+      } else if (!ad.user_id.equals(req.auth.user._id)) {
+        return res.status(403).end()
+      } else {
+        // TODO: validate status
       }
-      var attachmentPromises = []
 
-      ad.attachment_ids.forEach(function (attachmentId) {
-        var attachment = {
-          status: AttachmentStatus.STEADY
-        }
+      ad.title = req.body.title
+      ad.details = req.body.details
+      ad.status = AdStatus.APPROVED // FIXME: AdStatus.PENDING
+      ad.updated_at = new Date()
+      ad.attachment_ids = req.body.attachment_ids || []
 
-        var attachmentPromise = Attachment.findByIdAndUpdate(attachmentId, {
-          $set: attachment
+      return ad.save().then(function (ad) {
+        return Attachment.update({
+          _id: {
+            $in: ad.attachment_ids
+          }
         }, {
-          new: true
+          $set: {
+            status: AttachmentStatus.STEADY
+          }
+        }).then(function (results) {
+          return res.status(200).json(ad)
         })
-        attachmentPromises.push(attachmentPromise)
-      })
-
-      return Promise.all(attachmentPromises).then(function () {
-        return res.status(200).json(ad)
       })
     }).catch(function (err) {
       return next(err)
@@ -129,17 +122,21 @@ router.delete('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    // TODO: can remove only APPROVED & PENDING ads
-    var ad = {
-      status: AdStatus.REMOVED,
-      updated_at: new Date()
-    }
-    Ad.findByIdAndUpdate(req.params.id, {
-      $set: ad
-    }, {
-      new: true
-    }).then(function (ad) {
-      return res.status(ad ? 200 : 404).json(ad)
+    return Ad.findOne({ _id: req.params.id }).then(function (ad) {
+      if (!ad) {
+        return res.status(404).end()
+      } else if (!ad.user_id.equals(req.auth.user._id)) {
+        return res.status(403).end()
+      } else {
+        // TODO: validate status
+      }
+
+      ad.status = AdStatus.REMOVED
+      ad.updated_at = new Date()
+
+      return ad.save().then(function (ad) {
+        return res.status(200).json(ad)
+      })
     }).catch(function (err) {
       return next(err)
     })

@@ -47,7 +47,7 @@ angular.module('app.adsUser', [
     // TODO: request user confirmation
     $log.debug('removing:', ad._id, ', $index:', $index)
     adService.delete(ad._id).then(function (res) {
-      angular.merge(res.data, ad)
+      angular.copy(res.data, ad)
     })
   }
 

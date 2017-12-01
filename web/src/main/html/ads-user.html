@@ -66,7 +66,7 @@
           </a>
         </p>
         <p ng-if="ad.status|adStatus:'canEdit'">
-          <a class="text-primary" ng-click="edit(ad, $index)" title="{{'page.adViewsUser.edit.title'|translate}}">
+          <a class="text-primary" ui-sref="adEdit({ id: ad._id })" title="{{'page.adViewsUser.edit.title'|translate}}">
             <i class="fa fa-pencil"></i>
             <span translate>page.adViewsUser.edit</span>
           </a>

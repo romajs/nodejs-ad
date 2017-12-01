@@ -23,7 +23,13 @@
       <div class="col-sm-8">
         <a>{{ad.title}}</a>
       </div>
-      <div class="col-sm-4" style="text-align: right;">
+      <div class="col-sm-4" style="text-align: right; font-size: 0.8em;">
+        <p ng-if="adStatus(ad.status).canEdit && ad.user_id == authUser._id">
+          <a class="text-primary" ui-sref="adEdit({ id: ad._id })" title="{{'page.adViewsUser.edit.title'|translate}}">
+            <i class="fa fa-pencil"></i>
+            <span translate>page.adViewsUser.edit</span>
+          </a>
+        </p>
         <!-- <b>Tipo de anúncio: <i class="fa fa-shopping-basket"></i> Compra - <i class="fa fa-money"></i> Venda - <i class="fa fa-balance-scale"></i> Aceita Troca</b> -->
       </div>
     </div>

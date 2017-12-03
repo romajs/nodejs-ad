@@ -51,4 +51,32 @@ describe('/api/user', function () {
         .expect(404)
     })
   })
+
+  describe('get', function () {
+    it('200: success', function () {
+      return request(test.app)
+        .get('/api/user/account')
+        .set(test.config.auth.header_name, token)
+        .expect(200)
+        .expect('Content-Type', /application\/json/)
+        .expect(function (res) {
+          assert.equal(res.body.__v, admin.__v)
+          assert.equal(res.body._id, admin._id)
+          assert.equal(res.body.username, admin.username)
+        })
+    })
+
+    it('400', function () {
+      return request(test.app)
+        .get('/api/user/account')
+        .expect(400)
+    })
+
+    it('403', function () {
+      return request(test.app)
+        .get('/api/user/account')
+        .set(test.config.auth.header_name, '1nv4lid_7ok3n')
+        .expect(403)
+    })
+  })
 })

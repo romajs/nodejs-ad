@@ -4,4 +4,7 @@ angular.module('app')
   this.get = function (_id) {
     return $http.get($config.api.origin + '/user/' + _id)
   }
+  this.getOwnAccount = function () {
+    return $http.get($config.api.origin + '/user/account')
+  }
 })

@@ -33,18 +33,21 @@ angular.module('app.auth', [
 })
 
 .run(function ($rootScope, $log, sessionService) {
+  $rootScope.$user = null
+
   var token = sessionService.getToken()
   $log.debug('token:', token)
-  if (!token) {
-    $rootScope.authUser = null
-  } else {
+
+  if (token) {
     try {
       var jwt = token.split('.')
-      $rootScope.authUser = JSON.parse(atob(jwt[1]))
+      $rootScope.$user = JSON.parse(atob(jwt[1]))
     } catch (err) {
+      $log.error(err)
     }
   }
-  $log.info('$rootScope.authUser:', $rootScope.authUser)
+
+  $log.info('$rootScope.$user:', $rootScope.$user)
 })
 
 .run(function ($rootScope, $log, $state, sessionService) {

@@ -21,8 +21,8 @@ angular.module('app', [
 })
 
 .config(function ($translateProvider, $stateProvider) {
-  $translateProvider.useSanitizeValueStrategy(null)
   $translateProvider.useLoaderCache(true)
+  $translateProvider.useSanitizeValueStrategy(null)
   $translateProvider.useStaticFilesLoader({
     prefix: '/locale/',
     suffix: '.json'

@@ -8,6 +8,7 @@ angular.module('app', [
   'app.login',
   'app.uiCarousel',
   'app.user',
+  'ngSanitize',
   'pascalprecht.translate',
   'ui.bootstrap',
   'ui.router'
@@ -20,6 +21,7 @@ angular.module('app', [
 })
 
 .config(function ($translateProvider, $stateProvider) {
+  $translateProvider.useSanitizeValueStrategy('sanitize')
   $translateProvider.useLoaderCache(true)
   $translateProvider.useStaticFilesLoader({
     prefix: '/locale/',

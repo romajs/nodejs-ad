@@ -19,6 +19,7 @@
     "angular-bootstrap": "^2.5.0",
     "angular-jwt": "^0.1.9",
     "angular-quill": "^0.9.1",
+    "angular-sanitize": "^1.6.7",
     "angular-translate": "^2.16.0",
     "angular-translate-loader-static-files": "^2.16.0",
     "angular-ui-router": "^1.0.8",

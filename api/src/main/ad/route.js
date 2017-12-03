@@ -9,9 +9,6 @@ var AttachmentStatus = AttachmentModel.AttachmentStatus
 var express = require('express')
 var router = express.Router()
 
-// var logger = rootRequire('main/logger')
-// var rsmq = rootRequire('main/rsmq')
-
 router.post('/', function (req, res, next) {
   req.checkBody('title', 'required').notEmpty()
   req.checkBody('details', 'required').notEmpty()
@@ -32,36 +29,16 @@ router.post('/', function (req, res, next) {
       attachment_ids: req.body.attachment_ids
     })
 
-    ad.save().then(function (ad) {
-      var attachmentPromises = []
-
-      // var message = {
-      //   qname: 'ad-new',
-      //   message: JSON.stringify({
-      //     ad_id: ad.id
-      //   })
-      // }
-
-      // rsmq.sendMessage(message, function (err, messageId) {
-      //   if (messageId) {
-      //     logger.debug('Sent to queue, messageId: "%s", message:', messageId, message);
-      //   }
-      // })
-
-      ad.attachment_ids.forEach(function (attachmentId) {
-        var attachment = {
+    return ad.save().then(function (ad) {
+      return Attachment.update({
+        _id: {
+          $in: ad.attachment_ids
+        }
+      }, {
+        $set: {
           status: AttachmentStatus.STEADY
         }
-
-        var attachmentPromise = Attachment.findByIdAndUpdate(attachmentId, {
-          $set: attachment
-        }, {
-          new: true
-        })
-        attachmentPromises.push(attachmentPromise)
-      })
-
-      return Promise.all(attachmentPromises).then(function () {
+      }).then(function (results) {
         return res.status(200).json(ad)
       })
     }).catch(function (err) {

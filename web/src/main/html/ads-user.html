@@ -59,19 +59,20 @@
         </div>
       </div>
       <div class="col-sm-2 text-center" ng-click="$event.stopPropagation();">
+        {{ adStatus = $adStatus(ad.status); "" }}
         <p>
-          <a class="{{ad.status|adStatus:'colorClass'}}" disabled>
-            <i class="fa {{ad.status|adStatus:'iconClass'}}"></i>
+          <a class="{{adStatus.colorClass}}" disabled>
+            <i class="fa {{adStatus.iconClass}}"></i>
             <span>{{'ad.status.'+ad.status|translate}}</span>
           </a>
         </p>
-        <p ng-if="ad.status|adStatus:'canEdit'">
+        <p ng-if="adStatus.canEdit">
           <a class="text-primary" ui-sref="adEdit({ id: ad._id })" title="{{'page.adViewsUser.edit.title'|translate}}">
             <i class="fa fa-pencil"></i>
             <span translate>page.adViewsUser.edit</span>
           </a>
         </p>
-        <p ng-if="ad.status|adStatus:'canRemove'">
+        <p ng-if="adStatus.canRemove">
           <a class="text-danger" ng-click="remove(ad, $index)" title="{{'page.adViewsUser.remove.title'|translate}}">
             <i class="fa fa-trash"></i>
             <span translate>page.adViewsUser.remove</span>

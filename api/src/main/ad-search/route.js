@@ -7,17 +7,13 @@ var router = express.Router()
 
 router.get('/', function (req, res, next) {
   var query = req.query
-  query.status = { $in: [ AdStatus.APPROVED ] }
-  req.getValidationResult().then(function (result) {
-    if (!result.isEmpty()) {
-      return res.status(400).json(result.array())
-    }
-  }).then(function () {
-    Ad.find(req.query).then(function (results) {
-      return res.json(results)
-    }).catch(function (err) {
-      return next(err)
-    })
+  query.status = {
+    $in: [ AdStatus.APPROVED ]
+  }
+  return Ad.find(query).then(function (results) {
+    return res.json(results)
+  }).catch(function (err) {
+    return next(err)
   })
 })
 

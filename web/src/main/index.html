@@ -24,9 +24,10 @@
   <!-- angular / external modules -->
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
-  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script type="text/javascript" src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 
   <!-- <script type="text/javascript" src="//cdn.quilljs.com/1.1.5/quill.js"></script> -->
@@ -39,9 +40,10 @@
 
   <!-- angular / modules -->
   <script type="text/javascript" src="js/module/adModule.js"></script>
-  <script type="text/javascript" src="js/module/adNewModule.js"></script>
   <script type="text/javascript" src="js/module/adsModule.js"></script>
+  <script type="text/javascript" src="js/module/adStatus.js"></script>
   <script type="text/javascript" src="js/module/adsUserModule.js"></script>
+  <script type="text/javascript" src="js/module/adViewModule.js"></script>
   <script type="text/javascript" src="js/module/authModule.js"></script>
   <script type="text/javascript" src="js/module/imageGalleryModule.js"></script>
   <script type="text/javascript" src="js/module/loginModule.js"></script>
@@ -63,5 +65,6 @@
 <body>
   <ng-include src="'/html/menu.html'"></ng-include>
   <main ui-view></main>
+  <br/>
 </body>
 </html>

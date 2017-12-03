@@ -32,6 +32,21 @@ angular.module('app.auth', [
   $httpProvider.interceptors.push('tokenInterceptor')
 })
 
+.run(function ($rootScope, $log, sessionService) {
+  var token = sessionService.getToken()
+  $log.debug('token:', token)
+  if (!token) {
+    $rootScope.authUser = null
+  } else {
+    try {
+      var jwt = token.split('.')
+      $rootScope.authUser = JSON.parse(atob(jwt[1]))
+    } catch (err) {
+    }
+  }
+  $log.info('$rootScope.authUser:', $rootScope.authUser)
+})
+
 .run(function ($rootScope, $log, $state, sessionService) {
   // Client side authentication solution
   $rootScope.$on('$stateChangeStart', function (event, toState) {

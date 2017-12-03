@@ -1,13 +1,14 @@
 angular.module('app', [
-  'app.ad',
   'app.adNew',
   'app.ads',
   'app.adsUser',
+  'app.adView',
   'app.auth',
   'app.imageGallery',
   'app.login',
   'app.uiCarousel',
   'app.user',
+  'ngSanitize',
   'pascalprecht.translate',
   'ui.bootstrap',
   'ui.router'
@@ -20,6 +21,7 @@ angular.module('app', [
 })
 
 .config(function ($translateProvider, $stateProvider) {
+  $translateProvider.useSanitizeValueStrategy(null)
   $translateProvider.useLoaderCache(true)
   $translateProvider.useStaticFilesLoader({
     prefix: '/locale/',

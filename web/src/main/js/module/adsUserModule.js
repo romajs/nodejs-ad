@@ -18,7 +18,7 @@ angular.module('app.adsUser', [
   })
 })
 
-.controller('adsUserController', function ($scope, $log, adService, adsUserService, attachmentViewService) {
+.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService) {
   $scope.ads = null
   $scope.bookmarks = []
   $scope.first_attachments = {}
@@ -47,7 +47,7 @@ angular.module('app.adsUser', [
     // TODO: request user confirmation
     $log.debug('removing:', ad._id, ', $index:', $index)
     adService.delete(ad._id).then(function (res) {
-      ad.status = res.data.status
+      angular.copy(res.data, ad)
     })
   }
 

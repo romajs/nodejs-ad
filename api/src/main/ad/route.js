@@ -9,9 +9,6 @@ var AttachmentStatus = AttachmentModel.AttachmentStatus
 var express = require('express')
 var router = express.Router()
 
-// var logger = rootRequire('main/logger')
-// var rsmq = rootRequire('main/rsmq')
-
 router.post('/', function (req, res, next) {
   req.checkBody('title', 'required').notEmpty()
   req.checkBody('details', 'required').notEmpty()
@@ -32,36 +29,16 @@ router.post('/', function (req, res, next) {
       attachment_ids: req.body.attachment_ids
     })
 
-    ad.save().then(function (ad) {
-      var attachmentPromises = []
-
-      // var message = {
-      //   qname: 'ad-new',
-      //   message: JSON.stringify({
-      //     ad_id: ad.id
-      //   })
-      // }
-
-      // rsmq.sendMessage(message, function (err, messageId) {
-      //   if (messageId) {
-      //     logger.debug('Sent to queue, messageId: "%s", message:', messageId, message);
-      //   }
-      // })
-
-      ad.attachment_ids.forEach(function (attachmentId) {
-        var attachment = {
+    return ad.save().then(function (ad) {
+      return Attachment.update({
+        _id: {
+          $in: ad.attachment_ids
+        }
+      }, {
+        $set: {
           status: AttachmentStatus.STEADY
         }
-
-        var attachmentPromise = Attachment.findByIdAndUpdate(attachmentId, {
-          $set: attachment
-        }, {
-          new: true
-        })
-        attachmentPromises.push(attachmentPromise)
-      })
-
-      return Promise.all(attachmentPromises).then(function () {
+      }).then(function (results) {
         return res.status(200).json(ad)
       })
     }).catch(function (err) {
@@ -80,20 +57,34 @@ router.put('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    var ad = {
-      title: req.body.title,
-      details: req.body.details,
-      status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
-      created_at: new Date(),
-      user_id: req.auth.user._id
-    }
+    return Ad.findOne({ _id: req.params.id }).then(function (ad) {
+      if (!ad) {
+        return res.status(404).end()
+      } else if (!ad.user_id.equals(req.auth.user._id)) {
+        return res.status(403).end()
+      } else if (['BANNED', 'REMOVED'].indexOf(ad.status) > -1) {
+        return res.status(400).end()
+      }
 
-    Ad.findByIdAndUpdate(req.params.id, {
-      $set: ad
-    }, {
-      new: true
-    }).then(function (ad) {
-      return res.status(ad ? 200 : 404).json(ad)
+      ad.title = req.body.title
+      ad.details = req.body.details
+      ad.status = AdStatus.APPROVED // FIXME: AdStatus.PENDING
+      ad.updated_at = new Date()
+      ad.attachment_ids = req.body.attachment_ids || []
+
+      return ad.save().then(function (ad) {
+        return Attachment.update({
+          _id: {
+            $in: ad.attachment_ids
+          }
+        }, {
+          $set: {
+            status: AttachmentStatus.STEADY
+          }
+        }).then(function (results) {
+          return res.status(200).json(ad)
+        })
+      })
     }).catch(function (err) {
       return next(err)
     })
@@ -108,16 +99,21 @@ router.delete('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    // TODO: can remove only APPROVED & PENDING ads
-    var ad = {
-      status: AdStatus.REMOVED
-    }
-    Ad.findByIdAndUpdate(req.params.id, {
-      $set: ad
-    }, {
-      new: true
-    }).then(function (ad) {
-      return res.status(ad ? 200 : 404).json(ad)
+    return Ad.findOne({ _id: req.params.id }).then(function (ad) {
+      if (!ad) {
+        return res.status(404).end()
+      } else if (!ad.user_id.equals(req.auth.user._id)) {
+        return res.status(403).end()
+      } else if (['BANNED', 'REMOVED'].indexOf(ad.status) > -1) {
+        return res.status(400).end()
+      }
+
+      ad.status = AdStatus.REMOVED
+      ad.updated_at = new Date()
+
+      return ad.save().then(function (ad) {
+        return res.status(200).json(ad)
+      })
     }).catch(function (err) {
       return next(err)
     })

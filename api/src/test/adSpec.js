@@ -168,6 +168,20 @@ describe('/api/ad', function () {
         } ])
     })
 
+    it('403: forbidden', function () {
+      return test.auth('user', 'MTIzbXVkYXIK', 200).then(function (res) {
+        return request(test.app)
+          .put('/api/ad/' + _id)
+          .set(test.config.auth.header_name, res.body.token)
+          .send({
+            title: 'Test ad 1 update',
+            details: 'Details ad 1 update',
+            value: 1000.00
+          })
+          .expect(403)
+      })
+    })
+
     it('404: not found', function () {
       return request(test.app)
         .put('/api/ad/' + ObjectId('n0t_f0und_1d'))
@@ -227,6 +241,16 @@ describe('/api/ad', function () {
           msg: 'invalid',
           value: '1nv4l1d_1d'
         }])
+    })
+
+    it('403: forbidden', function () {
+      return test.auth('user', 'MTIzbXVkYXIK', 200).then(function (res) {
+        return request(test.app)
+          .delete('/api/ad/' + _id)
+          .set(test.config.auth.header_name, res.body.token)
+          .send()
+          .expect(403)
+      })
     })
 
     it('404: not found', function () {

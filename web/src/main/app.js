@@ -21,7 +21,7 @@ angular.module('app', [
 })
 
 .config(function ($translateProvider, $stateProvider) {
-  $translateProvider.useSanitizeValueStrategy('sanitize')
+  $translateProvider.useSanitizeValueStrategy(null)
   $translateProvider.useLoaderCache(true)
   $translateProvider.useStaticFilesLoader({
     prefix: '/locale/',

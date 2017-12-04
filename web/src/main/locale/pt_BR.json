@@ -29,6 +29,8 @@
   "form.ad.title": "Título",
   "form.ad.value": "Valor",
   "form.ad.zipCode": "CEP",
+  "page.adsUser.accountPlan": "Plano",
+  "page.adsUser.quota": "Cota",
   "form.attachment.dragAndDropDescription": "Arraste aqui as imagens desejadas ou então clique para selecionar os arquivos",
   "form.attachment.file.error": "Um erro ocorreu {{name}} ({{type}}) {{hrSize}}",
   "form.attachment.file.remove": "Clique para remover {{name}} ({{type}}) {{hrSize}}",

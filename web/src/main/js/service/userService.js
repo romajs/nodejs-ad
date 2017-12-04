@@ -7,4 +7,10 @@ angular.module('app')
   this.getOwnAccount = function () {
     return $http.get($config.api.origin + '/user/account')
   }
+  // this.getAccountPlan = function () {
+  //   return $http.get($config.api.origin + '/user/account-plan')
+  // }
+  // this.getAccountPlanQuota = function () {
+  //   return $http.get($config.api.origin + '/user/account-plan/quota')
+  // }
 })

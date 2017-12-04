@@ -18,7 +18,7 @@ angular.module('app.adsUser', [
   })
 })
 
-.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService) {
+.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService, userService) {
   $scope.ads = null
   $scope.bookmarks = []
   $scope.first_attachments = {}
@@ -34,6 +34,10 @@ angular.module('app.adsUser', [
       }
     })
   })
+
+  // userService.getAccountPlanQuota().then(function (res) {
+  //   $scope.accountPlan = res.data
+  // })
 
   $scope.bookmark = function (adId, index) {
     if (index === -1) {

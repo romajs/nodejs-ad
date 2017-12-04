@@ -6,6 +6,9 @@ var AttachmentModel = rootRequire('main/attachment/model')
 var Attachment = AttachmentModel.Attachment
 var AttachmentStatus = AttachmentModel.AttachmentStatus
 
+var UserModel = rootRequire('main/user/model')
+var User = UserModel.User
+
 var express = require('express')
 var router = express.Router()
 
@@ -19,6 +22,7 @@ router.post('/', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
+    // TODO: validate user quota
     var ad = new Ad({
       title: req.body.title,
       details: req.body.details,
@@ -30,16 +34,25 @@ router.post('/', function (req, res, next) {
     })
 
     return ad.save().then(function (ad) {
-      return Attachment.update({
-        _id: {
-          $in: ad.attachment_ids
-        }
+      return User.update({
+        _id: req.auth.user._id
       }, {
-        $set: {
-          status: AttachmentStatus.STEADY
+        $inc: {
+          'ads.actives': 1, // FIXME
+          'ads.total': 1
         }
-      }).then(function (results) {
-        return res.status(200).json(ad)
+      }).then(function () {
+        return Attachment.update({
+          _id: {
+            $in: ad.attachment_ids
+          }
+        }, {
+          $set: {
+            status: AttachmentStatus.STEADY
+          }
+        }).then(function (results) {
+          return res.status(200).json(ad)
+        })
       })
     }).catch(function (err) {
       return next(err)

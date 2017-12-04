@@ -6,6 +6,21 @@ var UserSchema = new Schema({
   password: String,
   admin: Boolean,
   name: String,
+  account_plan_type: String,
+  // account_plan_id: {
+  //   type: Schema.ObjectId,
+  //   ref: 'AccountPlan'
+  // },
+  ads: {
+    actives: {
+      type: Number,
+      default: 0
+    },
+    total: {
+      type: Number,
+      default: 0
+    }
+  },
   created_at: {
     type: Date
   },

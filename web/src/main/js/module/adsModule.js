@@ -23,24 +23,29 @@ angular.module('app.ads', [
   $scope.bookmarks = []
   $scope.first_attachments = {}
   $scope.users = {}
+  $scope.search = {
+    search: null
+  }
 
-  adsService.list().then(function (res) {
-    $scope.ads = res.data
+  $scope.$watch('search.search', function (newValue, oldValue) {
+    return adsService.list($scope.search).then(function (res) {
+      $scope.ads = res.data
 
-    $scope.ads.forEach(function (ad) {
-      if (ad.attachment_ids && ad.attachment_ids.length > 0) {
-        attachmentViewService.get(ad.attachment_ids[0]).then(function (res) {
-          $scope.first_attachments[ad._id] = res.data
-        })
-      }
-    })
+      $scope.ads.forEach(function (ad) {
+        if (ad.attachment_ids && ad.attachment_ids.length > 0) {
+          attachmentViewService.get(ad.attachment_ids[0]).then(function (res) {
+            $scope.first_attachments[ad._id] = res.data
+          })
+        }
+      })
 
-    $scope.ads.forEach(function (ad) {
-      if (!$scope.users[ad.user_id]) {
-        userViewService.get(ad.user_id).then(function (res) {
-          $scope.users[ad.user_id] = res.data
-        })
-      }
+      $scope.ads.forEach(function (ad) {
+        if (!$scope.users[ad.user_id]) {
+          userViewService.get(ad.user_id).then(function (res) {
+            $scope.users[ad.user_id] = res.data
+          })
+        }
+      })
     })
   })
 

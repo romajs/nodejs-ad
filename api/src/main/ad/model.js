@@ -29,6 +29,8 @@ var AdSchema = new Schema({
   }
 })
 
+AdSchema.index({'$**': 'text'})
+
 var Ad = mongoose.model('Ad', AdSchema)
 
 module.exports = {

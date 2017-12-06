@@ -18,7 +18,7 @@ angular.module('app.adsUser', [
   })
 })
 
-.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService) {
+.controller('adsUserController', function ($scope, $log, $state, adService, adsUserService, attachmentViewService, userService) {
   $scope.ads = null
   $scope.bookmarks = []
   $scope.first_attachments = {}
@@ -35,6 +35,10 @@ angular.module('app.adsUser', [
     })
   })
 
+  userService.getOwnAccount().then(function (res) {
+    $scope.user = res.data
+  })
+
   $scope.bookmark = function (adId, index) {
     if (index === -1) {
       $scope.bookmarks.push(adId)
@@ -48,6 +52,7 @@ angular.module('app.adsUser', [
     $log.debug('removing:', ad._id, ', $index:', $index)
     adService.delete(ad._id).then(function (res) {
       angular.copy(res.data, ad)
+      $scope.user.quota.used--
     })
   }
 

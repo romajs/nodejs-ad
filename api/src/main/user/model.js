@@ -6,12 +6,23 @@ var UserSchema = new Schema({
   password: String,
   admin: Boolean,
   name: String,
-  created_at: {
-    type: Date
+  account_plan_type: String,
+  quota: {
+    total: {
+      type: Number,
+      default: 10
+    },
+    used: {
+      type: Number,
+      default: 0
+    }
   },
-  updated_at: {
+  created_at: {
     type: Date,
     default: Date.now
+  },
+  updated_at: {
+    type: Date
   }
 })
 

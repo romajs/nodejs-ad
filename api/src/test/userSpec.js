@@ -60,7 +60,6 @@ describe('/api/user', function () {
         .expect(200)
         .expect('Content-Type', /application\/json/)
         .expect(function (res) {
-          assert.equal(res.body.__v, admin.__v)
           assert.equal(res.body._id, admin._id)
           assert.equal(res.body.username, admin.username)
         })

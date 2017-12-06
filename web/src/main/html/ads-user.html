@@ -1,7 +1,26 @@
 <div class="container">
 
   <div class="page-header">
-    <h1 translate>page.adViewsUser.title</h1>
+    <div class="row vertical-center">
+      <div class="col-sm-4">
+        <h1 translate>page.adViewsUser.title</h1>
+      </div>
+      <div class="col-sm-6 text-center">
+        <div class="col-sm-4">
+          <span translate>page.adsUser.quota</span>: <span>{{user.quota.total}}</span>
+        </div>
+        <div class="col-sm-4">
+          <span translate>page.adsUser.used</span>: <span>{{user.quota.used}}</span>
+        </div>
+        <div class="col-sm-4">
+          <span translate>page.adsUser.available</span>: <span>{{user.quota.total - user.quota.used}}</span>
+        </div>
+      </div>
+      <div class="col-sm-2 text-center">
+        <span translate>page.adsUser.accountPlan</span>:
+        <span translate>{{'accountPlant.type.'+user.account_plan_type}}</span>
+      </div>
+    </div>
   </div>
 
   <div class="jumbotron" ng-if="ads.length === 0">

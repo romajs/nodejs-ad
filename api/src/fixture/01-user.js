@@ -2,27 +2,27 @@ module.exports.load = function () {
   return new Promise(function (resolve, reject) {
     var User = rootRequire('main/user/model').User
 
-    var userPromises = []
+    var promises = []
 
     var admin = new User({
-      username: 'admin',
-      password: 'MTIzbXVkYXIK',
+      account_plan_type: 'FREE',
       admin: true,
       name: 'admin',
-      created_at: new Date()
+      password: 'MTIzbXVkYXIK',
+      username: 'admin'
     })
-    userPromises.push(admin.save())
+    promises.push(admin.save())
 
     var user = new User({
-      username: 'user',
-      password: 'MTIzbXVkYXIK',
+      account_plan_type: 'FREE',
       admin: false,
       name: 'user',
-      created_at: new Date()
+      password: 'MTIzbXVkYXIK',
+      username: 'user'
     })
-    userPromises.push(user.save())
+    promises.push(user.save())
 
-    return Promise.all(userPromises).then(function (users) {
+    return Promise.all(promises).then(function (users) {
       return resolve(users)
     }, function (err) {
       return reject(err)

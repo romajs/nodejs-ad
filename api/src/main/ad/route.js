@@ -25,8 +25,9 @@ router.post('/', function (req, res, next) {
     var userId = req.auth.user._id
     return User.findById(userId).then(function (user) {
       if (user.quota.used >= user.quota.total) {
-        // TODO
-        // return res(400).end()
+        return res.status(400).json({
+          message: 'User exceeded available quota'
+        })
       } else {
         var ad = new Ad({
           title: req.body.title,

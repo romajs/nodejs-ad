@@ -14,7 +14,7 @@ angular.module('app.adNew', [
       requireAuthentication: false
     },
     resolve: {
-      adResponse: [function() {
+      adResponse: [function () {
         return null
       }],
       translateReady: ['$translate', function ($translate) {
@@ -29,7 +29,7 @@ angular.module('app.adNew', [
       requireAuthentication: false
     },
     resolve: {
-      adResponse: ['$stateParams', 'adService', function($stateParams, adService) {
+      adResponse: ['$stateParams', 'adService', function ($stateParams, adService) {
         return adService.get($stateParams.id)
       }],
       translateReady: ['$translate', function ($translate) {
@@ -39,8 +39,7 @@ angular.module('app.adNew', [
   })
 })
 
-.controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService, attachmentViewService, adResponse) {
-
+.controller('adController', function ($scope, $log, $state, $timeout, Upload, adService, attachmentService, attachmentViewService, userService, adResponse) {
   $scope.ad = {}
   $scope.ngfFiles = []
   $scope.files = []
@@ -74,15 +73,15 @@ angular.module('app.adNew', [
         max: '2MB'
       }
     }
-  } 
+  }
 
   $log.info('$adResponse:', adResponse)
 
-  if(adResponse) {
-    if(adResponse.status == 200) {
+  if (adResponse) {
+    if (adResponse.status == 200) {
       $scope.ad = adResponse.data
-      adResponse.data.attachment_ids.forEach(function(attachmentId) {
-        attachmentViewService.get(attachmentId).then(function(res) {
+      adResponse.data.attachment_ids.forEach(function (attachmentId) {
+        attachmentViewService.get(attachmentId).then(function (res) {
           var attachment = res.data
           $log.info('attachment:', attachment)
           $scope.attachments.push(attachment)
@@ -103,6 +102,10 @@ angular.module('app.adNew', [
       // TODO: handler errors
     }
   }
+
+  userService.getOwnAccount().then(function (res) {
+    $scope.user = res.data
+  })
 
   $scope.$watch('ngfFiles', function (ngfFiles) {
     $log.info('ngfFiles:', ngfFiles)
@@ -173,14 +176,14 @@ angular.module('app.adNew', [
     // $state.go('ads')
   }
 
-  $scope.clearFields = function() {
+  $scope.clearFields = function () {
     $scope.ad = {}
     $scope.ngfFiles = []
     $scope.files = []
     $scope.attachments = []
   }
 
-  $scope.loadSample = function() {
+  $scope.loadSample = function () {
     $scope.ad = {
       title: 'Teste',
       details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',

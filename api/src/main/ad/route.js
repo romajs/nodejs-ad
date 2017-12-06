@@ -22,38 +22,43 @@ router.post('/', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    // TODO: validate user quota
-    var ad = new Ad({
-      title: req.body.title,
-      details: req.body.details,
-      value: req.body.value,
-      status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
-      created_at: new Date(),
-      user_id: req.auth.user._id,
-      attachment_ids: req.body.attachment_ids
-    })
-
-    return ad.save().then(function (ad) {
-      return User.update({
-        _id: req.auth.user._id
-      }, {
-        $inc: {
-          'ads.actives': 1, // FIXME
-          'ads.total': 1
-        }
-      }).then(function () {
-        return Attachment.update({
-          _id: {
-            $in: ad.attachment_ids
-          }
-        }, {
-          $set: {
-            status: AttachmentStatus.STEADY
-          }
-        }).then(function (results) {
-          return res.status(200).json(ad)
+    var userId = req.auth.user._id
+    return User.findById(userId).then(function (user) {
+      if (user.quota.used >= user.quota.total) {
+        // TODO
+        // return res(400).end()
+      } else {
+        var ad = new Ad({
+          title: req.body.title,
+          details: req.body.details,
+          value: req.body.value,
+          status: AdStatus.APPROVED, // FIXME: AdStatus.PENDING
+          created_at: new Date(),
+          user_id: userId,
+          attachment_ids: req.body.attachment_ids
         })
-      })
+        return ad.save().then(function (ad) {
+          return User.update({
+            _id: userId
+          }, {
+            $inc: {
+              'quota.used': 1 // FIXME: only after approval
+            }
+          }).then(function () {
+            return Attachment.update({
+              _id: {
+                $in: ad.attachment_ids
+              }
+            }, {
+              $set: {
+                status: AttachmentStatus.STEADY
+              }
+            }).then(function (results) {
+              return res.status(200).json(ad)
+            })
+          })
+        })
+      }
     }).catch(function (err) {
       return next(err)
     })
@@ -112,7 +117,7 @@ router.delete('/:id', function (req, res, next) {
       return res.status(400).json(result.array())
     }
   }).then(function () {
-    return Ad.findOne({ _id: req.params.id }).then(function (ad) {
+    return Ad.findById(req.params.id).then(function (ad) {
       if (!ad) {
         return res.status(404).end()
       } else if (!ad.user_id.equals(req.auth.user._id)) {
@@ -125,7 +130,15 @@ router.delete('/:id', function (req, res, next) {
       ad.updated_at = new Date()
 
       return ad.save().then(function (ad) {
-        return res.status(200).json(ad)
+        return User.update({
+          _id: ad.user_id
+        }, {
+          $inc: {
+            'quota.used': -1
+          }
+        }).then(function () {
+          return res.status(200).json(ad)
+        })
       })
     }).catch(function (err) {
       return next(err)

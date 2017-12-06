@@ -7,26 +7,22 @@ var UserSchema = new Schema({
   admin: Boolean,
   name: String,
   account_plan_type: String,
-  // account_plan_id: {
-  //   type: Schema.ObjectId,
-  //   ref: 'AccountPlan'
-  // },
-  ads: {
-    actives: {
-      type: Number,
-      default: 0
-    },
+  quota: {
     total: {
+      type: Number,
+      default: 10
+    },
+    used: {
       type: Number,
       default: 0
     }
   },
   created_at: {
-    type: Date
-  },
-  updated_at: {
     type: Date,
     default: Date.now
+  },
+  updated_at: {
+    type: Date
   }
 })
 

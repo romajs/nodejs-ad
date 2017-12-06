@@ -1,44 +1,37 @@
-// var mongoose = require('mongoose')
-// var Schema = mongoose.Schema
-
-// var AccountPlanSchema = new Schema({
-//   name: String,
-//   quota: Number,
-//   created_at: {
-//     type: Date,
-//     default: Date.now
-//   },
-//   updated_at: {
-//     type: Date
-//   }
-// })
-
-// var AccountPlan = mongoose.model('AccountPlan', AccountPlanSchema)
-
-// module.exports = {
-//   AccountPlan,
-//   AccountPlanSchema
-// }
-
 var Enum = rootRequire('main/misc/util').Enum
 
-var AccountPlanType = new Enum('FREE')
+var AccountPlanType = new Enum('FREE', 'BRONZE', 'SILVER', 'GOLD', 'PLATINUM', 'DIAMOND')
 
-var QUOTAS = {
-  'FREE': 10
+var PLANS = {
+  'FREE': {
+    quota: 0,
+    price: 0.0
+  },
+  'BRONZE': {
+    quota: 50,
+    price: 19.90
+  },
+  'SILVER': {
+    quota: 100,
+    price: 29.90
+  },
+  'GOLD': {
+    quota: 250,
+    price: 49.90
+  },
+  'PLATINUM': {
+    quota: 500,
+    price: 69.90
+  },
+  'DIAMOND': {
+    quota: 1000,
+    price: 94.90
+  }
 }
 
 var AccountPlan = {
   findByType: function (type) {
-    var quota = QUOTAS[type]
-    return quota
-    // return new Promise(function (resolve, reject) {
-    //   if (quota) {
-    //     resolve(quota)
-    //   } else {
-    //     reject(type)
-    //   }
-    // })
+    return PLANS[type]
   }
 }
 

@@ -9,11 +9,11 @@
       </div>
       <div class="col-sm-2 text-center">
         <span translate>page.adsUser.accountPlan</span>:
-        <span>{{$user.account_plan_type}}</span>
+        <span translate>{{'accountPlant.type.'+user.account_plan_type}}</span>
       </div>
       <div class="col-sm-2 text-center">
         <span translate>page.adsUser.quota</span>:
-        <span>{{accountPlan.quota}}</span>
+        <span>{{user.quota.used}}/{{user.quota.total}}</span>
       </div>
     </div>
   </div>

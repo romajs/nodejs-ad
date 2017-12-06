@@ -13,10 +13,12 @@ router.get('/:id', function (req, res, next) {
   }).then(function () {
     User.findById(req.params.id).then(function (user) {
       if (user) {
+        console.info(user)
         res.status(200).json({
           _id: user.id,
           name: user.name,
-          created_at: user.created_at
+          created_at: user.created_at,
+          updated_at: user.updated_at
         })
       } else {
         res.status(404).end()

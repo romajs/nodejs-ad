@@ -1,4 +1,3 @@
-var AccountPlan = rootRequire('main/account-plan/model').AccountPlan
 var User = rootRequire('main/user/model').User
 
 var express = require('express')
@@ -7,28 +6,15 @@ var router = express.Router()
 router.get('/account', function (req, res, next) {
   return User.findById(req.auth.user._id).then(function (user) {
     return res.status(200).json({
+      _id: user._id,
+      __v: user.__v,
       username: user.username,
       admin: user.admin,
       name: user.name,
       account_plan_type: user.account_plan_type,
-      quota: AccountPlan.findByType(user.account_plan_type),
-      ads: user.ads,
+      quota: user.quota,
       created_at: user.created_at,
       updated_at: user.updated_at
-    })
-  }).catch(function (err) {
-    return next(err)
-  })
-})
-
-router.get('/account-plan/quota', function (req, res, next) {
-  return User.findById(req.auth.user._id).then(function (user) {
-    return AccountPlan.findByType(user.account_plan_type).then(function (quota) {
-      return res.status(200).json({
-        // left: quota - user.ads.actives,
-        quota: quota
-        // type: user.account_plan_type
-      })
     })
   }).catch(function (err) {
     return next(err)
@@ -44,7 +30,21 @@ router.get('/:id', function (req, res, next) {
     }
   }).then(function () {
     return User.findById(req.params.id).then(function (user) {
-      return res.status(user ? 200 : 404).json(user)
+      if (user) {
+        res.status(200).json({
+          _id: user._id,
+          __v: user.__v,
+          username: user.username,
+          admin: user.admin,
+          name: user.name,
+          account_plan_type: user.account_plan_type,
+          quota: user.quota,
+          created_at: user.created_at,
+          updated_at: user.updated_at
+        })
+      } else {
+        return res.status(404).end()
+      }
     }).catch(function (err) {
       return next(err)
     })

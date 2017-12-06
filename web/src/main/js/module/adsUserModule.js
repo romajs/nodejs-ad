@@ -35,9 +35,9 @@ angular.module('app.adsUser', [
     })
   })
 
-  // userService.getAccountPlanQuota().then(function (res) {
-  //   $scope.accountPlan = res.data
-  // })
+  userService.getOwnAccount().then(function (res) {
+    $scope.user = res.data
+  })
 
   $scope.bookmark = function (adId, index) {
     if (index === -1) {
@@ -52,6 +52,7 @@ angular.module('app.adsUser', [
     $log.debug('removing:', ad._id, ', $index:', $index)
     adService.delete(ad._id).then(function (res) {
       angular.copy(res.data, ad)
+      $scope.user.quota.used--
     })
   }
 

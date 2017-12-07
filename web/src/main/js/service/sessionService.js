@@ -1,10 +1,10 @@
 angular.module('app')
 
 .service('sessionService', function () {
-  var token = localStorage.getItem('token')
+  var token = localStorage.getItem('$auth.profile')
 
   this.create = function (newToken) {
-    localStorage.setItem('token', token = newToken)
+    localStorage.setItem('$auth.profile', token = newToken)
   }
 
   this.destroy = function () {

@@ -20,7 +20,7 @@ angular.module('app', [
   }
 })
 
-.config(function ($translateProvider, $stateProvider) {
+.config(function ($translateProvider) {
   $translateProvider.useLoaderCache(true)
   $translateProvider.useSanitizeValueStrategy(null)
   $translateProvider.useStaticFilesLoader({

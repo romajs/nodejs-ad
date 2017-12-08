@@ -5,7 +5,6 @@ angular.module('app', [
   'app.adView',
   'app.auth',
   'app.imageGallery',
-  'app.login',
   'app.uiCarousel',
   'app.user',
   'ngSanitize',

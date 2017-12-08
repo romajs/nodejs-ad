@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="jumbotron" ng-show="!isAuthenticated()">
+  <div class="jumbotron" ng-show="!$auth.isAuthenticated()">
     <h2 translate>page.ad.loginRequiredText.part1</h2>
     <br/>
     <p>
@@ -27,7 +27,7 @@
       <h1 ng-if="!ad._id" translate>page.ad.new.title</h1>
       <h1 ng-if="ad._id">{{'page.ad.edit.title'|translate}}</h1>
     </div>
-    <div class="overlay" ng-class="{ 'off': !isAuthenticated() }">
+    <div class="overlay" ng-class="{ 'off': !$auth.isAuthenticated() }">
       <form class="" name="adForm" novalidate>
         <div class="form-group" ng-class="{ 'has-error' : adForm.title.$invalid }">
           <div class="row">

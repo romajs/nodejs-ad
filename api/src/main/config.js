@@ -5,7 +5,7 @@ function baseConfig (name) {
     name: name || 'default',
     auth: {
       header_name: 'x-access-token',
-      secret: 'JHVwM3JfJDNjcjM3Cg==',
+      secret: 'Xn_7RMiZx52pGlI1_d1u7ymID5mqGV1idTTyMT0RHpVTZmOqaOlFwwRNNPhiTz-k',
       expiresIn: 86400 // expires in 24 hours
     },
     cloudinary: {

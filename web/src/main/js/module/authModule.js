@@ -1,5 +1,5 @@
 angular.module('app.auth', [
-  // 'angular-jwt'
+  'angular-jwt'
 ])
 
 .config(function ($locationProvider, $urlRouterProvider, $stateProvider) {
@@ -46,32 +46,30 @@ angular.module('app.auth', [
 })
 
 // .config(function ($httpProvider, jwtOptionsProvider) {
-//     // Configuration for angular-jwt
+//   // Please note we're annotating the function so that the $injector works when the file is minified
 //   jwtOptionsProvider.config({
-//     tokenGetter: function () {
-//       return localStorage.getItem('token')
-//     },
-//     whiteListedDomains: ['localhost'],
-//     unauthenticatedRedirectPath: '/login'
+//     tokenGetter: ['store', '$http', function (store, $http) {
+//       return localStorage.getItem('$auth.id_token')
+//     }],
+//     whiteListedDomains: [ 'localhost' ]
+//   // unauthenticatedRedirectPath: '/login'
 //   })
 
-//     // Add the jwtInterceptor to the array of HTTP interceptors
-//     // so that JWTs are attached as Authorization headers
 //   $httpProvider.interceptors.push('jwtInterceptor')
 // })
 
-// .service('tokenInterceptor', function (sessionService) {
-//   this.request = function (config) {
-//     if (config.url.indexOf('.html') === -1 && sessionService.getToken() !== undefined) {
-//       config.headers['x-access-token'] = sessionService.getToken('token')
-//     }
-//     return config
-//   }
-// })
+.service('tokenInterceptor', function (sessionService) {
+  this.request = function (config) {
+    if (config.url.indexOf('.html') === -1) {
+      config.headers['x-access-token'] = localStorage.getItem('$auth.id_token')
+    }
+    return config
+  }
+})
 
-// .config(function ($httpProvider) {
-//   $httpProvider.interceptors.push('tokenInterceptor')
-// })
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('tokenInterceptor')
+})
 
 .run(function ($rootScope, $log, sessionService) {
   $rootScope.$user = null

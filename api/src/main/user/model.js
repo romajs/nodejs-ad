@@ -2,8 +2,12 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
 var UserSchema = new Schema({
-  username: String,
-  password: String,
+  open_id: {
+    type: String,
+    index: {
+      unique: true
+    }
+  },
   admin: Boolean,
   name: String,
   account_plan_type: String,

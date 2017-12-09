@@ -41,7 +41,5 @@ angular.module('app.user', [
 })
 
 .controller('userController', function ($scope, $stateParams, user) {
-  $scope.user = null
-  $scope.attachments = []
   $scope.user = user
 })

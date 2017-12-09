@@ -7,8 +7,7 @@ angular.module('app.auth', [
     tokenGetter: ['auth', function (auth) {
       return auth.isAuthenticated() ? auth.getIdToken() : null
     }],
-    whiteListedDomains: [ 'localhost' ],
-    unauthenticatedRedirectPath: '/login'
+    whiteListedDomains: [ 'localhost' ]
   })
 
   $httpProvider.interceptors.push('jwtInterceptor')
@@ -184,14 +183,21 @@ angular.module('app.auth', [
       auth.clear()
     }
   })
+}])
 
-  $rootScope.$on('$stateChangeStart', ['event', 'toState', function (event, toState) {
-    var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
+.run(['$log', '$transitions', function ($log, $transitions) {
+  $transitions.onStart({ }, function (transitions) {
+    var auth = transitions.injector().get('auth')
+    var toState = transitions.to()
+    var requireAuthentication = (toState.data || {}).requireAuthentication
     var isAuthenticated = auth.isAuthenticated()
     $log.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
     if (requireAuthentication && !isAuthenticated) {
-      event.preventDefault()
-      $state.go('login')
+      return transitions.router.stateService.target('login')
     }
-  }])
+  })
 }])
+
+// .run(function ($trace) {
+//   $trace.enable('TRANSITION')
+// })

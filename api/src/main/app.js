@@ -1,3 +1,4 @@
+var bearer = require('express-bearer-token')
 var blocked = require('blocked')
 var bodyParser = require('body-parser')
 var compression = require('compression')
@@ -40,6 +41,9 @@ app.use(cors())
 
 // helmet
 app.use(helmet())
+
+// bearer
+app.use(bearer())
 
 // compression
 app.use(compression())

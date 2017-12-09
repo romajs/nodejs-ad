@@ -3,6 +3,8 @@ var jwkToPem = require('jwk-to-pem')
 var jwt = require('jsonwebtoken')
 var logger = rootRequire('main/logger')
 
+var User = rootRequire('main/user/model').User
+
 // var jwk = expressJwtSecret({
 //   jwksUri: `https://${process.env.AUTH0_TENANT}.auth0.com/.well-known/jwks.json`
 // })
@@ -19,18 +21,9 @@ var jwk = {
 }
 
 var pem = jwkToPem(jwk)
-// logger.debug('pem:', pem)
-
-var AccountPlanType = rootRequire('main/account-plan/model').AccountPlanType
-var User = rootRequire('main/user/model').User
 
 function AuthMiddleware (req, res, next) {
-  // TODO: validade w/ express validator?
-
-  // TODO: get header from Authorization + Bearer
-
-  var token = req.body.token || req.param('token') || req.headers[config.auth.header_name]
-  // logger.debug('token:', token)
+  var token = req.token // provided by "express-bearer-token" middleware
 
   if (token) {
     jwt.verify(token, pem, function (err, decoded) {
@@ -41,7 +34,6 @@ function AuthMiddleware (req, res, next) {
           message: 'Failed to authenticate token'
         })
       } else {
-        logger.debug('decoded:', decoded)
         var openId = decoded.sub
         User.findOne({ open_id: openId }).then(function (user) {
           req.auth = {

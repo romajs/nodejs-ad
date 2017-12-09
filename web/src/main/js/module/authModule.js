@@ -2,12 +2,24 @@ angular.module('app.auth', [
   'angular-jwt'
 ])
 
-.config(function ($locationProvider, $urlRouterProvider, $stateProvider, authProvider) {
+.config(['$httpProvider', 'jwtOptionsProvider', function ($httpProvider, jwtOptionsProvider) {
+  jwtOptionsProvider.config({
+    tokenGetter: ['auth', function (auth) {
+      return auth.isAuthenticated() ? auth.getIdToken() : null
+    }],
+    whiteListedDomains: [ 'localhost' ],
+    unauthenticatedRedirectPath: '/login'
+  })
+
+  $httpProvider.interceptors.push('jwtInterceptor')
+}])
+
+.config(['$locationProvider', '$urlRouterProvider', '$stateProvider', function ($locationProvider, $urlRouterProvider, $stateProvider) {
   $locationProvider.hashPrefix('')
   $stateProvider.state('authCallback', {
     url: '/access_token=:accessToken&expires_in=:expiresIn&token_type=:tokenType&state=:state&id_token=:idToken',
     controller: function ($stateParams, $state, $log, auth) {
-      $log.info('auth0 callback:', $stateParams)
+      $log.debug('auth0 callback, $stateParams:', $stateParams)
       auth.setAccessToken($stateParams.accessToken)
       auth.setExpiresIn($stateParams.expiresIn)
       auth.setTokenType($stateParams.tokenType)
@@ -35,7 +47,7 @@ angular.module('app.auth', [
       requireAuthentication: false
     }
   })
-})
+}])
 
 .provider('lock', function () {
   var auth0Lock = new Auth0Lock('07RiMPV5upNGYzUt0YP8uzdgcoDYnvFj', 'app79493120.auth0.com', {
@@ -120,47 +132,60 @@ angular.module('app.auth', [
       localStorage.setItem('auth.userId', auth.userId = userId)
     }
   }
-  this.$get = [function unicornLauncherFactory () {
+  this.$get = [function () {
     return new AuthService()
   }]
 })
 
-.run(function ($rootScope, $log, $state, auth, lock, authService) {
+.run(['$rootScope', '$log', '$state', '$q', 'auth', 'lock', 'authService', function ($rootScope, $log, $state, $q, auth, lock, authService) {
   $rootScope.$auth = auth
 
-  $rootScope.$watch('$auth.isAuthenticated()', function (isAuthenticated) {
-    $log.info('$auth.isAuthenticated():', isAuthenticated)
+  $rootScope.$watch('$auth.isAuthenticated()', function (isAuthenticated, wasAuthenticated) {
+    $log.debug('$auth.isAuthenticated(), isAuthenticated:', isAuthenticated, ', wasAuthenticated:', wasAuthenticated)
 
     if (isAuthenticated) {
-      if (auth.getUserId()) {
-        $rootScope.$userId = auth.getUserId()
-      } else {
-        authService.authenticate().then(function (res) {
-          var userId = res.data._id
-          $rootScope.$userId = userId
-          auth.setUserId(userId)
-        })
-      }
+      $q.when(function () {
+        if (auth.getUserId()) {
+          return auth.getUserId()
+        } else {
+          return authService.authenticate().then(function (res) {
+            var userId = res.data._id
+            auth.setUserId(userId)
+            return userId
+          }).catch(function (err) {
+            $log.error('Failed to retrive user authentication:', err.statusText)
+          })
+        }
+      }()).then(function (userId) {
+        $log.debug('$rootScope.$userId:', $rootScope.$userId = userId)
+      })
 
-      if (auth.getProfile()) {
-        $rootScope.$profile = JSON.parse(auth.getProfile())
-      } else {
-        lock.getProfile(auth.getIdToken(), function (error, profile) {
-          if (error) {
-            $log.error(error)
-          } else {
-            $log.debug('lock.getProfile:', profile)
-            $rootScope.$profile = profile
-            auth.setProfile(JSON.stringify(profile))
-          }
-        })
-      }
+      $q.when(function () {
+        if (auth.getProfile()) {
+          return JSON.parse(auth.getProfile())
+        } else {
+          var d = $q.defer()
+          lock.getProfile(auth.getIdToken(), function (error, profile) {
+            if (error) {
+              $log.error(error)
+              d.reject(error)
+            } else {
+              $log.debug('lock.getProfile:', profile)
+              auth.setProfile(JSON.stringify(profile))
+              d.resolve(profile)
+            }
+          })
+          return d.promise
+        }
+      }()).then(function (profile) {
+        $log.debug('$rootScope.$profile:', $rootScope.$profile = profile)
+      })
     } else {
       auth.clear()
     }
   })
 
-  $rootScope.$on('$stateChangeStart', function (event, toState) {
+  $rootScope.$on('$stateChangeStart', ['event', 'toState', function (event, toState) {
     var requireAuthentication = toState.data ? toState.data.requireAuthentication : false
     var isAuthenticated = auth.isAuthenticated()
     $log.debug('url:', toState.url, 'requireAuthentication:', requireAuthentication, 'isAuthenticated: ', isAuthenticated)
@@ -168,31 +193,5 @@ angular.module('app.auth', [
       event.preventDefault()
       $state.go('login')
     }
-  })
-})
-
-// .config(function ($httpProvider, jwtOptionsProvider) {
-//   // Please note we're annotating the function so that the $injector works when the file is minified
-//   jwtOptionsProvider.config({
-//     tokenGetter: ['store', '$http', function (store, $http) {
-//       return localStorage.getItem('$auth.id_token')
-//     }],
-//     whiteListedDomains: [ 'localhost' ]
-//   // unauthenticatedRedirectPath: '/login'
-//   })
-
-//   $httpProvider.interceptors.push('jwtInterceptor')
-// })
-
-.service('tokenInterceptor', function (auth) {
-  this.request = function (config) {
-    if (config.url.indexOf('.html') === -1 && auth.isAuthenticated()) {
-      config.headers['x-access-token'] = auth.getIdToken()
-    }
-    return config
-  }
-})
-
-.config(function ($httpProvider) {
-  $httpProvider.interceptors.push('tokenInterceptor')
-})
+  }])
+}])

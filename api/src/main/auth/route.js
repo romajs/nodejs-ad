@@ -1,29 +1,33 @@
-var User = rootRequire('main/user/model').User
-
 var config = rootRequire('main/config')
 var jwt = require('jsonwebtoken')
+var logger = rootRequire('main/logger')
 
 var express = require('express')
 var router = express.Router()
 
+var AccountPlanType = rootRequire('main/account-plan/model').AccountPlanType
+var User = rootRequire('main/user/model').User
+
 router.post('/', function (req, res, next) {
-  var token = req.body.token || req.param('token') || req.headers[config.auth.header_name]
-
-  var decodedToken = jwt.decode(token)
-  // logger.debug('decodedToken:', decodedToken)
-
-  var openId = decodedToken.sub
+  var token = req.token // provided by "express-bearer-token" middleware
+  var decoded = jwt.decode(token)
+  var openId = decoded.sub
 
   User.findOne({ open_id: openId }).then(function (user) {
     if (user) {
       return user
     } else {
-      return new User({
+      logger.debug('No user found with openId:', openId)
+      user = new User({
         open_id: openId,
         account_plan_type: AccountPlanType.FREE,
         admin: false,
         name: decoded.given_name
-      }).save()
+      })
+      return user.save().then(function (user) {
+        logger.debug('Created new user with openId:', openId)
+        return user
+      })
     }
   }).then(function (user) {
     return res.status(200).json(user)

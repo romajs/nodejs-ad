@@ -15,7 +15,7 @@ angular.module('app', [
 
 .value('$config', {
   api: {
-    origin: (location.hostname === 'localhost' ? 'http://0.0.0.0:8000' : location.origin) + '/api'
+    origin: location.origin + '/api'
   }
 })
 

@@ -32,9 +32,6 @@ function AuthMiddleware (req, res, next) {
   var token = req.body.token || req.param('token') || req.headers[config.auth.header_name]
   // logger.debug('token:', token)
 
-  // var decodedToken = jwt.decode(token, {complete: true})
-  // logger.debug('decodedToken:', decodedToken)
-
   if (token) {
     jwt.verify(token, pem, function (err, decoded) {
       if (err) {
@@ -47,17 +44,6 @@ function AuthMiddleware (req, res, next) {
         logger.debug('decoded:', decoded)
         var openId = decoded.sub
         User.findOne({ open_id: openId }).then(function (user) {
-          if (user) {
-            return user
-          } else {
-            return new User({
-              open_id: openId,
-              account_plan_type: AccountPlanType.FREE,
-              admin: false,
-              name: decoded.given_name
-            }).save()
-          }
-        }).then(function (user) {
           req.auth = {
             token,
             decoded,

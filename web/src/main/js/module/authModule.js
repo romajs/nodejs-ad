@@ -6,22 +6,14 @@ angular.module('app.auth', [
   $locationProvider.hashPrefix('')
   $stateProvider.state('authCallback', {
     url: '/access_token=:accessToken&expires_in=:expiresIn&token_type=:tokenType&state=:state&id_token=:idToken',
-    controller: function ($stateParams, $state, $log, auth, lock) {
-      $log.info('successfully authenticated:', $stateParams)
+    controller: function ($stateParams, $state, $log, auth) {
+      $log.info('auth0 callback:', $stateParams)
       auth.setAccessToken($stateParams.accessToken)
       auth.setExpiresIn($stateParams.expiresIn)
       auth.setTokenType($stateParams.tokenType)
       auth.setState($stateParams.state)
       auth.setIdToken($stateParams.idToken)
-      lock.getProfile($stateParams.idToken, function (error, profile) {
-        if (error) {
-          $log.error(error)
-        } else {
-          $log.debug('lock.getProfile:', profile)
-          auth.setProfile(JSON.stringify(profile))
-          $state.go('ads')
-        }
-      })
+      $state.go('ads')
     },
     data: {
       requireAuthentication: false
@@ -68,7 +60,8 @@ angular.module('app.auth', [
     idToken: localStorage.getItem('auth.idToken'),
     profile: localStorage.getItem('auth.profile'),
     state: localStorage.getItem('auth.state'),
-    tokenType: localStorage.getItem('auth.tokenType')
+    tokenType: localStorage.getItem('auth.tokenType'),
+    userId: localStorage.getItem('auth.userId')
   }
   function AuthService () {
     this.clear = function () {
@@ -78,6 +71,7 @@ angular.module('app.auth', [
       localStorage.removeItem('auth.profile')
       localStorage.removeItem('auth.state')
       localStorage.removeItem('auth.tokenType')
+      localStorage.removeItem('auth.userId')
       return auth = {}
     }
     this.isAuthenticated = function () {
@@ -101,6 +95,9 @@ angular.module('app.auth', [
     this.getTokenType = function () {
       return auth.tokenType
     }
+    this.getUserId = function () {
+      return auth.userId
+    }
     this.setAccessToken = function (accessToken) {
       localStorage.setItem('auth.accessToken', auth.accessToken = accessToken)
     }
@@ -119,26 +116,47 @@ angular.module('app.auth', [
     this.setTokenType = function (tokenType) {
       localStorage.setItem('auth.tokenType', auth.tokenType = tokenType)
     }
+    this.setUserId = function (userId) {
+      localStorage.setItem('auth.userId', auth.userId = userId)
+    }
   }
   this.$get = [function unicornLauncherFactory () {
     return new AuthService()
   }]
 })
 
-.run(function ($rootScope, $log, $state, auth) {
+.run(function ($rootScope, $log, $state, auth, lock, authService) {
   $rootScope.$auth = auth
 
   $rootScope.$watch('$auth.isAuthenticated()', function (isAuthenticated) {
-    $log.debug('$auth.isAuthenticated():', isAuthenticated)
-    if (!isAuthenticated) {
-      auth.clear()
-    }
-  })
+    $log.info('$auth.isAuthenticated():', isAuthenticated)
 
-  $rootScope.$watch('$auth.getProfile()', function (profile) {
-    $log.debug('$auth.getProfile():', auth.getProfile())
-    if (profile != null) {
-      $rootScope.$profile = JSON.parse(profile)
+    if (isAuthenticated) {
+      if (auth.getUserId()) {
+        $rootScope.$userId = auth.getUserId()
+      } else {
+        authService.authenticate().then(function (res) {
+          var userId = res.data._id
+          $rootScope.$userId = userId
+          auth.setUserId(userId)
+        })
+      }
+
+      if (auth.getProfile()) {
+        $rootScope.$profile = JSON.parse(auth.getProfile())
+      } else {
+        lock.getProfile(auth.getIdToken(), function (error, profile) {
+          if (error) {
+            $log.error(error)
+          } else {
+            $log.debug('lock.getProfile:', profile)
+            $rootScope.$profile = profile
+            auth.setProfile(JSON.stringify(profile))
+          }
+        })
+      }
+    } else {
+      auth.clear()
     }
   })
 

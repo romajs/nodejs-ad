@@ -71,7 +71,6 @@ app.use(expressWinston.logger(function () {
 app.use('/api/ad', rootRequire('main/ad-view/route'))
 app.use('/api/ads', rootRequire('main/ad-search/route'))
 app.use('/api/attachment', rootRequire('main/attachment-view/route'))
-app.use('/api/auth', rootRequire('main/auth/route'))
 app.use('/api/user-view', rootRequire('main/user-view/route'))
 
 // auth
@@ -81,6 +80,7 @@ app.use(rootRequire('main/auth/middleware'))
 app.use('/api/ad', rootRequire('main/ad/route'))
 app.use('/api/ads/user', rootRequire('main/ads-user/route'))
 app.use('/api/attachment', rootRequire('main/attachment/route'))
+app.use('/api/auth', rootRequire('main/auth/route'))
 app.use('/api/domain', rootRequire('main/domain/route'))
 app.use('/api/user', rootRequire('main/user/route'))
 

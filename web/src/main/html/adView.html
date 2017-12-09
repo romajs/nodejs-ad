@@ -24,7 +24,7 @@
         <a>{{ad.title}}</a>
       </div>
       <div class="col-sm-4" style="text-align: right; font-size: 0.8em;">
-        <p ng-if="$adStatus(ad.status).canEdit && ad.user_id == $user._id">
+        <p ng-if="$adStatus(ad.status).canEdit && ad.user_id == $userId">
           <a class="text-primary" ui-sref="adEdit({ id: ad._id })" title="{{'page.adViewsUser.edit.title'|translate}}">
             <i class="fa fa-pencil"></i>
             <span translate>page.adViewsUser.edit</span>

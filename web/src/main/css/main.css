@@ -362,3 +362,14 @@ label.required:after {
 .inline-block {
   display: inline-block;
 }
+
+.nav.navbar-nav.navbar-right .dropdown a.dropdown-toggle {
+  padding: 9px 15px 0px 9px !important;
+  height: 50px;
+}
+
+.nav.navbar-nav.navbar-right .dropdown a.dropdown-toggle img {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+}

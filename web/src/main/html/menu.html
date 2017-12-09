@@ -12,15 +12,23 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active"><a ui-sref="ads" translate>menu.ads</a></li>
+        <li ui-sref-active="active">
+          <a ui-sref="ads" translate>menu.ads</a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ui-sref-active="active"><a ui-sref="adNew" translate>menu.advertise</a></li>
-        <li class="dropdown" ng-if="$auth.isAuthenticated()">
-          <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">{{$profile.given_name}}&nbsp;<span class="caret"></span></a>
+        <li ui-sref-active="active">
+          <a ui-sref="adNew" translate>menu.advertise</a>
+        </li>
+        <li class="dropdown navbar-nav-profile" ng-if="$auth.isAuthenticated()">
+          <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+            {{ picture = $profile.picture || '/image/no-user-image.png'; "" }}
+            <img ng-src="{{picture}}" />
+            <span>{{$profile.given_name}}</span>
+            <span class="caret"></span>
+          </a>
           <ul class="dropdown-menu">
             <li><a ui-sref="adsUser" translate>menu.myAds</a></li>
             <li><a ui-sref="userAccount" translate>menu.myAccount</a></li>

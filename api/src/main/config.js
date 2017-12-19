@@ -4,7 +4,7 @@ function baseConfig (name) {
   return {
     name: name || 'default',
     auth: {
-      // TODO: auth0
+      jwksUri: `https://${process.env.AUTH0_TENANT}.auth0.com/.well-known/jwks.json`
     },
     cloudinary: {
     },
@@ -47,6 +47,7 @@ var profiles = {
     }
   },
   'dev': function (config) {
+    config.auth.jwksUri = 'https://app79493120.auth0.com/.well-known/jwks.json'
     config.http.host = '0.0.0.0'
     config.http.port = 8000
     config.mongodb.dbname = 'nodejs-ad'

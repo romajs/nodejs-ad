@@ -1,4 +1,3 @@
-var config = rootRequire('main/config')
 var jwt = require('jsonwebtoken')
 var logger = rootRequire('main/logger')
 
